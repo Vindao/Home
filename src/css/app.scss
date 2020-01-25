@@ -1,0 +1,11 @@
+// app global css in SCSS form
+
+.pageCard {
+  min-height: 100%;
+  width: 100%;
+  padding: $contentMargin;
+}
+
+html {
+  scroll-behavior: smooth;
+}
