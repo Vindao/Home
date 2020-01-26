@@ -17,6 +17,10 @@ $color3: rgba(0, 181, 102, 1);
 $color4: rgba(164, 36, 59, 1);
 $color5: rgba(216, 201, 155, 1);
 
+// custom colors
+$backgroundColor: #d6d6d6;
+
+// quasar colors;
 $primary: #004d40;
 $secondary: #00b566;
 $accent: #e27c00;
@@ -31,7 +35,7 @@ $info: #31ccec;
 $warning: #f2c037;
 
 // Material design variables
-$button-border-radius: 5px 10px 5px 10px;
+$button-border-radius: 10px 2px 10px 2px;
 
 // custom Variables
 
@@ -48,7 +52,7 @@ $headerHeight: 72px;
 $bottomNavHeight: 72px;
 
 // footer
-$footerHeight: 72px;
+$footerHeight: 180px;
 
 // contactButton
 $contactButtonHeight: 72px;
