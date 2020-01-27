@@ -8,10 +8,12 @@
   "author": "VindaoCore <vindao@outlook.com>",
   "private": true,
   "scripts": {
-    "test": "echo \"No test specified\" && exit 0",
     "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore ./",
     "dev:ssr": "quasar dev -m ssr",
-    "build:ssr": "quasar build -m ssr"
+    "dev: pwa": "quasar dev -m pwa",
+    "dev: spa": "quasar dev -m spa",
+    "build:ssr": "quasar build -m ssr",
+    "git:push": "git add . && git commit -m 'changes' && git push origin master"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",

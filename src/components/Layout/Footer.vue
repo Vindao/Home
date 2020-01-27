@@ -1,31 +1,67 @@
 <template>
   <footer class="footer" color="secondary">
     <div class="mainFooter flex">
+      <div class="mainFooterTop">
         <nav class="footerNav">
-            <ul >
-                <li>
-<router-link to="/">
-                {{$t('Navigation.home')}}
-            </router-link to="/services">
-                </li>
-                <li>
-                     <router-link to="/services">
-                {{$t('Navigation.services')}}
-            </router-link>
-                </li>
-                <li><router-link to="/about">
-                {{$t('Navigation.about')}}
-            </router-link></li>
-            </ul>
-            
-           
-            
+          <ul>
+            <li>
+              <router-link to="/">{{ $t('Navigation.home') }}</router-link>
+            </li>
+            <li>
+              <router-link to="/services">
+                {{
+                $t('Navigation.services')
+                }}
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/about">
+                {{
+                $t('Navigation.about')
+                }}
+              </router-link>
+            </li>
+          </ul>
         </nav>
+        <contact class="contact">
+          <a href="mailto:vindao@outlook.com">vindao@outlook.com</a>
+          <a href="tel:+491782838557">+491782838557</a>
+        </contact>
+      </div>
+      <div class="mainFooterBottom">
+        <nav class="legal footerNav">
+          <ul>
+            <li>
+              <router-link to="/agb">{{ $t('Navigation.agb') }}</router-link>
+            </li>
+            <li>
+              <router-link to="/impressum">
+                {{
+                $t('Navigation.impressum')
+                }}
+              </router-link>
+            </li>
+          </ul>
+        </nav>
+        <q-btn class="contactBtn">{{ $t('Navigation.contact') }}</q-btn>
+        <div class="socialMedia footerNav">
+          <ul>
+            <li>
+              <img
+                class="Sirv"
+                data-src="https://yingeder.sirv.com/Vindao/GitHub-Mark-120px-plus.png"
+                alt="GitHub"
+                height="27px"
+              />
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="footerDevider" />
     <div class="copyright flex justify-center items-center">
       <p>
-        Copyright &copy; {{getCurrentYear()}} made with love by
+        Copyright &copy; {{ getCurrentYear() }}
         <img
           src="https://yingeder.sirv.com/Vindao/logo-new-03%20(2).png?w=70"
           width="35"
@@ -54,30 +90,87 @@ export default Vue.extend({
   height: $footerHeight;
   background-color: $secondary;
   @media only screen and (max-width: $breakpoint-sm-max) {
-    margin-bottom: $bottomNavHeight;
+    transform: translateY(-$bottomNavHeight);
   }
   .mainFooter {
-    height: 153px;
-    .footerNav {
-        
-        ul {
-            display: flex;
-            padding-left: $rootMargin;
+    height: calc(#{$footerHeight} - #{$footerBottomHeight});
+    padding: $contentMargin;
+    padding-bottom: 0;
 
-            list-style-type: none;
-            li {
-                padding-right: $rootMargin
-            }
+    font-size: 0.9em;
+    bottom: 0;
+    .mainFooterTop {
+      width: 100%;
+      height: 70%;
+      display: flex;
+      justify-content: space-between;
+      .contact {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        a {
+          padding-bottom: $rootMargin;
         }
+      }
+      ul {
+        @media only screen and (max-width: 400px) {
+          // flex-direction: column;
+        }
+      }
+    }
+    .mainFooterBottom {
+      height: 30%;
+
+      display: flex;
+      align-items: flex-end;
+      width: 100%;
+      justify-content: space-between;
+      .legal {
+        width: 30%;
+        li {
+          padding-bottom: 0;
+        }
+      }
+      .contactBtn {
+        width: 30%;
+
+        color: $backgroundColor;
+        align-self: flex-end;
+        margin-bottom: 54px;
+        background-color: rgba(0, 77, 64, 0.5);
+        @media only screen and (max-width: 420px) {
+          font-size: 0.85em;
+        }
+      }
+      .socialMedia {
+        width: 30%;
+        ul {
+          justify-content: flex-end;
+          li {
+            padding: 0 0 0 $contentMargin;
+          }
+        }
+      }
+    }
+  }
+  .footerNav {
+    ul {
+      display: flex;
+      text-align: left;
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+
+      li {
+        padding: 0 $contentMargin $rootMargin 0;
+      }
     }
   }
   .footerDevider {
     background-color: $primary;
     height: 1px;
-    width: 100%;
   }
   .copyright {
-    height: 26px;
     color: $primary;
     p {
       margin: 0;

@@ -19,8 +19,6 @@ const extension = require('./extension');
 const app = express();
 const port = process.env.PORT || 3000;
 const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
-var sr = require('screenres');
-console.log(sr.get());
 
 const serve = (path, cache) =>
   express.static(ssr.resolveWWW(path), {
