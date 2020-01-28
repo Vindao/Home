@@ -63,7 +63,7 @@ export default Vue.extend({
           this.translateY = `${currenttransformPer * 117}px`;
           this.translateX =
             //@ts-ignore
-            `${-currenttransformPer} * (46vw - 36px)`;
+            `${-currenttransformPer} * (50vw - 36px - 18px)`;
           return;
         }
       }

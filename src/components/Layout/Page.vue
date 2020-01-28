@@ -1,8 +1,15 @@
 <template>
-  <q-page-container v-touch-swipe.mouse.left.right="swiped" style="padding-bottom: 0">
+  <q-page-container
+    v-touch-swipe.mouse.left.right="swiped"
+    style="padding-bottom: 0"
+  >
     <q-page class="pageContainer flex justify-center" id="PageContainerId">
       <div class="contentContainer">
-        <transition appear appear-active-class="initialRender" :name="transitionName">
+        <transition
+          appear
+          appear-active-class="initialRender"
+          :name="transitionName"
+        >
           <router-view class="flex justify-center" />
         </transition>
       </div>
@@ -70,7 +77,7 @@ export default Vue.extend({
   overflow-x: hidden;
   min-height: 100vh;
   @media only screen and (max-width: $breakpoint-sm-max) {
-    margin-bottom: calc(#{$bottomNavHeight});
+    margin-bottom: $bottomNavHeight;
   }
   .contentContainer {
     width: 100%;

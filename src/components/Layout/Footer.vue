@@ -9,16 +9,12 @@
             </li>
             <li>
               <router-link to="/services">
-                {{
-                $t('Navigation.services')
-                }}
+                {{ $t('Navigation.services') }}
               </router-link>
             </li>
             <li>
               <router-link to="/about">
-                {{
-                $t('Navigation.about')
-                }}
+                {{ $t('Navigation.about') }}
               </router-link>
             </li>
           </ul>
@@ -36,9 +32,7 @@
             </li>
             <li>
               <router-link to="/impressum">
-                {{
-                $t('Navigation.impressum')
-                }}
+                {{ $t('Navigation.impressum') }}
               </router-link>
             </li>
           </ul>
@@ -94,9 +88,9 @@ export default Vue.extend({
   }
   .mainFooter {
     height: calc(#{$footerHeight} - #{$footerBottomHeight});
+
     padding: $contentMargin;
     padding-bottom: 0;
-
     font-size: 0.9em;
     bottom: 0;
     .mainFooterTop {

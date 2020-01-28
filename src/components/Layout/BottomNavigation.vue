@@ -1,7 +1,11 @@
 <template>
   <q-footer>
     <q-toolbar class="flex justify-between bottomNav">
-      <q-tabs indicator-color="transparent" active-color="secondary" style="width:100%;">
+      <q-tabs
+        indicator-color="transparent"
+        active-color="secondary"
+        style="width:100%;"
+      >
         <q-route-tab
           class="bottomNavTab"
           to="/"
@@ -39,6 +43,7 @@ export default Vue.extend({
 .bottomNav {
   padding: 0 $rootMargin;
   height: $bottomNavHeight;
+  min-height: $bottomNavMinHeight;
   @media only screen and (min-width: $breakpoint-sm-max) {
     display: none;
   }

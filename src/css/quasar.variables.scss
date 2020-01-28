@@ -39,17 +39,26 @@ $warning: #f2c037;
 
 // custom Variables
 
-// LAYOUT
-$rootMargin: 2vw;
-$contentMargin: 4vw;
+// _____LAYOUT
 
-// NAVIGATION
+// margins
+$rootMargin: 9px;
+$contentMargin: 18px;
+
+// breakpoints
+$mobile: 414px;
+$tablet: 960px;
+$desktop: 1200px;
+
+// _____NAVIGATION
 
 // header
-$headerHeight: 72px;
 
+$headerHeight: 72px;
+$headerMinHeight: 72px;
 // bottomNav
 $bottomNavHeight: 72px;
+$bottomNavMinHeight: 54px;
 
 // footer
 $footerHeight: 270px;

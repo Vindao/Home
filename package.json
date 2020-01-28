@@ -10,8 +10,8 @@
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore ./",
     "dev:ssr": "quasar dev -m ssr",
-    "dev: pwa": "quasar dev -m pwa",
-    "dev: spa": "quasar dev -m spa",
+    "dev:pwa": "quasar dev -m pwa",
+    "dev:spa": "quasar dev -m spa",
     "build:ssr": "quasar build -m ssr",
     "git:push": "git add . && git commit -m 'changes' && git push origin master"
   },

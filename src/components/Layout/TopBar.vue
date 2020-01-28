@@ -7,9 +7,25 @@
       <LanguagePicker />
     </q-toolbar>
     <q-tabs class="topBarTabs">
-      <q-route-tab class="topBarTab" to="/" exact name="0" :label="$t('Navigation.home')" />
-      <q-route-tab class="topBarTab" to="/services" name="1" :label="$t('Navigation.services')" />
-      <q-route-tab class="topBarTab" to="/about" name="2" :label="$t('Navigation.about')" />
+      <q-route-tab
+        class="topBarTab"
+        to="/"
+        exact
+        name="0"
+        :label="$t('Navigation.home')"
+      />
+      <q-route-tab
+        class="topBarTab"
+        to="/services"
+        name="1"
+        :label="$t('Navigation.services')"
+      />
+      <q-route-tab
+        class="topBarTab"
+        to="/about"
+        name="2"
+        :label="$t('Navigation.about')"
+      />
     </q-tabs>
   </q-header>
 </template>
@@ -40,6 +56,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .topBarToolBar {
   height: $headerHeight;
+  min-height: $headerMinHeight;
   padding: 0 2vw;
   .brandLogo {
     height: 100%;
