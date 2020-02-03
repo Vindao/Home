@@ -21,10 +21,8 @@ export default Vue.extend({
       window: null,
       MainAppWrapper: null
     },
-    animationFrame: false,
-    currenttransform: 0,
-    translateX: '0',
-    translateY: '0'
+    translateX: '0vw',
+    translateY: '0vw'
   }),
   computed: {
     transformContactBtn() {
@@ -33,11 +31,13 @@ export default Vue.extend({
   },
   mounted() {
     //@ts-ignore
-    // TODO: set types
-
-    this.elements.window = window;
-    //@ts-ignore
-    this.elements.MainAppWrapper = document.querySelector('#MainAppWrapper');
+    if (process.browser) {
+      //@ts-ignore
+      // TODO: set types
+      this.elements.window = window;
+      //@ts-ignore
+      this.elements.MainAppWrapper = document.querySelector('#MainAppWrapper');
+    }
   },
   methods: {
     getToBottom(position: number) {
@@ -46,28 +46,23 @@ export default Vue.extend({
         this.elements.MainAppWrapper.offsetHeight -
         //@ts-ignore
         this.elements.window.innerHeight;
-      // const position =
-      //   window.scrollY || document.getElementsByTagName('html')[0].scrollTop;
 
       const toBottom = maxScroll - position;
 
       return toBottom;
     },
     scrolled(position: number) {
-      //@ts-ignore
-      if (process.browser) {
-        const toBottom = this.getToBottom(position);
+      const toBottom = this.getToBottom(position);
 
-        if (toBottom <= 270) {
-          const currenttransformPer = (270 - toBottom) / 270;
-          this.translateY = `${currenttransformPer * 117}px`;
-          this.translateX =
-            //@ts-ignore
-            `${-currenttransformPer} * (50vw - 36px - 18px)`;
-          return;
-        }
+      if (toBottom <= 270) {
+        const currenttransformPer = (270 - toBottom) / 270;
+        this.translateY = `${currenttransformPer * 117}px`;
+
+        this.translateX = `${-currenttransformPer *
+          //@ts-ignore
+          (this.elements.MainAppWrapper.clientWidth / 2 - 36 - 18)}px`;
+        return;
       }
-      console.log('scrolled');
 
       this.translateX = '0vw';
       this.translateY = '0vw';

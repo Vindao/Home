@@ -89,8 +89,8 @@ export default Vue.extend({
   .mainFooter {
     height: calc(#{$footerHeight} - #{$footerBottomHeight});
 
-    padding: $contentMargin;
-    padding-bottom: 0;
+    margin: 0 $contentMargin;
+    padding-top: $contentMargin;
     font-size: 0.9em;
     bottom: 0;
     .mainFooterTop {
@@ -104,11 +104,6 @@ export default Vue.extend({
         align-items: flex-start;
         a {
           padding-bottom: $rootMargin;
-        }
-      }
-      ul {
-        @media only screen and (max-width: 400px) {
-          // flex-direction: column;
         }
       }
     }
@@ -131,7 +126,7 @@ export default Vue.extend({
         color: $backgroundColor;
         align-self: flex-end;
         margin-bottom: 54px;
-        background-color: rgba(0, 77, 64, 0.5);
+        background-color: $primary;
         @media only screen and (max-width: 420px) {
           font-size: 0.85em;
         }
@@ -166,6 +161,7 @@ export default Vue.extend({
   }
   .copyright {
     color: $primary;
+    height: $footerBottomHeight;
     p {
       margin: 0;
     }
