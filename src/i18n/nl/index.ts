@@ -7,5 +7,8 @@ export default {
 
     agb: 'AGB',
     impressum: 'Impressum'
+  },
+  Home: {
+    Slogans: ['We kreeren modern applicaties voor U business']
   }
 };

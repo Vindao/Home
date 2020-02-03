@@ -10,5 +10,10 @@ export default {
 
     agb: 'AGB',
     impressum: 'Impressum'
+  },
+  Home: {
+    Slogans: [
+      'We create modern user interfaces to make your business stand out'
+    ]
   }
 };

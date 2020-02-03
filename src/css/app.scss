@@ -1,8 +1,18 @@
 // app global css in SCSS form
 
-.pageCard {
-  width: 100%;
-  padding: $contentMargin;
+@import url('https://fonts.googleapis.com/css?family=Handlee|Libre+Franklin|Rubik&display=swap');
+
+p {
+  font-family: 'Rubik', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h5 {
+  font-family: 'Libre Franklin', sans-serif;
 }
 
 html {
@@ -16,4 +26,9 @@ a {
   &.router-link-exact-active {
     color: $backgroundColor;
   }
+}
+
+.pageCard {
+  width: 100%;
+  padding: $contentMargin;
 }

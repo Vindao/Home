@@ -69,6 +69,7 @@ export default Vue.extend({
 .pageContainer {
   overflow-x: hidden;
   min-height: 100vh;
+
   @media only screen and (max-width: $breakpoint-sm-max) {
     margin-bottom: $bottomNavHeight;
   }
