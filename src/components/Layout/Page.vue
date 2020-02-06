@@ -5,7 +5,7 @@
   >
     <q-page class="pageContainer flex justify-center" id="PageContainerId">
       <div class="contentContainer">
-        <transition v-bind:css="false" v-on:enter="enter" v-on:leave="leave">
+        <transition :name="transitionDirection">
           <router-view class="flex justify-center" />
         </transition>
       </div>
@@ -23,7 +23,7 @@ const transitionDuration = 2;
 export default Vue.extend({
   name: 'Page',
   data: () => ({
-    transitionName: 'forward',
+    transitionDirection: 'forward',
     tl: new TimelineMax()
   }),
   // mounted() {
@@ -33,11 +33,11 @@ export default Vue.extend({
   watch: {
     $route(to, from) {
       if (mapRoutes(to.path) < mapRoutes(from.path)) {
-        this.transitionName = 'backward';
+        this.transitionDirection = 'backward';
         console.log('backward');
         // this.goBack();
       } else {
-        this.transitionName = 'forward';
+        this.transitionDirection = 'forward';
 
         // this.goForward();
       }
@@ -45,7 +45,7 @@ export default Vue.extend({
   },
   methods: {
     enter(el: any, done: any) {
-      if (this.transitionName === 'forward') {
+      if (this.transitionDirection === 'forward') {
         const enterTl = new TimelineMax({
           onComplete: done
         });
@@ -80,7 +80,7 @@ export default Vue.extend({
       }
     },
     leave(el: any, done: any) {
-      if (this.transitionName === 'forward') {
+      if (this.transitionDirection === 'forward') {
         const tl = new TimelineMax({
           onComplete: done
         });
@@ -137,7 +137,6 @@ export default Vue.extend({
 .pageContainer {
   min-height: 100vh;
   overflow-x: hidden;
-
   @media only screen and (max-width: $breakpoint-sm-max) {
     margin-bottom: $bottomNavHeight;
   }
@@ -147,85 +146,101 @@ export default Vue.extend({
     margin: $rootMargin;
   }
 }
-// @keyframes PageEnterForward {
-//   0% {
-//     transform: translateX(100vw) scale(1);
-//   }
-//   10% {
-//     transform: translateX(100vw) scale(0.9);
-//   }
-//   90% {
-//     transform: translateX(0vw) scale(0.9);
-//   }
-//   100% {
-//     transform: translateX(0vw) scale(1);
-//   }
-// }
+@keyframes PageEnterForward {
+  0% {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
 
-// @keyframes PageEnterBackward {
-//   0% {
-//     transform: translateX(-100vw) scale(1);
-//   }
-//   10% {
-//     transform: translateX(-100vw) scale(0.9);
-//   }
-//   90% {
-//     transform: translateX(0vw) scale(0.9);
-//   }
-//   100% {
-//     transform: translateX(0vw) scale(1);
-//   }
-// }
-// @keyframes PageLeaveForward {
-//   0% {
-//     transform: translateX(0vw) scale(1);
-//   }
-//   10% {
-//     transform: translateX(0vw) scale(0.9);
-//   }
-//   100% {
-//     transform: translateX(-100vw);
-//     display: none;
-//   }
-// }
+  100% {
+    transform: translateX(0vw);
+    opacity: 1;
+  }
+}
 
-// @keyframes PageLeaveBackward {
-//   0% {
-//     transform: translateX(0vw) scale(1);
-//   }
-//   10% {
-//     transform: translateX(0vw) scale(0.9);
-//   }
-//   100% {
-//     transform: translateX(100vw);
-//     display: none;
-//   }
-// }
+@keyframes PageLeaveBackward {
+  0% {
+    transform: translateX(0vw);
+    opacity: 1;
+  }
 
-// @keyframes InitialRenderTrans {
-//   0% {
-//     transform: scale(0.9);
-//   }
-//   100% {
-//     transform: scale(1);
-//   }
-// }
+  100% {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+}
 
-// .initialRender {
-//   animation: InitialRenderTrans 0.75s;
-// }
-// .forward-enter-active {
-//   animation: PageEnterForward 0.75s;
-// }
-// .backward-enter-active {
-//   animation: PageEnterBackward 0.75s;
-// }
-// .forward-leave-active {
-//   position: absolute;
-//   animation: PageLeaveForward 0.75s;
-// }
-// .backward-leave-active {
-//   position: absolute;
-//   animation: PageLeaveBackward 0.75s;
-// }
+@keyframes PageLeaveForward {
+  0% {
+    transform: translateX(0vw);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-100vw);
+    opacity: 0;
+  }
+}
+
+@keyframes PageEnterBackward {
+  0% {
+    transform: translateX(-100vw);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0vw);
+    opacity: 1;
+  }
+}
+
+@keyframes PageLeaveBackward {
+  0% {
+    transform: translateX(0vw);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+}
+
+@keyframes InitialRenderTrans {
+  0% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+$timingFunction: cubic-bezier(0.25, 1, 0.5, 1.05);
+$transitionDuration: 400ms;
+
+.initialRender {
+  animation: InitialRenderTrans $transitionDuration;
+}
+.forward-enter-active {
+  animation: PageEnterForward $transitionDuration;
+  animation-timing-function: $timingFunction;
+}
+.backward-enter-active {
+  animation: PageEnterBackward $transitionDuration;
+  animation-timing-function: $timingFunction;
+}
+.forward-leave-active {
+  overflow: hidden;
+  position: fixed;
+
+  animation: PageLeaveForward $transitionDuration;
+  animation-timing-function: $timingFunction;
+}
+.backward-leave-active {
+  overflow: hidden;
+  position: fixed;
+  left: $rootMargin;
+  animation: PageLeaveBackward $transitionDuration;
+  animation-timing-function: $timingFunction;
+}
 </style>

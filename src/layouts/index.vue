@@ -35,6 +35,5 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 #MainAppWrapper {
-  scroll-behavior: contain;
 }
 </style>

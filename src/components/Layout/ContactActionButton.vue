@@ -12,17 +12,17 @@
       :style="{ transform: transformContactBtn }"
       @click="contact = !contact"
     />
-    <Contact v-show="contact" />
+    <!-- <Contact v-show="contact" /> -->
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import Contact from '../Contact.vue';
+// import Contact from '../Contact.vue';
 export default Vue.extend({
   name: 'ContactActionButton',
   components: {
-    Contact
+    // Contact
   },
   data: () => ({
     contact: false,
