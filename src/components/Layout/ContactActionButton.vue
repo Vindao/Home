@@ -1,22 +1,31 @@
 <template>
-  <q-btn
-    v-scroll="scrolled"
-    id="contactBtnWrapperId"
-    color="accent"
-    class="shadow-15 contactActionBtn"
-    text-color="primary"
-    size="24px"
-    round
-    icon="message"
-    :style="{ transform: transformContactBtn }"
-  />
+  <div>
+    <q-btn
+      v-scroll="scrolled"
+      id="contactBtnWrapperId"
+      color="accent"
+      class="shadow-15 contactActionBtn"
+      text-color="primary"
+      size="24px"
+      round
+      icon="message"
+      :style="{ transform: transformContactBtn }"
+      @click="contact = !contact"
+    />
+    <Contact v-show="contact" />
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import Contact from '../Contact.vue';
 export default Vue.extend({
   name: 'ContactActionButton',
+  components: {
+    Contact
+  },
   data: () => ({
+    contact: false,
     elements: {
       window: null,
       MainAppWrapper: null
@@ -52,6 +61,7 @@ export default Vue.extend({
       return toBottom;
     },
     scrolled(position: number) {
+      //@ts-ignore
       const toBottom = this.getToBottom(position);
 
       if (toBottom <= 270) {

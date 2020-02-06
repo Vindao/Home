@@ -13,9 +13,11 @@ import Page from '../components/Layout/Page.vue';
 export default Vue.extend({
   components: {
     Page
-  }
+  },
+  data: () => ({
+    show: false
+  })
 });
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
