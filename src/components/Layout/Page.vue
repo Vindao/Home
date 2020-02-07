@@ -1,5 +1,8 @@
 <template>
-  <q-page-container v-touch-swipe.mouse.left.right="swiped" style="padding-bottom: 0">
+  <q-page-container
+    v-touch-swipe.mouse.left.right="swiped"
+    style="padding-bottom: 0"
+  >
     <q-page class="pageContainer flex justify-center" id="PageContainerId">
       <div class="contentContainer">
         <transition :name="transitionDirection">
@@ -51,6 +54,7 @@ export default Vue.extend({
             break;
             return;
         }
+        this.swipeSpecial = false;
       } else {
         switch (this.$router.currentRoute.path) {
           case '/':
@@ -66,6 +70,7 @@ export default Vue.extend({
             this.$router.push('/services');
             break;
         }
+        this.swipeSpecial = false;
       }
     }
   }
