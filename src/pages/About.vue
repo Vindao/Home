@@ -1,11 +1,15 @@
 <template>
   <div class="about pageWrapper">
-    <q-card class="pageCard">
-      <h1>About</h1>
-    </q-card>
-    <q-card class="pageCard">
-      <h1>About</h1>
-    </q-card>
+   <q-card class="pageCard"><p>test</p>
+  </q-card class="pageCard">
+  <q-card class="pageCard"><p>test</p>
+  </q-card class="pageCard">
+  <q-card class="pageCard"><p>test</p>
+  </q-card class="pageCard">
+  <q-card class="pageCard"><p>test</p>
+  </q-card class="pageCard">
+  <q-card class="pageCard"><p>test</p>
+  </q-card class="pageCard">
   </div>
 </template>
 
