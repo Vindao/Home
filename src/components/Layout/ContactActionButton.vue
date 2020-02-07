@@ -10,22 +10,24 @@
       round
       icon="message"
       :style="{ transform: transformContactBtn }"
-      @click="contact = !contact"
+      @click="show = !show"
     />
-    <!-- <Contact v-show="contact" /> -->
+    <transition name="contactFormTransition">
+      <Contact v-show="show" />
+    </transition>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-// import Contact from '../Contact.vue';
+import Contact from '../Contact.vue';
 export default Vue.extend({
   name: 'ContactActionButton',
   components: {
-    // Contact
+    Contact
   },
   data: () => ({
-    contact: false,
+    show: false,
     elements: {
       window: null,
       MainAppWrapper: null
@@ -49,7 +51,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    getToBottom(position: number) {
+    toBottom(position: number) {
       const maxScroll =
         //@ts-ignore
         this.elements.MainAppWrapper.offsetHeight -
@@ -62,7 +64,7 @@ export default Vue.extend({
     },
     scrolled(position: number) {
       //@ts-ignore
-      const toBottom = this.getToBottom(position);
+      const toBottom = this.toBottom(position);
 
       if (toBottom <= 270) {
         const currenttransformPer = (270 - toBottom) / 270;
@@ -95,5 +97,27 @@ export default Vue.extend({
 
 .ActionBtnsWrapper {
   width: 100%;
+}
+
+@keyframes contactFormEnter {
+  0% {
+    transform: scale(0);
+    transform-origin: 95% 95%;
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.contactFormTransition-enter {
+}
+
+.contactFormTransition-enter-active {
+  animation: contactFormEnter 2s;
+}
+
+.contactFormTransition-leave-active {
+  animation: contactFormEnter 2s reverse;
 }
 </style>
