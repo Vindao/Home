@@ -6,8 +6,6 @@
   </q-card>
 </template>
 
-
-
 <script lang="ts">
 import Vue from 'vue';
 export default Vue.extend({
@@ -18,7 +16,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .contactModal {
   position: fixed;
-  top: $headerHeight + $rootMargin;
+  top: calc(#{$headerHeight} + #{$rootMargin});
   left: $rootMargin;
   width: calc(100% - 2 * #{$rootMargin});
   height: calc(

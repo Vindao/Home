@@ -32,8 +32,19 @@ a {
   }
 }
 
+.pageWrapper {
+  min-height: 100%;
+  display: flex;
+  justify-content: space-between;
+  row-gap: $rootMargin;
+}
+
 .pageCard {
   width: 100%;
   padding: $contentMargin;
   z-index: -1;
+  background-color: $light;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

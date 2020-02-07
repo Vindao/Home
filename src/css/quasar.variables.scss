@@ -24,9 +24,9 @@ $backgroundColor: #d6d6d6;
 $primary: #004d40;
 $secondary: #00b566;
 $accent: #e27c00;
-$accent_color: #e27c00;
-$old_accent: #8bc34a;
 
+$light: #f5faf5;
+$lightDark: #ebf2eb;
 $dark: #1d1d1d;
 
 $positive: #21ba45;
@@ -42,8 +42,8 @@ $warning: #f2c037;
 // _____LAYOUT
 
 // margins
-$rootMargin: 9px;
-$contentMargin: 18px;
+$rootMargin: 3vmin;
+$contentMargin: 5vmin;
 
 // breakpoints
 $mobile: 414px;

@@ -1,5 +1,8 @@
 <template>
-  <div class="about">
+  <div class="about pageWrapper">
+    <q-card class="pageCard">
+      <h1>About</h1>
+    </q-card>
     <q-card class="pageCard">
       <h1>About</h1>
     </q-card>

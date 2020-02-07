@@ -9,6 +9,6 @@ export default {};
 </script>
 <style lang="scss" scoped>
 .CTA {
-  min-height: calc((100vh - #{$headerHeight} - #{$bottomNavHeight}) * 0.618);
+  height: 50%;
 }
 </style>

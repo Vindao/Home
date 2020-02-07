@@ -39,6 +39,8 @@ export default Vue.extend({
   methods: {
     swiped({ ...info }) {
       const direction = info.direction;
+      this.swipeSpecial = false;
+
       if (direction === 'left') {
         switch (this.$router.currentRoute.path) {
           case '/':
@@ -52,9 +54,7 @@ export default Vue.extend({
             this.transitionDirection = 'forward';
             this.$router.push('/');
             break;
-            return;
         }
-        this.swipeSpecial = false;
       } else {
         switch (this.$router.currentRoute.path) {
           case '/':
@@ -62,7 +62,6 @@ export default Vue.extend({
             this.transitionDirection = 'backward';
             this.$router.push('/about');
             break;
-            return;
           case '/services':
             this.$router.push('/');
             break;
@@ -70,7 +69,6 @@ export default Vue.extend({
             this.$router.push('/services');
             break;
         }
-        this.swipeSpecial = false;
       }
     }
   }
@@ -78,15 +76,15 @@ export default Vue.extend({
 </script>
 <style lang="scss" scoped>
 .pageContainer {
-  min-height: 100vh;
   overflow-x: hidden;
+  background-color: $lightDark;
+  z-index: -2;
   @media only screen and (max-width: $breakpoint-sm-max) {
     margin-bottom: $bottomNavHeight;
   }
   .contentContainer {
     width: 100%;
-    max-width: 100vw;
-    margin: $rootMargin;
+    padding: $rootMargin;
   }
 }
 @keyframes PageEnterForward {
