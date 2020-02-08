@@ -13,7 +13,7 @@
       @click="show = !show"
     />
     <transition name="contactFormTransition">
-      <Contact v-show="show" />
+      <Contact v-show="show" :close="close" />
     </transition>
   </div>
 </template>
@@ -51,6 +51,9 @@ export default Vue.extend({
     }
   },
   methods: {
+    close() {
+      this.show = false;
+    },
     toBottom(position: number) {
       const maxScroll =
         //@ts-ignore
@@ -87,10 +90,10 @@ export default Vue.extend({
 .contactActionBtn {
   position: fixed;
   width: $contactButtonHeight;
-  right: $contentMargin;
-  bottom: $contentMargin;
+  right: $rootMargin + $contentMargin;
+  bottom: $rootMargin + $contentMargin;
   @media only screen and (max-width: $breakpoint-sm-max) {
-    bottom: calc(#{$contentMargin} + #{$bottomNavHeight});
+    bottom: calc(#{$rootMargin} + #{$contentMargin} + #{$bottomNavHeight});
   }
   z-index: 9999;
 }
@@ -101,23 +104,23 @@ export default Vue.extend({
 
 @keyframes contactFormEnter {
   0% {
-    transform: scale(0);
-    transform-origin: 95% 95%;
+    transform: scale(0) rotateY(90deg) rotateX(45deg);
+    transform-origin: 100% 100%;
   }
-
   100% {
-    transform: scale(1);
+    transform: scale(1) rotateY(0deg) rotateX(0deg);
+    transform-origin: 100% 100%;
   }
 }
 
-.contactFormTransition-enter {
-}
+$timingFunction: cubic-bezier(0.25, 1, 0.5, 1.05);
+$duration: 300ms;
 
 .contactFormTransition-enter-active {
-  animation: contactFormEnter 2s;
+  animation: contactFormEnter $duration $timingFunction;
 }
 
 .contactFormTransition-leave-active {
-  animation: contactFormEnter 2s reverse;
+  animation: contactFormEnter $duration $timingFunction reverse;
 }
 </style>
