@@ -13,7 +13,7 @@
     "dev:pwa": "quasar dev -m pwa",
     "dev:spa": "quasar dev -m spa",
     "build:ssr": "quasar build -m ssr",
-    "git:commit": "git add . && git commit -m -- --message='changes'",
+    "git:commit": "git add . && git commit -m $message",
     "git:push": "git push origin master",
     "git:graph": "git log --all --decorate --oneline --graph"
   },
