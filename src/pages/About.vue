@@ -8,8 +8,7 @@
   </q-card class="pageCard">
   <q-card class="pageCard"><p>test</p>
   </q-card class="pageCard">
-  <q-card class="pageCard"><p>test</p>
-  </q-card class="pageCard">
+ 
   </div>
 </template>
 
