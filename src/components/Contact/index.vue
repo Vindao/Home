@@ -38,6 +38,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .contactModal {
   position: fixed;
+
   bottom: $fullScreenModalBottom;
   left: $fullScreenModalLeft;
   width: $fullScreenModalWidth;
@@ -62,14 +63,17 @@ export default Vue.extend({
       z-index: 1;
     }
   }
+}
+</style>
 
-  .contactForm {
-    width: 100%;
-    height: 100%;
-    padding: 2 * $contentMargin;
-    height: 100%;
-    display: grid;
-    grid-template-rows: repeat(6, 1fr);
-  }
+<style lang="scss">
+.contactForm {
+  width: 100%;
+  height: 100%;
+  padding: 2 * $contentMargin;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 </style>

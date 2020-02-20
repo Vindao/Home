@@ -27,11 +27,13 @@
       label="Phone"
       :rules="[val => validate('phone', val) || 'Please type something']"
     />
-    <q-btn label="Next" type="submit" color="primary" :loading="loading" />
+    <submit-btn label="Next" :loading="loading" />
   </q-form>
 </template>
 <script lang="ts">
 import Vue from 'vue';
+// components
+import SubmitBtn from './SubmitBtn.vue';
 export default Vue.extend({
   data: () => ({
     name: '',
@@ -41,6 +43,9 @@ export default Vue.extend({
     disabled: true,
     loading: false
   }),
+  components: {
+    SubmitBtn
+  },
   props: {
     done: Function
   },
@@ -58,7 +63,7 @@ export default Vue.extend({
           if (val.match(/^\S+$/)) {
             return true;
           } else if (val.length < 1) {
-            return 'length';
+            return 'Name is required';
           } else {
             return 'do not use spaces';
           }
@@ -87,5 +92,4 @@ export default Vue.extend({
 });
 </script>
 
-<style>
-</style>
+<style></style>

@@ -14,7 +14,6 @@
     "dev:spa": "quasar dev -m spa",
     "build:ssr": "quasar build -m ssr",
     "git:commit": "git add . && git commit -m",
-    "git:push": "git push origin master",
     "git:graph": "git log --all --decorate --oneline --graph"
   },
   "dependencies": {
