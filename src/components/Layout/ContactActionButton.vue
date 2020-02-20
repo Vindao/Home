@@ -1,8 +1,7 @@
 <template>
-  <div>
+  <div class="contactActionWrapper">
     <q-btn
       v-scroll="scrolled"
-      id="contactBtnWrapperId"
       color="accent"
       class="shadow-15 contactActionBtn"
       text-color="primary"
@@ -20,7 +19,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Contact from '../Contact.vue';
+import Contact from '../Contact/index.vue';
 export default Vue.extend({
   name: 'ContactActionButton',
   components: {
@@ -65,17 +64,21 @@ export default Vue.extend({
 
       return toBottom;
     },
-    scrolled(position: number) {
+    calcMaxTransY: (): number => 117,
+    calcMaxTransX(): number {
       //@ts-ignore
+      const clientWidth = this.elements.MainAppWrapper.clientWidth;
+      const clientVW = clientWidth / 100;
+      return 50 * clientVW - 4.5 * clientVW - 36;
+    },
+    scrolled(position: number) {
       const toBottom = this.toBottom(position);
 
       if (toBottom <= 270) {
         const currenttransformPer = (270 - toBottom) / 270;
-        this.translateY = `${currenttransformPer * 117}px`;
+        this.translateY = `${currenttransformPer * this.calcMaxTransY()}px`;
 
-        this.translateX = `${-currenttransformPer *
-          //@ts-ignore
-          (this.elements.MainAppWrapper.clientWidth / 2 - 36 - 18)}px`;
+        this.translateX = `${-currenttransformPer * this.calcMaxTransX()}px`;
         return;
       }
 
@@ -87,19 +90,21 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.contactActionBtn {
+.contactActionWrapper {
   position: fixed;
-  width: $contactButtonHeight;
-  right: $rootMargin + $contentMargin;
+  width: 100%;
+  padding: 0 calc(#{$rootMargin} + #{$contentMargin});
   bottom: $rootMargin + $contentMargin;
+  display: flex;
+  justify-content: flex-end;
   @media only screen and (max-width: $breakpoint-sm-max) {
     bottom: calc(#{$rootMargin} + #{$contentMargin} + #{$bottomNavHeight});
   }
-  z-index: 9999;
-}
+  .contactActionBtn {
+    width: $contactButtonHeight;
 
-.ActionBtnsWrapper {
-  width: 100%;
+    z-index: 9999;
+  }
 }
 
 @keyframes contactFormEnter {

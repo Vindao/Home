@@ -42,8 +42,8 @@ $warning: #f2c037;
 // _____LAYOUT
 
 // margins
-$rootMargin: 3vmin;
-$contentMargin: 5vmin;
+$rootMargin: 1.5vw;
+$contentMargin: 3vw;
 
 // breakpoints
 $mobile: 414px;
@@ -67,3 +67,37 @@ $footerBottomHeight: 27px;
 
 // contactButton
 $contactButtonHeight: 72px;
+
+// Contact
+$fullScreenModalHeight: calc(
+  100vh -
+    (
+      2 * (#{$rootMargin} + #{$contentMargin} + (#{$contactButtonHeight} / 2)) +
+        #{$headerExtendedHeight}
+    )
+);
+
+$fullScreenModalHeightMobile: calc(
+  100vh -
+    (
+      2 * (#{$rootMargin} + #{$contentMargin} + (#{$contactButtonHeight} / 2)) +
+        #{$headerHeight} + #{$bottomNavHeight}
+    )
+);
+
+$fullScreenModalWidth: calc(
+  100% - 2 *
+    (#{$rootMargin} + #{$contentMargin} + (#{$contactButtonHeight} / 2))
+);
+
+$fullScreenModalLeft: calc(
+  #{$rootMargin} + #{$contentMargin} + (#{$contactButtonHeight} / 2)
+);
+
+$fullScreenModalBottom: calc(
+  #{$rootMargin} + #{$contentMargin} + (#{$contactButtonHeight} / 2)
+);
+
+$fullScreenModalBottomMobile: calc(
+  #{$rootMargin} + #{$contentMargin} + (#{$contactButtonHeight} / 2) + #{$bottomNavHeight}
+);
