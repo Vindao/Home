@@ -14,7 +14,7 @@
     "dev:spa": "quasar dev -m spa",
     "build:ssr": "quasar build -m ssr",
     "git:push": "git add . && git commit -m 'changes' && git push origin master",
-    "git:branchGraph": "git log --all --decorate --oneline --graph"
+    "git:graph": "git log --all --decorate --oneline --graph"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
