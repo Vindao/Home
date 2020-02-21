@@ -1,5 +1,5 @@
 <template>
-  <q-card class="contactModal">
+  <q-card v-show="show" class="contactModal" id="contactModal">
     <q-btn
       label="switch"
       @click="loggedIn = !loggedIn"
@@ -19,7 +19,8 @@ import Message from './Message.vue';
 export default Vue.extend({
   name: 'Contact',
   props: {
-    close: Function
+    close: Function,
+    show: Boolean
   },
   data: () => ({
     loggedIn: false
@@ -28,6 +29,12 @@ export default Vue.extend({
     SignUp,
     Message
   },
+  mounted() {
+    document.addEventListener('click', this.handleClickAway, true);
+  },
+  beforeDestroy() {
+    document.removeEventListener('click', this.handleClickAway, true);
+  },
   methods: {
     onMessage() {
       console.log('send');
@@ -35,6 +42,14 @@ export default Vue.extend({
     onSignUp() {
       this.loggedIn = true;
       console.log('done');
+    },
+    handleClickAway(e: any) {
+      const modalNode = document.getElementById('contactModal');
+      //@ts-ignore
+
+      if (!modalNode.contains(e.target)) {
+        this.close();
+      }
     }
   }
 });
@@ -42,17 +57,18 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .contactModal {
+  z-index: 9999;
   position: fixed;
-
+  top: $fullScreenModalTop;
   bottom: $fullScreenModalBottom;
+  right: $fullScreenModalLeft;
   left: $fullScreenModalLeft;
-  width: $fullScreenModalWidth;
-  height: $fullScreenModalHeight;
+
   opacity: 0.98;
-  background-color: $light;
+  background-color: $lightDark;
   @media only screen and(max-width: $breakpoint-sm-max) {
+    top: $fullScreenModalTopMobile;
     bottom: $fullScreenModalBottomMobile;
-    height: $fullScreenModalHeightMobile;
   }
   .formHeader {
     text-align: center;
@@ -75,7 +91,7 @@ export default Vue.extend({
 .contactForm {
   width: 100%;
   height: 100%;
-  padding: 2 * $contentMargin;
+  padding: $contentMargin;
   height: 100%;
   display: flex;
   flex-direction: column;

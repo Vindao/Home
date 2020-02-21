@@ -50,9 +50,7 @@ export default Vue.extend({
 $messageHeight: 100px;
 $borderWidth: 1.5px;
 .chat {
-  height: calc(
-    #{$fullScreenModalHeight} - #{$fullScreenModalBottom} - #{$messageHeight}
-  );
+  height: 100%;
   border: solid;
   border-width: $borderWidth;
   border-bottom: none;

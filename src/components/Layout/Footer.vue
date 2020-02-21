@@ -19,10 +19,10 @@
             </li>
           </ul>
         </nav>
-        <contact class="contact">
+        <address class="contact">
           <a href="mailto:vindao@outlook.com">vindao@outlook.com</a>
           <a href="tel:+491782838557">+491782838557</a>
-        </contact>
+        </address>
       </div>
       <div class="mainFooterBottom">
         <nav class="legal footerNav">

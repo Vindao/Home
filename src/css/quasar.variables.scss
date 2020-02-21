@@ -69,35 +69,13 @@ $footerBottomHeight: 27px;
 $contactButtonHeight: 72px;
 
 // Contact
-$fullScreenModalHeight: calc(
-  100vh -
-    (
-      2 * (#{$rootMargin} + #{$contentMargin} + (#{$contactButtonHeight} / 2)) +
-        #{$headerExtendedHeight}
-    )
-);
 
-$fullScreenModalHeightMobile: calc(
-  100vh -
-    (
-      2 * (#{$rootMargin} + #{$contentMargin} + (#{$contactButtonHeight} / 2)) +
-        #{$headerHeight} + #{$bottomNavHeight}
-    )
-);
+$fullScreenModalLeft: $contentMargin;
+$fullScreenModalWidth: calc(100vw - 2 * #{$contentMargin});
 
-$fullScreenModalWidth: calc(
-  100% - 2 *
-    (#{$rootMargin} + #{$contentMargin} + (#{$contactButtonHeight} / 2))
-);
+$fullScreenModalBottom: $contentMargin;
+$fullScreenModalBottomMobile: calc(#{$contentMargin} + #{$bottomNavHeight});
 
-$fullScreenModalLeft: calc(
-  #{$rootMargin} + #{$contentMargin} + (#{$contactButtonHeight} / 2)
-);
+$fullScreenModalTop: calc(#{$headerExtendedHeight} + #{$contentMargin});
 
-$fullScreenModalBottom: calc(
-  #{$rootMargin} + #{$contentMargin} + (#{$contactButtonHeight} / 2)
-);
-
-$fullScreenModalBottomMobile: calc(
-  #{$rootMargin} + #{$contentMargin} + (#{$contactButtonHeight} / 2) + #{$bottomNavHeight}
-);
+$fullScreenModalTopMobile: calc(#{$headerHeight} + #{$contentMargin});

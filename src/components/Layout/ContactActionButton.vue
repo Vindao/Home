@@ -112,6 +112,7 @@ export default Vue.extend({
     transform: scale(0) rotateY(90deg) rotateX(45deg);
     transform-origin: 100% 100%;
   }
+
   100% {
     transform: scale(1) rotateY(0deg) rotateX(0deg);
     transform-origin: 100% 100%;
