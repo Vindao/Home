@@ -25,7 +25,9 @@
       v-model="phone"
       type="phone"
       label="Phone"
-      :rules="[val => validate('phone', val) || 'Please type something']"
+      :rules="[
+        val => validate('phone', val) || 'Please enter a valid phone number'
+      ]"
     />
     <submit-btn label="Next" :loading="loading" />
   </q-form>

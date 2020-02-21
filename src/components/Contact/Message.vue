@@ -1,13 +1,23 @@
 <template>
   <q-form class="contactForm" @submit="onSubmit">
-    <textarea
-      v-model="text"
-      color="secondary"
-      type="text"
-      placeholder="Your Message..."
-      class="message"
-    />
-    <SubmitBtn label="Send" :loading="loading" />
+    <section class="chat"></section>
+    <section class="message">
+      <textarea
+        v-model="text"
+        color="secondary"
+        type="text"
+        placeholder="Your Message..."
+        class="textArea"
+      />
+      <q-btn
+        round
+        color="secondary"
+        icon="send"
+        class="submitButton"
+        type="submit"
+        :loading="loading"
+      />
+    </section>
   </q-form>
 </template>
 
@@ -17,7 +27,8 @@ import Vue from 'vue';
 import SubmitBtn from './SubmitBtn.vue';
 export default Vue.extend({
   data: () => ({
-    text: ''
+    text: '',
+    loading: false
   }),
   components: {
     SubmitBtn
@@ -28,6 +39,7 @@ export default Vue.extend({
   methods: {
     onSubmit() {
       // handle message
+      this.loading = true;
       this.done();
     }
   }
@@ -35,29 +47,40 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-$submitTotalHeight: calc(10vh + 2 * #{$contentMargin});
-.messageFormWrapper {
-  width: 100%;
-  height: 100%;
-}
-.message {
+$messageHeight: 100px;
+$borderWidth: 1.5px;
+.chat {
   height: calc(
-    #{$fullScreenModalHeight} - #{$fullScreenModalBottom} - #{$submitTotalHeight}
+    #{$fullScreenModalHeight} - #{$fullScreenModalBottom} - #{$messageHeight}
   );
-  padding: $contentMargin;
+  border: solid;
+  border-width: $borderWidth;
+  border-bottom: none;
+  border-color: rgba(0, 77, 64, 0.3);
+}
+
+.message {
+  height: $messageHeight;
+  display: flex;
+  justify-content: space-between;
+  padding: $rootMargin;
+
   width: 100%;
   resize: none;
-}
-.submitButtonWrapper {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  flex-direction: column;
-  height: $submitTotalHeight;
-  width: 100%;
+  border: solid;
+  border-width: $borderWidth;
+
+  border-color: rgba(0, 77, 64, 0.3);
+  .textArea {
+    height: 100%;
+
+    width: 100%;
+    border: none;
+    resize: none;
+  }
   .submitButton {
-    width: 40%;
-    height: 4vh;
+    align-self: flex-end;
+    padding: 0;
   }
 }
 </style>

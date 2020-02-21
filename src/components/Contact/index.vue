@@ -1,5 +1,10 @@
 <template>
   <q-card class="contactModal">
+    <q-btn
+      label="switch"
+      @click="loggedIn = !loggedIn"
+      style="position:absolute; z-index:999;"
+    />
     <SignUp :done="onSignUp" v-if="!loggedIn" />
     <Message :done="onMessage" v-else />
   </q-card>
