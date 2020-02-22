@@ -12,15 +12,15 @@
 <script lang="ts">
 import Vue from 'vue';
 // components
-import TopBar from '../components/Layout/TopBar.vue';
-import BottomNavigation from '../components/Layout/BottomNavigation.vue';
-import Footer from '../components/Layout/Footer.vue';
-import PageContent from '../components/Layout/Page.vue';
-import ContactActionButton from '../components/Layout/ContactActionButton.vue';
-import ScrollToTopButton from '../components/Layout/ScrollToTopButton.vue';
+import TopBar from './TopBar.vue';
+import BottomNavigation from './BottomNavigation.vue';
+import Footer from './Footer.vue';
+import PageContent from './Page.vue';
+import ContactActionButton from './ContactActionButton.vue';
+import ScrollToTopButton from './ScrollToTopButton.vue';
 
 export default Vue.extend({
-  name: 'MyLayout',
+  name: 'Layout',
 
   components: {
     TopBar,
