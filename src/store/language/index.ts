@@ -30,9 +30,9 @@ export default {
   mutations: {
     changeLanguage: (state: LanguageStateI, langCode: LangCodeT) => {
       state.userLang = langCode;
+      state.language = lang[langCode];
 
       localStorage.setItem('userLanguage', langCode);
-      state.language = lang[langCode];
     }
   }
 };

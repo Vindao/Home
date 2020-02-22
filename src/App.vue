@@ -1,6 +1,6 @@
 <template>
   <div id="q-app">
-    <Layout />
+    <router-view />
   </div>
 </template>
 
@@ -10,17 +10,21 @@ import Layout from './components/Layout/index.vue';
 import Loader from './components/Loader.vue';
 export default Vue.extend({
   name: 'App',
+
+  data: () => ({
+    loading: true
+  }),
   components: {
-    Layout
+    Loader
   },
-  computed: {}
-  // created() {
-  //   document.addEventListener('readystatechange', () => {
-  //     console.log(document.readyState);
-  //     if (document.readyState === 'complete') {
-  //       this.loaded = true;
-  //     }
-  //   });
-  // }
+  computed: {},
+  created() {
+    document.addEventListener('readystatechange', () => {
+      console.log(document.readyState);
+      if (document.readyState === 'complete') {
+        this.loading = false;
+      }
+    });
+  }
 });
 </script>

@@ -2,7 +2,6 @@
   <q-layout view="lHh lpr fFf" id="MainAppWrapper">
     <top-bar />
     <bottom-navigation />
-
     <PageContent />
     <Footer />
     <ContactActionButton />

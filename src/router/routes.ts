@@ -1,18 +1,14 @@
 import { RouteConfig } from 'vue-router';
 
 const routes: RouteConfig[] = [
-  // {
-  //   path: '/',
-  //   component: () => import('components/Layout/index.vue'),
-  //   children: [
-  //     { path: '', component: () => import('pages/Home.vue') },
-  //     { path: 'services', component: () => import('pages/Services.vue') },
-  //     { path: 'about', component: () => import('pages/About.vue') }
-  //   ]
-  // }
   {
     path: '/',
-    component: () => import('pages/Home.vue')
+    component: () => import('components/Layout/index.vue'),
+    children: [
+      { path: '', component: () => import('pages/Home.vue') },
+      { path: 'services', component: () => import('pages/Services.vue') },
+      { path: 'about', component: () => import('pages/About.vue') }
+    ]
   }
 ];
 
