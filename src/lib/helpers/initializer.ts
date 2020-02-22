@@ -10,12 +10,13 @@ export const initLangState = (lang: LanguagesObject) => {
 };
 
 export const initUserLang = (): LangCodeT => {
-  if (process.env.browser) {
+  if (process.browser) {
     if (localStorage) {
       if (
         localStorage.userLanguage &&
         ['de', 'en', 'nl'].includes(localStorage.userLanguage)
       ) {
+        console.log(localStorage.userLang);
         return localStorage.userLanguage;
       } else {
         const lang = navigator.language.substring(0, 2);

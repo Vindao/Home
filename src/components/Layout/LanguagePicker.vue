@@ -41,7 +41,13 @@ export default Vue.extend({
   computed: {
     ...mapGetters(['userLang'])
   },
+  serverPrefetch() {
+    return this.fetchUserLang;
+  },
   methods: {
+    fetchUserLang() {
+      return mapGetters(['userLang']);
+    },
     ...mapActions(['changeLanguage']),
     toggle() {
       this.show = !this.show;
