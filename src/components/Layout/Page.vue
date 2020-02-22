@@ -1,8 +1,5 @@
 <template>
-  <q-page-container
-    v-touch-swipe.mouse.left.right="swiped"
-    style="padding-bottom: 0"
-  >
+  <q-page-container v-touch-swipe.mouse.left.right="swiped" style="padding-bottom: 0">
     <q-page class="pageContainer flex justify-center" id="PageContainerId">
       <div class="contentContainer">
         <transition :name="transitionDirection">

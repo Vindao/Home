@@ -3,7 +3,7 @@ import { RouteConfig } from 'vue-router';
 const routes: RouteConfig[] = [
   {
     path: '/',
-    component: () => import('layouts/index.vue'),
+    component: () => import('components/Layout/index.vue'),
     children: [
       { path: '', component: () => import('pages/Home.vue') },
       { path: 'services', component: () => import('pages/Services.vue') },

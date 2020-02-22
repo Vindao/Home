@@ -10,21 +10,23 @@ export const initLangState = (lang: LanguagesObject) => {
 };
 
 export const initUserLang = (): LangCodeT => {
-  if (localStorage) {
-    if (
-      localStorage.userLanguage &&
-      ['de', 'en', 'nl'].includes(localStorage.userLanguage)
-    ) {
-      return localStorage.userLanguage;
-    } else {
-      const lang = navigator.language.substring(0, 2);
-      console.log(lang);
-      if (lang === 'nl' || lang === 'de') {
-        localStorage.setItem('userLanguage', lang);
-        return lang;
+  if (process.env.browser) {
+    if (localStorage) {
+      if (
+        localStorage.userLanguage &&
+        ['de', 'en', 'nl'].includes(localStorage.userLanguage)
+      ) {
+        return localStorage.userLanguage;
       } else {
-        localStorage.setItem('userLanguage', 'en');
-        return 'en';
+        const lang = navigator.language.substring(0, 2);
+        console.log(lang);
+        if (lang === 'nl' || lang === 'de') {
+          localStorage.setItem('userLanguage', lang);
+          return lang;
+        } else {
+          localStorage.setItem('userLanguage', 'en');
+          return 'en';
+        }
       }
     }
   }
