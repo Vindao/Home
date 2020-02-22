@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-// helpers
+// helper
 import { mapRoutes } from '../../lib/helpers/router';
 export default Vue.extend({
   name: 'Page',
@@ -82,6 +82,7 @@ export default Vue.extend({
   @media only screen and (max-width: $breakpoint-sm-max) {
     margin-bottom: $bottomNavHeight;
   }
+
   .contentContainer {
     width: 100%;
     padding: $rootMargin;

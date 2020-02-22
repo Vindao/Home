@@ -1,12 +1,15 @@
-import { LangCodeT } from '../../types/language';
+import { LangCodeT, LanguagesObject } from '../../types/language';
 
-export const initLangState = () => {
+export const initLangState = (lang: LanguagesObject) => {
+  const userLang = initUserLang();
+  const language = lang[userLang];
   return {
-    locale: initLanguage()
+    userLang: userLang,
+    language: language
   };
 };
 
-export const initLanguage = (): LangCodeT => {
+export const initUserLang = (): LangCodeT => {
   if (localStorage) {
     if (
       localStorage.userLanguage &&

@@ -3,11 +3,22 @@ import { LanguageStateI, LanguageT, LangCodeT } from 'src/types/language';
 // helpers
 import { initLangState } from '../../lib/helpers/initializer';
 
+// languages
+import en from '../../language/en';
+import de from '../../language/de';
+import nl from '../../language/nl';
+
+const lang = {
+  en: en,
+  de: de,
+  nl: nl
+};
+
 export default {
-  namespaced: true,
-  state: initLangState(),
+  state: initLangState(lang),
   getters: {
-    getCurrentLocale: (state: LanguageStateI) => state.locale
+    userLang: (state: LanguageStateI) => state.userLang,
+    language: (state: LanguageStateI) => state.language
   },
   actions: {
     //@ts-ignore
@@ -17,10 +28,11 @@ export default {
   },
 
   mutations: {
-    changeLanguage: (state: LanguageStateI, lang: LangCodeT) => {
-      state.locale = lang;
+    changeLanguage: (state: LanguageStateI, langCode: LangCodeT) => {
+      state.userLang = langCode;
 
-      localStorage.setItem('userLanguage', lang);
+      localStorage.setItem('userLanguage', langCode);
+      state.language = lang[langCode];
     }
   }
 };

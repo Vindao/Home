@@ -1,10 +1,17 @@
 export interface LanguageStateI {
-  locale: LangCodeT;
+  userLang: LangCodeT;
+  language: Object;
 }
 
 export type LangCodeT = 'en' | 'nl' | 'de';
 
 export type LanguageT = 'english' | 'deutsch' | 'nederlands';
+
+export interface LanguagesObject {
+  en: Object;
+  de: Object;
+  nl: Object;
+}
 
 export interface LanguagesI {
   en: 'English';

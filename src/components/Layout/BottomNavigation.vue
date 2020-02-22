@@ -12,21 +12,21 @@
           exact
           name="0"
           icon="home"
-          :label="$t('Navigation.home')"
+          :label="language.Navigation.home"
         />
         <q-route-tab
           class="bottomNavTab"
           to="/services"
           name="1"
           icon="storefront"
-          :label="$t('Navigation.services')"
+          :label="language.Navigation.services"
         />
         <q-route-tab
           class="bottomNavTab"
           to="/about"
           name="2"
           icon="business"
-          :label="$t('Navigation.about')"
+          :label="language.Navigation.about"
         />
       </q-tabs>
     </q-toolbar>
@@ -35,8 +35,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapGetters } from 'vuex';
 export default Vue.extend({
-  name: 'BottomNavigation'
+  name: 'BottomNavigation',
+  computed: {
+    ...mapGetters(['language'])
+  }
 });
 </script>
 <style lang="scss" scoped>

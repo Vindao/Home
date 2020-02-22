@@ -6,9 +6,9 @@
           @click="setLocale(lang.code)"
           clickable
           v-for="lang in getSelectableLocales()"
-          :key="locale.code"
+          :key="lang.code"
         >
-          <q-item-section v-if="lang.code !== locale">
+          <q-item-section v-if="lang.code !== userLang">
             <q-item-label>{{ lang.name }}</q-item-label>
           </q-item-section>
         </q-item>
@@ -16,7 +16,7 @@
     </transition>
     <q-item clickable @click="toggle">
       <q-item-section>
-        <q-item-label>{{ locales[locale].name }}</q-item-label>
+        <q-item-label>{{ locales[userLang].name }}</q-item-label>
       </q-item-section>
     </q-item>
   </div>
@@ -24,13 +24,13 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapActions, mapGetters } from 'vuex';
 import { LangCodeT } from '../../types/language';
 export default Vue.extend({
   name: 'LanguagePicker',
   data() {
     return {
       show: false,
-      locale: this.$i18n.locale,
       locales: {
         de: { code: 'de', name: 'Deutsch' },
         nl: { code: 'nl', name: 'Nederlands' },
@@ -38,22 +38,24 @@ export default Vue.extend({
       }
     };
   },
+  computed: {
+    ...mapGetters(['userLang'])
+  },
   methods: {
+    ...mapActions(['changeLanguage']),
     toggle() {
       this.show = !this.show;
     },
+
     setLocale(locale: LangCodeT) {
       this.show = false;
-      this.locale = locale;
-      this.$i18n.locale = locale;
-      import(`../../i18n/${locale}`).then(({ default: messages }) => {
-        this.$q.lang.set(messages);
-      });
+
+      this.changeLanguage(locale);
     },
     getSelectableLocales() {
       let toReturn = [];
       for (let locale in this.locales) {
-        if (locale !== this.locale) {
+        if (locale !== this.userLang) {
           //@ts-ignore
           toReturn.push(this.locales[locale]);
         }
