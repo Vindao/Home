@@ -5,16 +5,16 @@
         <nav class="footerNav">
           <ul>
             <li>
-              <router-link to="/">{{ $t('Navigation.home') }}</router-link>
+              <router-link to="/">{{ language.Navigation.home }}</router-link>
             </li>
             <li>
               <router-link to="/services">
-                {{ $t('Navigation.services') }}
+                {{ language.Navigation.services }}
               </router-link>
             </li>
             <li>
               <router-link to="/about">
-                {{ $t('Navigation.about') }}
+                {{ language.Navigation.about }}
               </router-link>
             </li>
           </ul>
@@ -28,16 +28,16 @@
         <nav class="legal footerNav">
           <ul>
             <li>
-              <router-link to="/agb">{{ $t('Navigation.agb') }}</router-link>
+              <router-link to="/agb">{{ language.Navigation.agb }}</router-link>
             </li>
             <li>
               <router-link to="/impressum">
-                {{ $t('Navigation.impressum') }}
+                {{ language.Navigation.impressum }}
               </router-link>
             </li>
           </ul>
         </nav>
-        <q-btn class="contactBtn">{{ $t('Navigation.contact') }}</q-btn>
+        <q-btn class="contactBtn">{{ language.Navigation.contact }}</q-btn>
         <div class="socialMedia footerNav">
           <ul>
             <li>
@@ -69,12 +69,16 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapGetters } from 'vuex';
 export default Vue.extend({
   methods: {
     getCurrentYear() {
       const d = new Date();
       return d.getFullYear();
     }
+  },
+  computed: {
+    ...mapGetters(['language'])
   }
 });
 </script>

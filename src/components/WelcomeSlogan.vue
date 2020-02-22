@@ -1,12 +1,18 @@
 <template>
   <div id="welcome" class="text-center ">
-    <h4>{{ $t('Home.Slogans[0]') }}</h4>
+    <h4>{{ language.Home.Slogans[0] }}</h4>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-export default Vue.extend({});
+import { mapGetters } from 'vuex';
+export default Vue.extend({
+  name: 'WelcomeSlogan',
+  computed: {
+    ...mapGetters(['language'])
+  }
+});
 </script>
 
 <style lang="scss" scoped>

@@ -12,19 +12,19 @@
         to="/"
         exact
         name="0"
-        :label="$t('Navigation.home')"
+        :label="language.Navigation.home"
       />
       <q-route-tab
         class="topBarTab"
         to="/services"
         name="1"
-        :label="$t('Navigation.services')"
+        :label="language.Navigation.services"
       />
       <q-route-tab
         class="topBarTab"
         to="/about"
         name="2"
-        :label="$t('Navigation.about')"
+        :label="language.Navigation.about"
       />
     </q-tabs>
   </q-header>
@@ -41,6 +41,9 @@ export default Vue.extend({
   components: {
     Logo,
     LanguagePicker
+  },
+  computed: {
+    ...mapGetters(['language'])
   },
   methods: {
     // isSmallLogo() {
