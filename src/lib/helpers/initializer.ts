@@ -10,6 +10,7 @@ export const initLangState = (lang: LanguagesObject) => {
 };
 
 export const initUserLang = (): LangCodeT => {
+  //@ts-ignore
   if (process.browser) {
     if (localStorage) {
       if (
