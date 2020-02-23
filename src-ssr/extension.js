@@ -11,11 +11,9 @@
  * development server, but such updates are costly since the dev-server needs a reboot.
  */
 
-module.exports.extendApp = function ({ app, ssr }) {
-  /*
-     Extend the parts of the express app that you
-     want to use with development server too.
+module.exports.extendApp = function({ app, ssr }) {
+  // ROUTES
+  import Users from './api/routes/Users';
 
-     Example: app.use(), app.get() etc
-  */
-}
+  app.use('/user', Users);
+};

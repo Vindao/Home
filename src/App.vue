@@ -17,12 +17,12 @@ export default Vue.extend({
   },
   computed: {},
   created() {
-    document.addEventListener('readystatechange', () => {
-      console.log(document.readyState);
-      if (document.readyState === 'complete') {
-        this.loading = false;
-      }
-    });
+    // document.addEventListener('readystatechange', () => {
+    //   console.log(document.readyState);
+    //   if (document.readyState === 'complete') {
+    //     this.loading = false;
+    //   }
+    // });
   }
 });
 </script>
