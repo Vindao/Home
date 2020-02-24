@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "outDir": "../dist/",
+    "target": "es5",
+    "removeComments": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "module": "commonjs",
+    "noImplicitAny": true
+  },
+  "include": ["."]
+}
