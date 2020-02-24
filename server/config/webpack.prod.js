@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const BaseDir = path.resolve(__dirname, '../../');
 
 module.exports = {
-  entry: ['../server.ts'],
+  entry: ['../src-ssr/index.js'],
   output: {
     filename: 'server.bundle.js',
     path: path.resolve(BaseDir, 'dist/'),
