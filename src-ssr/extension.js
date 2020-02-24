@@ -11,9 +11,4 @@
  * development server, but such updates are costly since the dev-server needs a reboot.
  */
 
-module.exports.extendApp = function({ app, ssr }) {
-  // ROUTES
-  import Users from './api/routes/Users';
-
-  app.use('/user', Users);
-};
+module.exports.extendApp = function({ app, ssr }) {};

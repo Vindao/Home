@@ -59,6 +59,7 @@ export default Vue.extend({
 .contactModal {
   z-index: 9999;
   position: fixed;
+  min-height: 420px;
   top: $fullScreenModalTop;
   bottom: $fullScreenModalBottom;
   right: $fullScreenModalLeft;

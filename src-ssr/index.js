@@ -40,10 +40,15 @@ if (ssr.settings.pwa) {
 app.use('/', serve('.', true));
 
 // we extend the custom common dev & prod parts here
+
 extension.extendApp({ app, ssr });
 
+app.get('/example', (req, res) => {
+  res.send('This is an example route.');
+});
+
 // this should be last get(), rendering with SSR
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.setHeader('Content-Type', 'text/html');
 
   // SECURITY HEADERS

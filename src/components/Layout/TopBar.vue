@@ -61,6 +61,7 @@ export default Vue.extend({
   height: $headerHeight;
   min-height: $headerMinHeight;
   padding: 0 2vw;
+  z-index: 1;
   .brandLogo {
     height: 100%;
   }
