@@ -10,5 +10,5 @@
     "baseUrl": ".",
     "types": ["quasar", "node"]
   },
-  "exclude": ["node_modules", "babel.config.js"]
+  "exclude": ["node_modules", "babel.config.js", "server"]
 }

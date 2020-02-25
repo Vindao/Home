@@ -4,17 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config config/webpack.prod.js"
+    "build": "webpack --config config/webpack.prod.js",
+    "dev": "tsc -w",
+    "start": "node ../dist/server.bundle.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@types/mongoose": "^5.7.1",
-    "webpack": "^4.41.6",
-    "webpack-cli": "^3.3.11"
-  },
-  "dependencies": {
-    "mongoose": "^5.9.2"
-  }
+  "devDependencies": {},
+  "dependencies": {}
 }

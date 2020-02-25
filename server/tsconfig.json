@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "outDir": "../dist/",
     "target": "es5",
     "removeComments": true,
     "allowJs": true,
@@ -11,5 +10,5 @@
     "module": "commonjs",
     "noImplicitAny": true
   },
-  "include": ["."]
+  "exclude": ["../src/*/**"]
 }
