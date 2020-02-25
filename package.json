@@ -9,7 +9,6 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "build": "quasar build -m pwa",
     "git:graph": "git log --all --decorate --oneline --graph",
     "client:ssr": "quasar dev -m ssr",
     "client:pwa": "quasar dev -m pwa",
