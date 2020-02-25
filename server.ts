@@ -5,11 +5,13 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 
+//test
+
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
 
-const Test = require('./server/routes/test.js');
+import Test from './server/routes/test';
 app.use('/test', Test);
 
 app.use(serveStatic(__dirname + '/dist/pwa'));

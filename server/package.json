@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config config/webpack.prod.js",
-    "dev": "tsc -w",
-    "start": "node ../dist/server.bundle.js"
+    "dev": "tsc -w"
   },
   "keywords": [],
   "author": "",

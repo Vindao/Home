@@ -10,5 +10,5 @@
     "module": "commonjs",
     "noImplicitAny": true
   },
-  "exclude": ["../src/*/**"]
+  "include": ["../server.ts"]
 }

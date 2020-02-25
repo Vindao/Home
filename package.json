@@ -8,6 +8,7 @@
   "author": "VindaoCore <vindao@outlook.com>",
   "private": true,
   "scripts": {
+    "start": "node server.js",
     "git:graph": "git log --all --decorate --oneline --graph",
     "client:ssr": "quasar dev -m ssr",
     "client:pwa": "quasar dev -m pwa",
@@ -17,10 +18,11 @@
     "api:build": "webpack --config src-ssr/config/webpack.prod.js",
     "api:start": "npm run start --prefix api",
     "api:dev": "npm run dev --prefix api",
-    "server:dev": "nodemon server.js & npm run dev --prefix server",
+    "server:dev": "npm run dev --prefix server & nodemon server.js",
     "dev:ssr": "npm run client:ssr & npm run api:dev",
     "dev:pwa": "npm run client:pwa & npm run api:dev",
-    "dev:spa": "npm run client:spa & npm run api:dev"
+    "dev:spa": "npm run client:spa & npm run api:dev",
+    "test": "webpack --watch --config server/config/webpack.prod.js"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
