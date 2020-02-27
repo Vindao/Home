@@ -17,6 +17,9 @@ user.get('/', (req: express.Request, res: express.Response) => {
 
 // Register
 
-user.post('/register');
+user.post('/register', (req: express.Request, res: express.Response) => {
+  console.log(req.session);
+  res.send('hello');
+});
 
 export default user;
