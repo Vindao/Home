@@ -13,7 +13,7 @@ const app = express();
 
 // Middleware
 app.use(redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 app.set('trust proxy', 1); // trust first proxy
