@@ -7,8 +7,8 @@
 // bcrypt
 // jsonwebtoken
 // */
-// import express from "express";
-// import cors from "cors";
+import express from 'express';
+import cors from 'cors';
 // import { genSalt, compare, hash } from "bcryptjs";
 // import jwt from "jsonwebtoken";
 // import { generate as PwdGenerator } from "generate-password";
@@ -21,7 +21,7 @@
 // //--- mongoose Model---
 // import User from "../models/user";
 // // initialize route
-// const user = express.Router();
+const user = express.Router();
 // // use cors for route
 // user.use(cors());
 
@@ -578,4 +578,4 @@
 //   }
 // });
 
-// export default user;
+export default user;

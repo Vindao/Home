@@ -4,12 +4,12 @@ const CompressionPlugin = require('compression-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-const BaseDir = path.resolve(__dirname, '../../');
+const BaseDir = path.resolve(__dirname, '../');
 
 module.exports = {
-  entry: path.resolve(__dirname, '../routes/test.ts'),
+  entry: path.resolve(BaseDir, 'index.ts'),
   output: {
-    filename: 'api.bundle.js',
+    filename: 'server.bundle.js',
     path: path.resolve(BaseDir, 'dist/')
   },
   devtool: !isProduction && 'source-map',
