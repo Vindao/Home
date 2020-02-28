@@ -99,7 +99,15 @@ router.post('/register', (req: express.Request, res: express.Response) => {
               // send confirmation Mail
               //@ts-ignore
               sendConfMail(user.email, 'google.com', 'de')
-                .then(result => res.send(result))
+                .then(result => {
+                  if (result.status === 201) {
+                    res
+                      .status(201)
+                      .send({ success: true, mailSend: result.headers.date });
+                  } else {
+                    res.status(500).send({ error: 'confMailError' });
+                  }
+                })
                 .catch(err => console.error(err));
             })
             .catch(err => res.status(500).send({ error: err }));
