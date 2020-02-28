@@ -1,7 +1,14 @@
 import axios from 'axios';
 import { sendinBlue_API } from '../config/secrets';
 
-export const sendConfMail = async (receiver, link, language) => {
+// types
+import { LangCodeT } from '../../src/types/language';
+
+export const sendConfMail = async (
+  receiver: string,
+  link: string,
+  language: LangCodeT
+) => {
   const body = {
     emailTo: [receiver],
     attributes: { Link: link, Email: receiver }
@@ -44,7 +51,12 @@ export const sendConfMail = async (receiver, link, language) => {
   }
 };
 
-export const SendResetPassMail = async (receiver, link, code, language) => {
+export const SendResetPassMail = async (
+  receiver: string,
+  link: string,
+  code: string,
+  language: LangCodeT
+) => {
   const body = {
     emailTo: [receiver],
     attributes: { Link: link, Code: code }
@@ -66,11 +78,7 @@ export const SendResetPassMail = async (receiver, link, code, language) => {
         'https://api.sendinblue.com/v3/smtp/templates/6/send',
         options
       ).then(res => res.json());
-    case 'es':
-      return fetch(
-        'https://api.sendinblue.com/v3/smtp/templates/6/send',
-        options
-      ).then(res => res.json());
+
     default:
       return fetch(
         'https://api.sendinblue.com/v3/smtp/templates/6/send',
