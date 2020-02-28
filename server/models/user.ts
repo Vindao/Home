@@ -22,6 +22,10 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
+  messages: {
+    type: Object,
+    required: false
+  },
   confirmed: {
     type: Boolean,
     default: false

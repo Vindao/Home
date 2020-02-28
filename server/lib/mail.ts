@@ -15,17 +15,17 @@ export const sendConfMail = async (
   };
 
   switch (language) {
-    // case 'de':
-    //   return axios.post(
-    //     'https://api.sendinblue.com/v3/smtp/templates/4/send',
-    //     body,
-    //     {
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         'api-key': sendinBlue_API
-    //       }
-    //     }
-    //   );
+    case 'de':
+      return axios.post(
+        'https://api.sendinblue.com/v3/smtp/templates/9/send',
+        body,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'api-key': sendinBlue_API
+          }
+        }
+      );
 
     // case 'nl':
     //   return fetch(
@@ -39,7 +39,7 @@ export const sendConfMail = async (
     //   ).then(res => res.json());
     default:
       return axios.post(
-        'https://api.sendinblue.com/v3/smtp/templates/4/send',
+        'https://api.sendinblue.com/v3/smtp/templates/7/send',
         {
           emailTo: [receiver]
         },

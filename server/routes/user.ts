@@ -1,6 +1,8 @@
 import express from 'express';
-import cors from 'cors';
-import { genSalt, compare, hash } from 'bcryptjs';
+import { compare, hash } from 'bcryptjs';
+
+// types
+import { DBUserI, RegisterBodyI } from '../../types/User';
 
 // helpers
 import { arrayIncludes } from '../lib/helpers';
@@ -9,6 +11,7 @@ import { sendConfMail } from '../lib/mail';
 
 // mongoDB
 import User from '../models/user';
+import { userInfo } from 'os';
 
 const router = express.Router();
 
@@ -27,6 +30,10 @@ const endPoints = {
       'language'
     ],
     responses: {}
+  },
+  login: {
+    path: 'api/user/login',
+    requires: ['email', 'password']
   }
 };
 
@@ -36,7 +43,11 @@ router.get('/', (req: express.Request, res: express.Response) => {
 
 // Register
 
-router.post('/register', (req: express.Request, res: express.Response) => {
+const register = (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
   // validate request
   if (!arrayIncludes(endPoints.register.requires, Object.keys(req.body))) {
     res.status(400).send({ error: 'bad request', dev: 'require' });
@@ -49,19 +60,8 @@ router.post('/register', (req: express.Request, res: express.Response) => {
     }
   }
 
-  interface BodyI {
-    name: string;
-    email: string;
-    password: string;
-    confPassword: string;
-    company: string;
-    phone: string;
-    language: string;
-  }
+  const Body: RegisterBodyI = req.body;
 
-  const Body: BodyI = req.body;
-  //@ts-ignore
-  const Session = req.session;
   // check user exists
 
   User.findOne({ email: Body.email }).then((user: any) => {
@@ -75,16 +75,6 @@ router.post('/register', (req: express.Request, res: express.Response) => {
 
       const SALT_ROUNDS = 10;
 
-      interface DBUserI {
-        name: string;
-        email: string;
-        password: string;
-        confPassword: string;
-        company: string;
-        phone: string;
-        language: string;
-      }
-
       hash(Body.password, SALT_ROUNDS)
         .then((hash: string) => {
           const DBUser: DBUserI = { ...Body, password: hash };
@@ -92,23 +82,9 @@ router.post('/register', (req: express.Request, res: express.Response) => {
 
           User.create(DBUser)
             .then(user => {
-              // Login User
-              //@ts-ignore
-              Session.user = { email: user.email, name: user.name };
-
+              res.locals.user = user;
               // send confirmation Mail
-              //@ts-ignore
-              sendConfMail(user.email, 'google.com', 'de')
-                .then(result => {
-                  if (result.status === 201) {
-                    res
-                      .status(201)
-                      .send({ success: true, mailSend: result.headers.date });
-                  } else {
-                    res.status(500).send({ error: 'confMailError' });
-                  }
-                })
-                .catch(err => console.error(err));
+              next();
             })
             .catch(err => res.status(500).send({ error: err }));
         })
@@ -117,8 +93,73 @@ router.post('/register', (req: express.Request, res: express.Response) => {
         });
     }
   });
+};
 
-  // res.status(200).send('all good');
-});
+const sendConfirmationMail = (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  sendConfMail(res.locals.user.email, 'google.com', 'de')
+    .then(result => {
+      if (result.status === 201) {
+        res.locals.confMail = { send: result.headers.date };
+        next();
+      } else {
+        res.status(500).send({ error: 'confMailError' });
+      }
+    })
+    .catch(err => console.error(err));
+};
+
+const login = (req: express.Request, res: express.Response) => {
+  // validate request
+  if (!arrayIncludes(endPoints.login.requires, Object.keys(req.body))) {
+    res.status(400).send({ error: 'bad request', dev: 'require' });
+    return;
+  }
+
+  for (const [index, val] of req.body) {
+    if (!validate(index, val)) {
+      res.status(400).send({ error: 'bad request' });
+    }
+  }
+
+  const Body: RegisterBodyI = req.body;
+
+  User.findOne({ email: Body.email }).then((user: any) => {
+    if (user) {
+      // validate password
+      compare(Body.password, user.password, (err: any, success: boolean) => {
+        if (success === true) {
+          const UserInfo = {
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            messages: user.messages,
+            company: user.company,
+            phone: user.phone,
+            confirmed: user.confirmed
+          };
+          //@ts-ignore
+          req.session.user = UserInfo;
+          res.status(200).send({
+            success: true,
+            user: UserInfo,
+            confMail: res.locals.confMail
+          });
+        } else {
+          res.status(401).send({ success: false, error: 'credentials' });
+        }
+      });
+    } else {
+      res.status(401).send({ success: false, error: 'credentials' });
+    }
+  });
+};
+
+router.post('/register', register, sendConfirmationMail, login);
+
+router.post('/login', login);
 
 export default router;
