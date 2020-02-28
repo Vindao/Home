@@ -3,8 +3,9 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import { redirectToHTTPS } from 'express-http-to-https';
 import session from 'express-session';
+import { connect, set } from 'mongoose';
 
-import { SECRET_KEY } from './config/secrets';
+import { SECRET_KEY, mongoURI } from './config/secrets';
 import { sessMaxAge } from './config/main';
 
 const PRODUCTION = process.env.NODE_ENV === 'production';
@@ -26,6 +27,12 @@ app.use(
     cookie: { secure: PRODUCTION, maxAge: sessMaxAge }
   })
 );
+
+// connect to MongoDB
+set('useCreateIndex', true);
+connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDb connected'))
+  .catch((err: object) => console.log(err));
 
 // routes
 import User from './routes/user';
