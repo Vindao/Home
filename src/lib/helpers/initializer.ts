@@ -1,4 +1,4 @@
-import { LangCodeT, LanguagesObject } from '../../types/language';
+import { LangCodeT, LanguagesObject } from '../../../types/language';
 
 export const initLangState = (lang: LanguagesObject) => {
   const userLang = initUserLang();

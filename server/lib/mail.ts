@@ -2,7 +2,7 @@ import axios from 'axios';
 import { sendinBlue_API } from '../config/secrets';
 
 // types
-import { LangCodeT } from '../../src/types/language';
+import { LangCodeT } from '../../types/language';
 
 export const sendConfMail = async (
   receiver: string,

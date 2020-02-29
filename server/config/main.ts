@@ -6,3 +6,27 @@ export const tokenExpires = {
   userAuth: 604800 // one Week
 };
 export const sessMaxAge = 7 * DayMs;
+
+export const endPoints = {
+  register: {
+    path: 'api/user/register',
+    requires: [
+      'name',
+      'email',
+      'password',
+      'confPassword',
+      'company',
+      'phone',
+      'language'
+    ],
+    responses: {}
+  },
+  login: {
+    path: 'api/user/login',
+    requires: ['email', 'password']
+  },
+  sendConfirmationMail: {
+    path: 'api/user/sendConfMail',
+    requires: ['email']
+  }
+};
