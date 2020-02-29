@@ -1,7 +1,11 @@
 // types
-import { LanguageStateI, LanguageT, LangCodeT } from 'types/language';
+import {
+  LanguageStateI,
+  LanguageT,
+  LangCodeT
+} from '../../../../types/language';
 // helpers
-import { initLangState } from '../../lib/helpers/initializer';
+import { initLangState } from '../../lib/helpers/store/initializer';
 
 // languages
 import en from '../../language/en';

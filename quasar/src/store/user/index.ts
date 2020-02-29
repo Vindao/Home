@@ -1,12 +1,15 @@
-import { windowIsSmaller } from '../../lib/helpers/user';
+import { initializeUser } from '../../lib/helpers/store/initializer';
+import { UserStateI } from '../../types/Store/User';
 
 export default {
-  state: { smallLogo: windowIsSmaller(500) },
+  state: { user: initializeUser() },
   getters: {
-    // smallLogo: state => {
-    //   console.log(state.smallLogo);
-    //   state.smallLogo;
-    // }
+    user: (state: UserStateI) => state.user,
+    loggedIn: (state: UserStateI) => {
+      if (state.user) {
+        return state.user.loggedIn;
+      }
+    }
   },
   actions: {},
 

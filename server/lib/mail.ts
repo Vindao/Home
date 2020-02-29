@@ -1,9 +1,9 @@
-import axios from "../../quasar/node_modules/axios";
+import axios from "axios";
 import { sendinBlue_API } from "../config/secrets";
 
 // types
-import { LangCodeT } from "../../quasar/types/language";
-import { ConfMailDataI } from "../../quasar/types/User";
+import { LangCodeT } from "../../types/language";
+import { ConfMailDataI } from "../../types/User";
 
 export const sendConfMail = async (
   userData: ConfMailDataI,

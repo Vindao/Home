@@ -1,7 +1,7 @@
-import express from 'express';
+import express from "express";
 
 // config
-import { endPoints } from '../config/main';
+import { endPoints } from "../config/main";
 
 // api
 import {
@@ -9,23 +9,29 @@ import {
   sendConfirmationMail,
   login,
   sendResponse,
-  confirmAccount
-} from './api/user';
+  confirmAccount,
+  checkLoggedIn,
+  logout
+} from "./api/user";
 
 const router = express.Router();
 
 // SETUP
 
-router.get('/', (req: express.Request, res: express.Response) => {
+router.get("/", (req: express.Request, res: express.Response) => {
   res.send(endPoints);
 });
 
-router.post('/register', register, sendConfirmationMail, login, sendResponse);
+router.post("/register", register, sendConfirmationMail, login, sendResponse);
 
-router.post('/login', login, sendResponse);
+router.post("/login", login, sendResponse);
 
-router.post('/sendconfmail', sendConfirmationMail, sendResponse);
+router.get("/logout", logout, sendResponse);
 
-router.get('/confirmaccount/:token', confirmAccount);
+router.get("/loggedin", checkLoggedIn, sendResponse);
+
+router.post("/sendconfmail", sendConfirmationMail, sendResponse);
+
+router.get("/confirmaccount/:token", confirmAccount);
 
 export default router;

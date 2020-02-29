@@ -76,6 +76,6 @@ $fullScreenModalWidth: calc(100vw - 2 * #{$contentMargin});
 $fullScreenModalBottom: $contentMargin;
 $fullScreenModalBottomMobile: calc(#{$contentMargin} + #{$bottomNavHeight});
 
-$fullScreenModalTop: calc(#{$contentMargin});
+$fullScreenModalTop: calc(#{$contentMargin} + #{$headerExtendedHeight});
 
-$fullScreenModalTopMobile: calc(#{$contentMargin});
+$fullScreenModalTopMobile: calc(#{$contentMargin}+ #{$headerHeight});

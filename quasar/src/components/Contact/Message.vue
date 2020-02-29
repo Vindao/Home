@@ -23,16 +23,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
-// componrnts
-import SubmitBtn from './SubmitBtn.vue';
 export default Vue.extend({
   data: () => ({
     text: '',
     loading: false
   }),
-  components: {
-    SubmitBtn
-  },
+  components: {},
   props: {
     done: Function
   },

@@ -16,11 +16,11 @@ import {
 
 import { encryptionKey } from "../../../config/secrets";
 // types
-import { RegisterBodyI, CreateUserI } from "../../../../quasar/types/User";
+import { RegisterBodyI, CreateUserI } from "../../../../types/User";
 
 // helpers
 import { arrayIncludes } from "../../../lib/helpers";
-import { validate } from "../../../../quasar/lib/formVal";
+import { validate } from "../../../../lib/formVal";
 import { sendConfMail } from "../../../lib/mail";
 
 // mongoDB
@@ -119,12 +119,12 @@ export const login = (
               messages: user.messages,
               company: user.company,
               phone: user.phone,
-              confirmed: user.confirmed
+              confirmed: user.confirmed,
+              loggedIn: true
             };
             //@ts-ignore
             req.session.user = UserInfo;
-            //@ts-ignore
-            req.session.loggedIn = true;
+
             res.locals.user = UserInfo;
 
             next();
@@ -135,6 +135,36 @@ export const login = (
       }
     })
     .catch((err: any) => res.status(500).send({ success: false, error: err }));
+};
+
+export const checkLoggedIn = (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  if (req.session && req.session.user && req.session.user.loggedIn) {
+    res.locals.user = req.session.user;
+    next();
+  } else {
+    res.status(401).send({ success: false, error: "user not logged in" });
+  }
+};
+
+export const logout = (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  if (req.session) {
+    req.session.destroy((err: any) => {
+      if (err) {
+        res.status(500).send({ success: false, error: err });
+      } else {
+        res.locals.loggedOut = true;
+        next();
+      }
+    });
+  }
 };
 
 export const sendConfirmationMail = (

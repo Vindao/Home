@@ -1,11 +1,7 @@
 <template>
   <q-card v-show="show" class="contactModal" id="contactModal">
-    <q-btn
-      label="switch"
-      @click="loggedIn = !loggedIn"
-      style="position:absolute; z-index:999;"
-    />
-    <SignUp :done="onSignUp" v-if="!loggedIn" />
+    <q-btn label="switch" @click="loggedIn = !loggedIn" style="position:absolute; z-index:999;" />
+    <SignUp v-if="!loggedIn" />
     <Message :done="onMessage" v-else />
   </q-card>
 </template>
@@ -13,7 +9,7 @@
 <script lang="ts">
 import Vue from 'vue';
 // subCompoentns
-import SignUp from './SignUp.vue';
+import SignUp from '../SignUp/index.vue';
 import Message from './Message.vue';
 
 export default Vue.extend({
@@ -38,10 +34,6 @@ export default Vue.extend({
   methods: {
     onMessage() {
       console.log('send');
-    },
-    onSignUp() {
-      this.loggedIn = true;
-      console.log('done');
     },
     handleClickAway(e: any) {
       const modalNode = document.getElementById('contactModal');
@@ -85,17 +77,5 @@ export default Vue.extend({
       z-index: 1;
     }
   }
-}
-</style>
-
-<style lang="scss">
-.contactForm {
-  width: 100%;
-  height: 100%;
-  padding: $contentMargin;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 </style>

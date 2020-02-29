@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import language from './language';
-// import user from './user';
+import user from './user';
 
 Vue.use(Vuex);
 
@@ -18,8 +18,8 @@ Vue.use(Vuex);
 export default function(/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      language
-      // user
+      language,
+      user
     },
 
     // enable strict mode (adds overhead!)
