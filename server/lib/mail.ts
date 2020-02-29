@@ -3,29 +3,29 @@ import { sendinBlue_API } from '../config/secrets';
 
 // types
 import { LangCodeT } from '../../types/language';
+import { ConfMailDataI } from '../../types/User';
 
 export const sendConfMail = async (
-  receiver: string,
-  link: string,
+  userData: ConfMailDataI,
   language: LangCodeT
 ) => {
-  const body = {
-    emailTo: [receiver],
-    attributes: { Link: link, Email: receiver }
+  const mailBody = {
+    emailTo: [userData.email],
+    attributes: userData
   };
 
   switch (language) {
-    case 'de':
-      return axios.post(
-        'https://api.sendinblue.com/v3/smtp/templates/9/send',
-        body,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'api-key': sendinBlue_API
-          }
-        }
-      );
+    // case 'de':
+    //   return axios.post(
+    //     'https://api.sendinblue.com/v3/smtp/templates/9/send',
+    //     JSON.stringify(body),
+    //     {
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         'api-key': sendinBlue_API
+    //       }
+    //     }
+    //   );
 
     // case 'nl':
     //   return fetch(
@@ -40,9 +40,7 @@ export const sendConfMail = async (
     default:
       return axios.post(
         'https://api.sendinblue.com/v3/smtp/templates/7/send',
-        {
-          emailTo: [receiver]
-        },
+        mailBody,
         {
           headers: {
             'Content-Type': 'application/json',

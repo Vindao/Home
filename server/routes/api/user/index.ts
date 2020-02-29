@@ -1,10 +1,20 @@
 import express from 'express';
+import fs from 'fs';
+import path from 'path';
 
+import { generate } from 'generate-password';
 import { compare, hash } from 'bcryptjs';
+import { sign, verify } from 'jsonwebtoken';
 
 // config
-import { endPoints } from '../../../config/main';
+import {
+  endPoints,
+  maxConfMailTokenAge,
+  BaseServerUrl,
+  BaseClientUrl
+} from '../../../config/main';
 
+import { encryptionKey } from '../../../config/secrets';
 // types
 import { RegisterBodyI, CreateUserI } from '../../../../types/User';
 
@@ -140,24 +150,94 @@ export const sendConfirmationMail = (
   User.findOne({ email: Body.email })
     .then((user: any) => {
       if (user) {
-        sendConfMail(Body.email, 'google.com', user.language)
-          .then(result => {
-            if (result.status === 201) {
-              res.locals.confMail = {
-                date: result.headers.date,
-                to: Body.email
-              };
-              next();
+        const code = generate({
+          length: 8,
+          numbers: true,
+          symbols: false,
+          lowercase: false,
+          uppercase: false
+        });
+        const token = sign(
+          {
+            exp: maxConfMailTokenAge,
+            data: {
+              name: user.name,
+              email: user.email,
+              language: user.language
+            }
+          },
+          encryptionKey
+        );
+        hash(code, 10)
+          .then((hash: string) => {
+            if (hash) {
+              user.confMail = { token: token, code: hash };
+              user.save((err: any) => {
+                if (err) {
+                  res.status(500).send({ success: false, error: err });
+                } else {
+                  const link = BaseServerUrl + '/confirmaccount/' + token;
+                  sendConfMail(
+                    {
+                      link: link,
+                      code: code,
+                      email: user.email,
+                      name: user.name
+                    },
+                    user.language
+                  )
+                    .then(result => {
+                      if (result.status === 201) {
+                        res.locals.confMail = {
+                          date: result.headers.date,
+                          to: Body.email
+                        };
+                        next();
+                      } else {
+                        res
+                          .status(500)
+                          .send({ success: false, error: 'confMailError' });
+                      }
+                    })
+                    .catch(err =>
+                      res.status(500).send({ success: false, error: err })
+                    );
+                }
+              });
             } else {
-              res.status(500).send({ success: false, error: 'confMailError' });
+              res
+                .status(500)
+                .send({ success: false, error: 'could not hash code' });
             }
           })
-          .catch(err => res.status(500).send({ success: false, error: err }));
+          .catch((err: any) => {
+            res.status(500).send({ success: false, error: err });
+          });
       } else {
         res.status(401).send({ success: false, error: 'not existing' });
       }
     })
     .catch((err: any) => res.status(500).send({ success: false, error: err }));
+};
+
+export const confirmAccount = (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  console.log(req.params);
+  verify(req.params.token, encryptionKey, (err: any, decoded: Object) => {
+    if (err) {
+      if (err.name === 'TokenExpiredError') {
+        // TODO: setup clientside handler for expired token
+        res.status(401).redirect(BaseClientUrl + '?error=cmtkexp');
+      }
+    } else if (decoded) {
+      console.log(decoded);
+    } else {
+      res.status(401).send({ success: false, error: 'invalid token' });
+    }
+  });
 };
 
 export const sendResponse = (req: express.Request, res: express.Response) => {

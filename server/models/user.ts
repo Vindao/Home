@@ -28,7 +28,11 @@ const UserSchema = new Schema({
   },
   confirmed: {
     type: Boolean,
-    default: false
+    required: false
+  },
+  confMail: {
+    type: Object,
+    required: false
   },
   registered: {
     type: Date,

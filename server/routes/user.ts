@@ -8,7 +8,8 @@ import {
   register,
   sendConfirmationMail,
   login,
-  sendResponse
+  sendResponse,
+  confirmAccount
 } from './api/user';
 
 const router = express.Router();
@@ -19,10 +20,12 @@ router.get('/', (req: express.Request, res: express.Response) => {
   res.send(endPoints);
 });
 
-router.post('/sendconfmail', sendConfirmationMail, sendResponse);
-
 router.post('/register', register, sendConfirmationMail, login, sendResponse);
 
 router.post('/login', login, sendResponse);
+
+router.post('/sendconfmail', sendConfirmationMail, sendResponse);
+
+router.get('/confirmAccount/:token', confirmAccount);
 
 export default router;

@@ -1,4 +1,4 @@
-import { LangCodeT } from 'types/language';
+import { LangCodeT } from '../language';
 
 export interface DBUserI {
   _id: string;
@@ -11,6 +11,13 @@ export interface DBUserI {
   language: LangCodeT;
   messages: Object[];
   confirmed: boolean;
+}
+
+export interface ConfMailDataI {
+  link: string;
+  code: string;
+  name: string;
+  email: string;
 }
 
 export interface RegisterBodyI {
