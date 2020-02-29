@@ -171,12 +171,18 @@ export const sendConfirmationMail = (
         hash(code, 10)
           .then((hash: string) => {
             if (hash) {
-              user.confMail = { token: token, code: hash };
+              user.confMail = { code: hash };
               user.save((err: any) => {
                 if (err) {
                   res.status(500).send({ success: false, error: err });
                 } else {
-                  const link = BaseServerUrl + '/confirmaccount/' + token;
+                  const link =
+                    req.protocol +
+                    '://' +
+                    req.get('host') +
+                    '/api/user/confirmaccount/' +
+                    token;
+                  console.log(link);
                   sendConfMail(
                     {
                       link: link,
@@ -226,7 +232,7 @@ export const confirmAccount = (
   next: express.NextFunction
 ) => {
   console.log(req.params);
-  verify(req.params.token, encryptionKey, (err: any, decoded: Object) => {
+  verify(req.params.token, encryptionKey, (err: any, decoded: any) => {
     if (err) {
       if (err.name === 'TokenExpiredError') {
         // TODO: setup clientside handler for expired token
@@ -234,6 +240,23 @@ export const confirmAccount = (
       }
     } else if (decoded) {
       console.log(decoded);
+      User.findOne({ email: decoded.data.email }).then((user: any) => {
+        if (user) {
+          user.confirmed = true;
+          user.save((err: any) => {
+            if (err) {
+              res
+                .status(500)
+                .send({ success: false, error: 'could not mutate user' });
+            } else {
+              // res.locals.confirmed = { name: user.name, email: user.email };
+              res.redirect(BaseClientUrl);
+            }
+          });
+        } else {
+          res.status(401).send({ success: false, error: 'user doesnt exist' });
+        }
+      });
     } else {
       res.status(401).send({ success: false, error: 'invalid token' });
     }

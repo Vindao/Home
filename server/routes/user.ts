@@ -26,6 +26,6 @@ router.post('/login', login, sendResponse);
 
 router.post('/sendconfmail', sendConfirmationMail, sendResponse);
 
-router.get('/confirmAccount/:token', confirmAccount);
+router.get('/confirmaccount/:token', confirmAccount);
 
 export default router;
