@@ -1,11 +1,11 @@
 {
   "name": "vindao_home_quasar",
   "version": "0.0.1",
-  "description": "Homepage of \"Vindao UI development\"",
-  "productName": "Vindao Home",
+  "description": "Vindao Home",
+  "productName": "Vindao",
   "cordovaId": "org.cordova.quasar.app",
   "capacitorId": "",
-  "author": "VindaoCore <vindao@outlook.com>",
+  "author": "Vindao <vindao@outlook.com>",
   "private": true,
   "scripts": {
     "start": "quasar serve",

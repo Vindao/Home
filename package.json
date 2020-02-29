@@ -13,9 +13,9 @@
     "client:pwa": "npm run dev:pwa --prefix quasar",
     "client:spa": "npm run dev:spa --prefix quasar",
     "build": "npm run server:build && npm run client:build",
-    "dev:ssr": "npm run serber:dev && npm run client:ssr",
-    "dev:pwa": "npm run serber:dev && npm run client:pwa",
-    "dev:spa": "npm run serber:dev && npm run client:spa",
+    "dev:ssr": "npm run server:dev & npm run client:ssr",
+    "dev:pwa": "npm run server:dev & npm run client:pwa",
+    "dev:spa": "npm run server:dev & npm run client:spa",
     "git:graph": "git log --all --decorate --oneline --graph",
     "git:commit": "git add . && git commit -m"
   },

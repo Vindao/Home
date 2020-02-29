@@ -7,7 +7,7 @@ const isProduction = process.env.NODE_ENV === "production";
 const BaseDir = path.resolve(__dirname, "../../");
 
 module.exports = {
-  entry: path.resolve(BaseDir, "index.ts"),
+  entry: path.resolve(__dirname, "../index.ts"),
   output: {
     filename: "server.bundle.js",
     path: path.resolve(BaseDir, "dist/server/")
