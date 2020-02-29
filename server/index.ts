@@ -3,7 +3,9 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import { redirectToHTTPS } from 'express-http-to-https';
 import session from 'express-session';
-import { connect, set } from 'mongoose';
+import { connect, set, connection } from 'mongoose';
+
+const MongoStore = require('connect-mongo')(session);
 
 import { SECRET_KEY, mongoURI } from './config/secrets';
 import { sessMaxAge } from './config/main';
@@ -21,6 +23,7 @@ app.set('trust proxy', 1); // trust first proxy
 app.use(
   session({
     secret: SECRET_KEY,
+    store: new MongoStore({ mongooseConnection: connection }),
     resave: false,
     saveUninitialized: true,
 
