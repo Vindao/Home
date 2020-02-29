@@ -182,7 +182,6 @@ export const sendConfirmationMail = (
                     req.get('host') +
                     '/api/user/confirmaccount/' +
                     token;
-                  console.log(link);
                   sendConfMail(
                     {
                       link: link,
@@ -239,7 +238,6 @@ export const confirmAccount = (
         res.status(401).redirect(BaseClientUrl + '?error=cmtkexp');
       }
     } else if (decoded) {
-      console.log(decoded);
       User.findOne({ email: decoded.data.email }).then((user: any) => {
         if (user) {
           user.confirmed = true;
