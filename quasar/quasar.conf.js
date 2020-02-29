@@ -56,9 +56,9 @@ module.exports = function(ctx) {
     build: {
       productName: 'Vindao',
       scopeHoisting: true,
-      vueRouterMode: 'hash', // available values: 'hash', 'history'
+      vueRouterMode: 'history', // available values: 'hash', 'history'
       showProgress: true,
-      gzip: false,
+      gzip: true,
       analyze: false,
       // Options below are automatically set depending on the env, set them if you want to override
       // preloadChunks: false,
@@ -75,7 +75,7 @@ module.exports = function(ctx) {
       open: false // opens browser window automatically
     },
 
-    animations: 'all', // --- includes all animations
+    // animations: 'all',  --- includes all animations
     // https://quasar.dev/options/animations
     animations: [],
 
@@ -91,7 +91,7 @@ module.exports = function(ctx) {
       manifest: {
         name: 'Vindao Home',
         short_name: 'Vindao',
-        description: 'Homepage of Vindao UI development',
+        description: 'Vindao.io',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',

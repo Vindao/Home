@@ -10,5 +10,5 @@
     "module": "commonjs",
     "noImplicitAny": true
   },
-  "include": ["../server.ts"]
+  "include": ["."]
 }
