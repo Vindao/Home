@@ -1,10 +1,10 @@
-import express from 'express';
-import fs from 'fs';
-import path from 'path';
+import express from "express";
+import fs from "fs";
+import path from "path";
 
-import { generate } from 'generate-password';
-import { compare, hash } from 'bcryptjs';
-import { sign, verify } from 'jsonwebtoken';
+import { generate } from "generate-password";
+import { compare, hash } from "bcryptjs";
+import { sign, verify } from "jsonwebtoken";
 
 // config
 import {
@@ -12,19 +12,19 @@ import {
   maxConfMailTokenAge,
   BaseServerUrl,
   BaseClientUrl
-} from '../../../config/main';
+} from "../../../config/main";
 
-import { encryptionKey } from '../../../config/secrets';
+import { encryptionKey } from "../../../config/secrets";
 // types
-import { RegisterBodyI, CreateUserI } from '../../../../types/User';
+import { RegisterBodyI, CreateUserI } from "../../../../quasar/types/User";
 
 // helpers
-import { arrayIncludes } from '../../../lib/helpers';
-import { validate } from '../../../../lib/formVal';
-import { sendConfMail } from '../../../lib/mail';
+import { arrayIncludes } from "../../../lib/helpers";
+import { validate } from "../../../../quasar/lib/formVal";
+import { sendConfMail } from "../../../lib/mail";
 
 // mongoDB
-import User from '../../../models/user';
+import User from "../../../models/user";
 
 const validateRequest = (required: string[], body: any) => {
   if (!arrayIncludes(required, Object.keys(body))) {
@@ -46,7 +46,7 @@ export const register = (
 ) => {
   // validate request
   if (!validateRequest(endPoints.register.requires, req.body)) {
-    res.status(401).send({ success: false, error: 'Bad Request' });
+    res.status(401).send({ success: false, error: "Bad Request" });
   }
 
   const Body: RegisterBodyI = req.body;
@@ -56,7 +56,7 @@ export const register = (
     .then((user: any) => {
       if (user) {
         res.status(401).send({
-          error: 'Email',
+          error: "Email",
           success: false
         });
       } else {
@@ -79,7 +79,7 @@ export const register = (
                 } else {
                   res
                     .status(500)
-                    .send({ success: false, error: 'could not create user' });
+                    .send({ success: false, error: "could not create user" });
                 }
               })
               .catch(err =>
@@ -101,7 +101,7 @@ export const login = (
 ) => {
   // validate request
   if (!validateRequest(endPoints.login.requires, req.body)) {
-    res.status(401).send({ success: false, error: 'Bad Request' });
+    res.status(401).send({ success: false, error: "Bad Request" });
   }
 
   const Body: RegisterBodyI = req.body;
@@ -129,7 +129,7 @@ export const login = (
 
             next();
           } else {
-            res.status(401).send({ success: false, error: 'credentials' });
+            res.status(401).send({ success: false, error: "credentials" });
           }
         });
       }
@@ -145,7 +145,7 @@ export const sendConfirmationMail = (
   // validate request
   const Body = req.body;
   if (!validateRequest(endPoints.sendConfirmationMail.requires, Body)) {
-    res.status(401).send({ success: false, error: 'Bad Request' });
+    res.status(401).send({ success: false, error: "Bad Request" });
   }
   User.findOne({ email: Body.email })
     .then((user: any) => {
@@ -178,9 +178,9 @@ export const sendConfirmationMail = (
                 } else {
                   const link =
                     req.protocol +
-                    '://' +
-                    req.get('host') +
-                    '/api/user/confirmaccount/' +
+                    "://" +
+                    req.get("host") +
+                    "/api/user/confirmaccount/" +
                     token;
                   sendConfMail(
                     {
@@ -201,7 +201,7 @@ export const sendConfirmationMail = (
                       } else {
                         res
                           .status(500)
-                          .send({ success: false, error: 'confMailError' });
+                          .send({ success: false, error: "confMailError" });
                       }
                     })
                     .catch(err =>
@@ -212,14 +212,14 @@ export const sendConfirmationMail = (
             } else {
               res
                 .status(500)
-                .send({ success: false, error: 'could not hash code' });
+                .send({ success: false, error: "could not hash code" });
             }
           })
           .catch((err: any) => {
             res.status(500).send({ success: false, error: err });
           });
       } else {
-        res.status(401).send({ success: false, error: 'not existing' });
+        res.status(401).send({ success: false, error: "not existing" });
       }
     })
     .catch((err: any) => res.status(500).send({ success: false, error: err }));
@@ -233,9 +233,9 @@ export const confirmAccount = (
   console.log(req.params);
   verify(req.params.token, encryptionKey, (err: any, decoded: any) => {
     if (err) {
-      if (err.name === 'TokenExpiredError') {
+      if (err.name === "TokenExpiredError") {
         // TODO: setup clientside handler for expired token
-        res.status(401).redirect(BaseClientUrl + '?error=cmtkexp');
+        res.status(401).redirect(BaseClientUrl + "?error=cmtkexp");
       }
     } else if (decoded) {
       User.findOne({ email: decoded.data.email }).then((user: any) => {
@@ -245,18 +245,18 @@ export const confirmAccount = (
             if (err) {
               res
                 .status(500)
-                .send({ success: false, error: 'could not mutate user' });
+                .send({ success: false, error: "could not mutate user" });
             } else {
               // res.locals.confirmed = { name: user.name, email: user.email };
               res.redirect(BaseClientUrl);
             }
           });
         } else {
-          res.status(401).send({ success: false, error: 'user doesnt exist' });
+          res.status(401).send({ success: false, error: "user doesnt exist" });
         }
       });
     } else {
-      res.status(401).send({ success: false, error: 'invalid token' });
+      res.status(401).send({ success: false, error: "invalid token" });
     }
   });
 };

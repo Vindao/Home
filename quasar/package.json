@@ -1,0 +1,43 @@
+{
+  "name": "vindao_home_quasar",
+  "version": "0.0.1",
+  "description": "Homepage of \"Vindao UI development\"",
+  "productName": "Vindao Home",
+  "cordovaId": "org.cordova.quasar.app",
+  "capacitorId": "",
+  "author": "VindaoCore <vindao@outlook.com>",
+  "private": true,
+  "scripts": {
+    "start": "quasar serve",
+    "dev:ssr": "quasar dev -m ssr",
+    "dev:pwa": "quasar dev -m pwa",
+    "dev:spa": "quasar dev -m spa",
+    "build": "quasar build -m ssr"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.5.2",
+    "axios": "^0.18.1",
+    "express": "^4.17.1",
+    "gsap": "^3.2.1",
+    "quasar": "^1.9.4",
+    "vuescroll": "^4.15.0-beta.1"
+  },
+  "devDependencies": {
+    "@quasar/app": "^1.5.8",
+    "@quasar/quasar-app-extension-icon-genie": "^1.1.3",
+    "@quasar/quasar-app-extension-typescript": "^1.0.0-beta.2",
+    "@types/node": "^11.15.7",
+    "@typescript-eslint/eslint-plugin": "^1.12.0",
+    "@typescript-eslint/parser": "^1.12.0",
+    "eslint-config-prettier": "^6.10.0",
+    "typescript": "^3.8.2"
+  },
+  "engines": {
+    "node": ">= 10.18.1",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  },
+  "browserslist": [
+    "last 1 version, not dead, ie >= 11"
+  ]
+}

@@ -1,9 +1,9 @@
-import axios from 'axios';
-import { sendinBlue_API } from '../config/secrets';
+import axios from "../../quasar/node_modules/axios";
+import { sendinBlue_API } from "../config/secrets";
 
 // types
-import { LangCodeT } from '../../types/language';
-import { ConfMailDataI } from '../../types/User';
+import { LangCodeT } from "../../quasar/types/language";
+import { ConfMailDataI } from "../../quasar/types/User";
 
 export const sendConfMail = async (
   userData: ConfMailDataI,
@@ -39,12 +39,12 @@ export const sendConfMail = async (
     //   ).then(res => res.json());
     default:
       return axios.post(
-        'https://api.sendinblue.com/v3/smtp/templates/7/send',
+        "https://api.sendinblue.com/v3/smtp/templates/7/send",
         mailBody,
         {
           headers: {
-            'Content-Type': 'application/json',
-            'api-key': sendinBlue_API
+            "Content-Type": "application/json",
+            "api-key": sendinBlue_API
           }
         }
       );
