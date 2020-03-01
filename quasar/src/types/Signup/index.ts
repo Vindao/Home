@@ -5,6 +5,4 @@ export interface Signup1DataI {
   phone: string;
 }
 
-export interface Signup2DataI {
-  password: string;
-}
+export type Signup2DataT = string;

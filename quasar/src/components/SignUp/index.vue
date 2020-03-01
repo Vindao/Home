@@ -9,7 +9,7 @@
 import Vue from 'vue';
 import { mapMutations, mapGetters } from 'vuex';
 // types
-import { Signup1DataI, Signup2DataI } from '../../types/Signup';
+import { Signup1DataI, Signup2DataT } from '../../types/Signup';
 // components
 import SignUp1 from './SignUp1.vue';
 import SignUp2 from './SignUp2.vue';
@@ -39,7 +39,7 @@ export default Vue.extend({
       this.formData = { ...this.formData, ...data };
       this.step = 2;
     },
-    onStep2Done(data: Signup2DataI) {
+    onStep2Done(data: Signup2DataT) {
       this.formData = { ...this.formData, password: data };
       this.submit();
     },

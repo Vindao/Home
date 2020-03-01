@@ -54,6 +54,7 @@ module.exports = function(ctx) {
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
+      distDir: `../dist/client/`,
       productName: 'Vindao',
       scopeHoisting: true,
       vueRouterMode: 'history', // available values: 'hash', 'history'
