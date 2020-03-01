@@ -40,7 +40,6 @@ export default Vue.extend({
       this.step = 2;
     },
     onStep2Done(data: Signup2DataI) {
-      console.log(data);
       this.formData = { ...this.formData, password: data };
       this.submit();
     },

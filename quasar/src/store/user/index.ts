@@ -20,10 +20,14 @@ export default {
 
   mutations: {
     signup: (state: UserStateI, data: RegisterBodyI) => {
-      console.log(data);
       signupUser(data)
         .then((res: any) => {
           console.log(res);
+          if (res.data) {
+            if (res.data.success && res.data.user) {
+              state.user = res.data.user;
+            }
+          }
         })
         .catch((err: any) => {
           console.error(err);

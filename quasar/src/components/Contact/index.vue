@@ -8,6 +8,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapGetters } from 'vuex';
 // subCompoentns
 import SignUp from '../SignUp/index.vue';
 import Message from './Message.vue';
@@ -18,12 +19,13 @@ export default Vue.extend({
     close: Function,
     show: Boolean
   },
-  data: () => ({
-    loggedIn: false
-  }),
+
   components: {
     SignUp,
     Message
+  },
+  computed: {
+    ...mapGetters(['loggedIn'])
   },
   mounted() {
     document.addEventListener('click', this.handleClickAway, true);
