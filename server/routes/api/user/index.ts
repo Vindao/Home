@@ -1,6 +1,4 @@
 import express from "express";
-import fs from "fs";
-import path from "path";
 
 import { generate } from "generate-password";
 import { compare, hash } from "bcryptjs";
@@ -10,7 +8,6 @@ import { sign, verify } from "jsonwebtoken";
 import {
   endPoints,
   maxConfMailTokenAge,
-  BaseServerUrl,
   BaseClientUrl
 } from "../../../config/main";
 
@@ -19,25 +16,12 @@ import { encryptionKey } from "../../../config/secrets";
 import { RegisterBodyI, CreateUserI } from "../../../../types/User";
 
 // helpers
-import { arrayIncludes } from "../../../lib/helpers";
-import { validate } from "../../../../lib/formVal";
+import { validateRequest } from "../../../lib/helpers";
 import { sendConfMail } from "../../../lib/mail";
+import { validate } from "../../../../lib/formVal";
 
 // mongoDB
 import User from "../../../models/user";
-
-const validateRequest = (required: string[], body: any) => {
-  if (!arrayIncludes(required, Object.keys(body))) {
-    return false;
-  }
-
-  for (const [index, val] of body) {
-    if (!validate(index, val)) {
-      return false;
-    }
-  }
-  return true;
-};
 
 export const register = (
   req: express.Request,
@@ -45,53 +29,55 @@ export const register = (
   next: express.NextFunction
 ) => {
   // validate request
+
   if (!validateRequest(endPoints.register.requires, req.body)) {
     res.status(401).send({ success: false, error: "Bad Request" });
-  }
+  } else {
+    const Body: RegisterBodyI = req.body;
 
-  const Body: RegisterBodyI = req.body;
-
-  // check user exists
-  User.findOne({ email: Body.email })
-    .then((user: any) => {
-      if (user) {
-        res.status(401).send({
-          error: "Email",
-          success: false
-        });
-      } else {
-        // hash pwd
-
-        const SALT_ROUNDS = 10;
-
-        hash(Body.password, SALT_ROUNDS)
-          .then((hash: string) => {
-            const newUser: CreateUserI = {
-              ...Body,
-              password: hash
-            };
-            delete newUser.confPassword;
-
-            User.create(newUser)
-              .then(user => {
-                if (user) {
-                  next();
-                } else {
-                  res
-                    .status(500)
-                    .send({ success: false, error: "could not create user" });
-                }
-              })
-              .catch(err =>
-                res.status(500).send({ success: false, error: err })
-              );
-          })
-          .catch((err: any) => {
-            res.status(500).send({ success: false, error: err });
+    // check user exists
+    User.findOne({ email: Body.email })
+      .then((user: any) => {
+        if (user) {
+          res.status(401).send({
+            error: "Email",
+            success: false
           });
-      }
-    })
-    .catch((err: any) => res.status(500).send({ success: false, error: err }));
+        } else {
+          // hash pwd
+
+          const SALT_ROUNDS = 10;
+
+          hash(Body.password, SALT_ROUNDS)
+            .then((hash: string) => {
+              const newUser: CreateUserI = {
+                ...Body,
+                password: hash
+              };
+
+              User.create(newUser)
+                .then(user => {
+                  if (user) {
+                    next();
+                  } else {
+                    res
+                      .status(500)
+                      .send({ success: false, error: "could not create user" });
+                  }
+                })
+                .catch(err =>
+                  res.status(500).send({ success: false, error: err })
+                );
+            })
+            .catch((err: any) => {
+              res.status(500).send({ success: false, error: err });
+            });
+        }
+      })
+      .catch((err: any) =>
+        res.status(500).send({ success: false, error: err })
+      );
+  }
 };
 
 export const login = (

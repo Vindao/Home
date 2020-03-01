@@ -5,7 +5,7 @@ import {
   LangCodeT
 } from '../../../../types/language';
 // helpers
-import { initLangState } from '../../lib/helpers/store/initializer';
+import { initLangState } from '../../lib/store/language';
 
 // languages
 import en from '../../language/en';

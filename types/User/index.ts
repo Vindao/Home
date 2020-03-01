@@ -1,4 +1,4 @@
-import { LangCodeT } from '../language';
+import { LangCodeT } from "../language";
 
 export interface DBUserI {
   _id: string;
@@ -24,7 +24,6 @@ export interface RegisterBodyI {
   name: string;
   email: string;
   password: string;
-  confPassword: string;
   company: string;
   phone: string;
   language: LangCodeT;
@@ -34,7 +33,6 @@ export interface CreateUserI {
   name: string;
   email: string;
   password: string;
-  confPassword: string;
   company: string;
   phone: string;
   language: LangCodeT;

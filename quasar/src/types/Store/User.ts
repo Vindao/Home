@@ -10,6 +10,10 @@ export interface UserI {
 }
 
 export type UserT = UserI | null;
+
+export type UserErrorT = 'signup' | 'login' | 'confirm';
+
 export interface UserStateI {
   user: UserT;
+  error: null | UserErrorT;
 }

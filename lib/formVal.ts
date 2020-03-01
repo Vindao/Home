@@ -1,3 +1,5 @@
+const langs = ["en", "de", "nl"];
+
 export const validate = (
   type: string,
   val: string,
@@ -29,15 +31,30 @@ export const validate = (
       }
       break;
     case "phone":
-      return val.match(/(^$|^([+]?[0-9][\s]?){5,}\w+)/);
+      if (val.match(/(^$|^([+]?[0-9][\s]?){5,}\w+)/)) {
+        return true;
+      } else {
+        return "please enter a valid phone number";
+      }
       break;
     case "password":
-      return val.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/);
+      if (val.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/)) {
+        return true;
+      } else {
+        return "use a secure password";
+      }
       break;
     case "confPassword":
       if (val === val2) {
         return true;
       }
       return "passwords do not match";
+      break;
+    case "language":
+      if (langs.includes(val)) {
+        return true;
+      } else {
+        return false;
+      }
   }
 };
