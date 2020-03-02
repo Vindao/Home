@@ -6,7 +6,6 @@
         <q-tab class="authTab" name="login" label="Login" />
       </q-tabs>
     </nav>
-    {{type}}
     <SignUp v-show="type === 'register'" />
     <Login v-show="type === 'login'" />
   </div>

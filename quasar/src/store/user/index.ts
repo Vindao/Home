@@ -20,18 +20,26 @@ export default {
   actions: {
     //@ts-ignore
     login: ({ commit }, data: LoginBodyI) => {
-      let user = false;
-      axios
+      return axios
         .post(END_POINT + '/login', data)
         .then((res: any) => {
           console.log(res);
           if (res.data && res.data.success) {
-            user = res.data.user;
+            const user = res.data.user;
             commit('login', user);
+            return true;
+          } else {
+            return false;
           }
         })
         .catch((err: any) => console.error(err));
-      return user;
+    },
+    //@ts-ignore
+    logout: ({ commit }) => {
+      axios.get(END_POINT + '/logout').then((res: any) => {
+        console.log(res);
+        commit('logout');
+      });
     }
   },
 
@@ -56,6 +64,9 @@ export default {
       if (user.loggedIn) {
         state.user = user;
       }
+    },
+    logout: (state: UserStateI) => {
+      state.user = null;
     }
   }
 };

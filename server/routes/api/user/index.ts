@@ -101,8 +101,8 @@ export const login = (
   // validate request
   if (!validateRequest(endPoints.login.requires, req.body)) {
     res.status(401).send({ success: false, error: "Bad Request" });
+    return;
   }
-
   const Body: RegisterBodyI = req.body;
 
   User.findOne({ email: Body.email })

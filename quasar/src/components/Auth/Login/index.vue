@@ -2,7 +2,7 @@
   <q-form class="contactForm" @submit="onSubmit">
     <q-input color="secondary" v-model="formData.email" type="email" label="Email" />
     <q-input color="secondary" v-model="formData.password" type="password" label="Password" />
-
+    <p class="error" v-show="error">Wrong credentials</p>
     <SubmitBtn label="Login" :loading="loading" />
   </q-form>
 </template>
@@ -22,6 +22,7 @@ export default Vue.extend({
       email: '',
       password: ''
     },
+    error: false,
     loading: false
   }),
   methods: {
@@ -32,11 +33,19 @@ export default Vue.extend({
         email: this.formData.email,
         password: this.formData.password
       };
-      this.login(loginData);
+      this.login(loginData).then(res => {
+        console.log(res);
+        if (res !== true) {
+          this.error = true;
+          this.loading = false;
+        }
+      });
     }
   }
 });
 </script>
-
-<style>
+<style lang="scss" scoped>
+.error {
+  color: $negative;
+}
 </style>

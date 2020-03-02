@@ -19,7 +19,20 @@ app.use(redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(cors());
+// cors
+
+const whitelist = ["http://localhost:8080", "https://vindao.herokuapp.com"];
+const corsOptions = {
+  origin: function(origin: any, callback: any) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  }
+};
+
+app.use(cors(corsOptions));
 
 app.set("trust proxy", 1); // trust first proxy
 app.use(

@@ -11,7 +11,7 @@
 <script lang="ts">
 import Vue from 'vue';
 // components
-import TopBar from './TopBar.vue';
+import TopBar from './TopBar/index.vue';
 import BottomNavigation from './BottomNavigation.vue';
 import Footer from './Footer.vue';
 import PageContent from './Page.vue';
