@@ -11,7 +11,8 @@ import {
   sendResponse,
   confirmAccount,
   checkLoggedIn,
-  logout
+  logout,
+  checkEmailExists
 } from "./api/user";
 
 const router = express.Router();
@@ -22,7 +23,16 @@ router.get("/", (req: express.Request, res: express.Response) => {
   res.send(endPoints);
 });
 
-router.post("/register", register, sendConfirmationMail, login, sendResponse);
+router.post(
+  "/register",
+  checkEmailExists,
+  register,
+  sendConfirmationMail,
+  login,
+  sendResponse
+);
+
+router.post("/emailexists", checkEmailExists, sendResponse);
 
 router.post("/login", login, sendResponse);
 

@@ -7,14 +7,10 @@ export const validate = (
 ) => {
   switch (type) {
     case "name":
-      if (val.match(/^\S+$/)) {
-        return true;
-      } else if (val.length < 1) {
+      if (val.length < 1) {
         return "Name is required";
-      } else {
-        return "do not use spaces";
       }
-      break;
+      return true;
     case "email":
       if (
         !val.match(

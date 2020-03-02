@@ -12,7 +12,7 @@
       v-model="formData.email"
       type="email"
       label="Email *"
-      :rules="[val => validate('email', val)]"
+      :rules="[val => validate('email', val), val => checkEmail(val)]"
     />
     <q-input
       color="secondary"
@@ -34,8 +34,10 @@
 </template>
 <script lang="ts">
 import Vue from 'vue';
+import { mapGetters } from 'vuex';
 //helpers
 import { validate } from '../../../../lib/formVal';
+import { checkEmail } from '../../lib/store/user';
 // components
 import SubmitBtn from '../SubmitBtn.vue';
 export default Vue.extend({
@@ -61,6 +63,7 @@ export default Vue.extend({
       const data = this.formData;
       this.done(data);
     },
+    checkEmail,
     validate
   }
 });

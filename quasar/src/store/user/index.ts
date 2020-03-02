@@ -4,7 +4,8 @@ import { RegisterBodyI } from '../../../../types/User';
 
 // lib
 import { initializeUser } from '../../lib/store/user';
-import { signupUser } from '../../lib/store/user';
+import { signupUser, checkEmail } from '../../lib/store/user';
+import Axios from 'axios';
 
 export default {
   state: { user: initializeUser(), error: null },

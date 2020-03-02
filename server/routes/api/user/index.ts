@@ -13,12 +13,11 @@ import {
 
 import { encryptionKey } from "../../../config/secrets";
 // types
-import { RegisterBodyI, CreateUserI } from "../../../../types/User";
+import { RegisterBodyI, CreateUserI, DBUserI } from "../../../../types/User";
 
 // helpers
 import { validateRequest } from "../../../lib/helpers";
 import { sendConfMail } from "../../../lib/mail";
-import { validate } from "../../../../lib/formVal";
 
 // mongoDB
 import User from "../../../models/user";
@@ -32,46 +31,60 @@ export const register = (
 
   if (!validateRequest(endPoints.register.requires, req.body)) {
     res.status(401).send({ success: false, error: "Bad Request" });
-  } else {
-    const Body: RegisterBodyI = req.body;
+    return;
+  }
+  const Body: RegisterBodyI = req.body;
 
-    // check user exists
-    User.findOne({ email: Body.email })
+  // hash pwd
+
+  const SALT_ROUNDS = 10;
+
+  hash(Body.password, SALT_ROUNDS)
+    .then((hash: string) => {
+      const newUser: CreateUserI = {
+        ...Body,
+        password: hash
+      };
+
+      User.create(newUser)
+        .then(user => {
+          if (user) {
+            next();
+          } else {
+            res
+              .status(500)
+              .send({ success: false, error: "could not create user" });
+          }
+        })
+        .catch(err => res.status(500).send({ success: false, error: err }));
+    })
+    .catch((err: any) => {
+      res.status(500).send({ success: false, error: err });
+    });
+  // check user exists
+};
+
+export const checkEmailExists = (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  // validate request
+  if (!validateRequest(endPoints.emailExists.requires, req.body)) {
+    res.status(403).send({ success: false, error: "Bad Request" });
+  } else {
+    const { email } = req.body;
+
+    User.findOne({ email: email })
       .then((user: any) => {
         if (user) {
-          res.status(401).send({
-            error: "Email",
+          res.status(200).send({
+            email: "EXISTS",
             success: false
           });
         } else {
-          // hash pwd
-
-          const SALT_ROUNDS = 10;
-
-          hash(Body.password, SALT_ROUNDS)
-            .then((hash: string) => {
-              const newUser: CreateUserI = {
-                ...Body,
-                password: hash
-              };
-
-              User.create(newUser)
-                .then(user => {
-                  if (user) {
-                    next();
-                  } else {
-                    res
-                      .status(500)
-                      .send({ success: false, error: "could not create user" });
-                  }
-                })
-                .catch(err =>
-                  res.status(500).send({ success: false, error: err })
-                );
-            })
-            .catch((err: any) => {
-              res.status(500).send({ success: false, error: err });
-            });
+          res.locals.email = "NOEXIST";
+          next();
         }
       })
       .catch((err: any) =>
@@ -132,7 +145,7 @@ export const checkLoggedIn = (
     res.locals.user = req.session.user;
     next();
   } else {
-    res.status(401).send({ success: false, error: "user not logged in" });
+    res.status(401).send({ success: false, error: "Unauthorized" });
   }
 };
 

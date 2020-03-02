@@ -19,5 +19,9 @@ export const endPoints = {
   sendConfirmationMail: {
     path: "api/user/sendConfMail",
     requires: ["email"]
+  },
+  emailExists: {
+    path: "api/user/emailexists",
+    requires: ["email"]
   }
 };
