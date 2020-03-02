@@ -22,9 +22,9 @@
 <script lang="ts">
 import Vue from 'vue';
 // helpers
-import { validate } from '../../../../lib/formVal';
+import { validate } from '../../../../../lib/formVal';
 // components
-import SubmitBtn from '../SubmitBtn.vue';
+import SubmitBtn from '../../SubmitBtn.vue';
 
 export default Vue.extend({
   name: 'SignUp_2',

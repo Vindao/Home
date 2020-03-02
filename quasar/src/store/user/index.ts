@@ -1,11 +1,11 @@
+import axios from 'axios';
+import { END_POINT } from '../../../../config/main';
 // types
-import { UserStateI } from '../../types/Store/User';
-import { RegisterBodyI } from '../../../../types/User';
+import { UserStateI, UserI } from '../../types/Store/User';
+import { RegisterBodyI, LoginBodyI, DBUserI } from '../../../../types/User';
 
 // lib
 import { initializeUser } from '../../lib/store/user';
-import { signupUser, checkEmail } from '../../lib/store/user';
-import Axios from 'axios';
 
 export default {
   state: { user: initializeUser(), error: null },
@@ -17,11 +17,28 @@ export default {
       }
     }
   },
-  actions: {},
+  actions: {
+    //@ts-ignore
+    login: ({ commit }, data: LoginBodyI) => {
+      let user = false;
+      axios
+        .post(END_POINT + '/login', data)
+        .then((res: any) => {
+          console.log(res);
+          if (res.data && res.data.success) {
+            user = res.data.user;
+            commit('login', user);
+          }
+        })
+        .catch((err: any) => console.error(err));
+      return user;
+    }
+  },
 
   mutations: {
     signup: (state: UserStateI, data: RegisterBodyI) => {
-      signupUser(data)
+      axios
+        .post(END_POINT + '/register', data)
         .then((res: any) => {
           console.log(res);
           if (res.data) {
@@ -34,6 +51,11 @@ export default {
           console.error(err);
           state.error = 'signup';
         });
+    },
+    login: (state: UserStateI, user: UserI) => {
+      if (user.loggedIn) {
+        state.user = user;
+      }
     }
   }
 };

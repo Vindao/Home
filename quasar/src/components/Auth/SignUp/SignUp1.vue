@@ -36,10 +36,10 @@
 import Vue from 'vue';
 import { mapGetters } from 'vuex';
 //helpers
-import { validate } from '../../../../lib/formVal';
-import { checkEmail } from '../../lib/store/user';
+import { validate } from '../../../../../lib/formVal';
+import { checkEmail } from '../../../lib/store/user';
 // components
-import SubmitBtn from '../SubmitBtn.vue';
+import SubmitBtn from '../../SubmitBtn.vue';
 export default Vue.extend({
   data: () => ({
     formData: {
@@ -69,4 +69,5 @@ export default Vue.extend({
 });
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+</style>

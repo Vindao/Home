@@ -1,7 +1,6 @@
 <template>
   <q-card v-show="show" class="contactModal" id="contactModal">
-    <q-btn label="switch" @click="loggedIn = !loggedIn" style="position:absolute; z-index:999;" />
-    <SignUp v-if="!loggedIn" />
+    <Auth v-if="!loggedIn" />
     <Message :done="onMessage" v-else />
   </q-card>
 </template>
@@ -10,7 +9,7 @@
 import Vue from 'vue';
 import { mapGetters } from 'vuex';
 // subCompoentns
-import SignUp from '../SignUp/index.vue';
+import Auth from '../Auth/index.vue';
 import Message from './Message.vue';
 
 export default Vue.extend({
@@ -21,7 +20,7 @@ export default Vue.extend({
   },
 
   components: {
-    SignUp,
+    Auth,
     Message
   },
   computed: {

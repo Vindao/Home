@@ -1,15 +1,6 @@
 import axios from 'axios';
 
-import { RegisterBodyI } from '../../../../types/User';
-
-const END_POINT =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:5000/api/user'
-    : 'https://vindaoapi.herokuapp.com/api/user';
-
-export const signupUser = (data: RegisterBodyI) => {
-  return axios.post(END_POINT + '/register', data);
-};
+import { END_POINT } from '../../../../config/main';
 
 export const checkEmail = async (email: string) => {
   const response = await axios

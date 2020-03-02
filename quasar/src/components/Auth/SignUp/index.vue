@@ -9,11 +9,11 @@
 import Vue from 'vue';
 import { mapMutations, mapGetters } from 'vuex';
 // types
-import { Signup1DataI, Signup2DataT } from '../../types/Signup';
+import { Signup1DataI, Signup2DataT } from '../../../types/Signup';
 // components
 import SignUp1 from './SignUp1.vue';
 import SignUp2 from './SignUp2.vue';
-import { RegisterBodyI } from '../../../../types/User';
+import { RegisterBodyI } from '../../../../../types/User';
 export default Vue.extend({
   name: 'SignUp',
   components: {
@@ -61,17 +61,6 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .signupForm {
-  height: 100%;
-  width: 100%;
-}
-
-.contactForm {
-  width: 100%;
-  height: 100%;
-  padding: $contentMargin;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  height: 90%;
 }
 </style>

@@ -29,6 +29,11 @@ export interface RegisterBodyI {
   language: LangCodeT;
 }
 
+export interface LoginBodyI {
+  email: string;
+  password: string;
+}
+
 export interface CreateUserI {
   name: string;
   email: string;
