@@ -2,10 +2,7 @@ import axios from 'axios';
 import { END_POINT } from '../../../../config/main';
 // types
 import { UserStateI, UserI } from '../../types/Store/User';
-import { RegisterBodyI, LoginBodyI, DBUserI } from '../../../../types/User';
-
-// lib
-import { checkLoggedIn } from '../../lib/store/user';
+import { RegisterBodyI, LoginBodyI } from '../../../../types/User';
 
 export default {
   state: { user: null, error: null },
@@ -45,19 +42,31 @@ export default {
     },
     //@ts-ignore
     initializeUser: ({ commit }) => {
-      checkLoggedIn().then(user => {
-        console.log(user);
-        if (user && user.loggedIn) {
-          commit('login', user);
-        }
-      });
+      axios
+        .get(END_POINT + '/loggedin', { withCredentials: true })
+        .then((res: any) => {
+          if (
+            res &&
+            res.data &&
+            res.data.success &&
+            res.data.user &&
+            res.data.loggedIn &&
+            res.data.user.loggedIn
+          ) {
+            commit('login', res.data.user);
+          }
+        })
+        .catch((err: any) => {
+          console.error(Object.keys(err));
+          console.log(err);
+        });
     }
   },
 
   mutations: {
     signup: (state: UserStateI, data: RegisterBodyI) => {
       axios
-        .post(END_POINT + '/register', data)
+        .post(END_POINT + '/register', data, { withCredentials: true })
         .then((res: any) => {
           console.log(res);
           if (res.data) {

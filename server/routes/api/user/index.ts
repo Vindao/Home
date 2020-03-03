@@ -72,25 +72,23 @@ export const checkEmailExists = (
   // validate request
   if (!validateRequest(endPoints.emailExists.requires, req.body)) {
     res.status(403).send({ success: false, error: "Bad Request" });
-  } else {
-    const { email } = req.body;
-
-    User.findOne({ email: email })
-      .then((user: any) => {
-        if (user) {
-          res.status(200).send({
-            email: "EXISTS",
-            success: false
-          });
-        } else {
-          res.locals.email = "NOEXIST";
-          next();
-        }
-      })
-      .catch((err: any) =>
-        res.status(500).send({ success: false, error: err })
-      );
+    return;
   }
+  const { email } = req.body;
+
+  User.findOne({ email: email })
+    .then((user: any) => {
+      if (user) {
+        res.status(200).send({
+          email: "EXISTS",
+          success: false
+        });
+      } else {
+        res.locals.email = "NOEXIST";
+        next();
+      }
+    })
+    .catch((err: any) => res.status(500).send({ success: false, error: err }));
 };
 
 export const login = (
@@ -123,9 +121,6 @@ export const login = (
             };
             //@ts-ignore
             req.session.user = UserInfo;
-            res.cookie("user", user);
-
-            console.log(req.session);
             res.locals.user = UserInfo;
 
             next();
@@ -143,7 +138,6 @@ export const logout = (
   res: express.Response,
   next: express.NextFunction
 ) => {
-  console.log(req.session);
   if (req.session) {
     req.session.destroy((err: any) => {
       if (err) {
@@ -161,7 +155,6 @@ export const checkLoggedIn = (
   res: express.Response,
   next: express.NextFunction
 ) => {
-  console.log(req.session);
   if (req.session && req.session.user && req.session.user.loggedIn) {
     res.locals.loggedIn = true;
     res.locals.user = req.session.user;
@@ -181,6 +174,7 @@ export const sendConfirmationMail = (
   const Body = req.body;
   if (!validateRequest(endPoints.sendConfirmationMail.requires, Body)) {
     res.status(401).send({ success: false, error: "Bad Request" });
+    return;
   }
   User.findOne({ email: Body.email })
     .then((user: any) => {
@@ -265,7 +259,6 @@ export const confirmAccount = (
   res: express.Response,
   next: express.NextFunction
 ) => {
-  console.log(req.params);
   verify(req.params.token, encryptionKey, (err: any, decoded: any) => {
     if (err) {
       if (err.name === "TokenExpiredError") {

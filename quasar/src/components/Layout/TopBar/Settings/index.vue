@@ -1,16 +1,11 @@
 <template>
   <div class="settings">
-    <q-icon name="settings" size="2em" class="settingsIcon" @click="toggle" />
-    <q-menu v-show="show" fit anchor="bottom right" self="top right">
-      <q-item clickable class="text-center">
-        <q-item-section>
-          <language-picker />
-        </q-item-section>
-      </q-item>
-      <q-item v-show="loggedIn" clickable class="text-center" @click="logout">
-        <q-item-section>Logout</q-item-section>
-      </q-item>
-    </q-menu>
+    <language-picker />
+    <q-item v-if="loggedIn" clickable @click="logout">
+      <q-item-section>
+        <q-item-label>logout</q-item-label>
+      </q-item-section>
+    </q-item>
   </div>
 </template>
 
@@ -40,7 +35,8 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.settingsIcons {
-  cursor: pointer;
+.settings {
+  display: flex;
+  align-items: center;
 }
 </style>

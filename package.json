@@ -5,19 +5,22 @@
   "main": "index.js",
   "scripts": {
     "server:start": "npm run start --prefix server",
-    "server:build": "npm run build --prefix server",
+    "git:graph": "git log --all --decorate --oneline --graph",
+    "git:commit": "git add . && git commit -m",
     "server:dev": "npm run dev --prefix server",
+    "server:build": "npm run build --prefix server",
+    "server:deploy": "cd dist/server && git add . && git commit -am 'deploy' && git push heroku master",
     "client:start": "npm run start --prefix quasar",
-    "client:build": "npm run build --prefix quasar",
     "client:ssr": "npm run dev:ssr --prefix quasar",
     "client:pwa": "npm run dev:pwa --prefix quasar",
     "client:spa": "npm run dev:spa --prefix quasar",
-    "build": "npm run server:build && npm run client:build",
+    "client:build": "npm run build --prefix quasar",
+    "client:deploy": "cd dist/client && git init && heroku git:remote -a vindao && git add . && git commit -am 'deploy' && git push heroku master --force",
     "dev:ssr": "npm run server:dev & npm run client:ssr",
     "dev:pwa": "npm run server:dev & npm run client:pwa",
     "dev:spa": "npm run server:dev & npm run client:spa",
-    "git:graph": "git log --all --decorate --oneline --graph",
-    "git:commit": "git add . && git commit -m"
+    "build": "npm run server:build && npm run client:build",
+    "deploy": "npm run server:deploy && npm run client:deploy"
   },
   "repository": {
     "type": "git",
