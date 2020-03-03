@@ -49,7 +49,7 @@ const corsOptions = {
 
 app.use(
   cors({
-    origin: ["http://localhost:8080"],
+    origin: ["http://localhost:8080", "https://vindao.herokuapp.com"],
     methods: ["GET", "POST"],
     credentials: true
   })
@@ -60,12 +60,6 @@ set("useCreateIndex", true);
 connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDb connected"))
   .catch((err: object) => console.log(err));
-
-app.all("/*", function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:8080");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});
 
 // routes
 import User from "./routes/user";

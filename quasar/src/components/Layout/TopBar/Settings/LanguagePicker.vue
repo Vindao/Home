@@ -25,7 +25,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions, mapGetters } from 'vuex';
-import { LangCodeT } from '../../../../../types/language';
+import { LangCodeT } from '../../../../../../types/language';
 export default Vue.extend({
   name: 'LanguagePicker',
   data() {
