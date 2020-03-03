@@ -123,7 +123,7 @@ export const login = (
             };
             //@ts-ignore
             req.session.user = UserInfo;
-
+            console.log(req.session);
             res.locals.user = UserInfo;
 
             next();
@@ -154,6 +154,7 @@ export const logout = (
   res: express.Response,
   next: express.NextFunction
 ) => {
+  console.log(req.session);
   if (req.session) {
     req.session.destroy((err: any) => {
       if (err) {

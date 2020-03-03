@@ -38,7 +38,7 @@ router.post("/login", login, sendResponse);
 
 router.get("/logout", logout, sendResponse);
 
-router.get("/logedin", checkLoggedIn, sendResponse);
+router.get("/loggedin", checkLoggedIn, sendResponse);
 
 router.post("/sendconfmail", sendConfirmationMail, sendResponse);
 

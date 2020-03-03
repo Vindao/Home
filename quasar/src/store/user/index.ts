@@ -40,6 +40,18 @@ export default {
         console.log(res);
         commit('logout');
       });
+    },
+    //@ts-ignore
+    checkLoggedIn: ({ commit }) => {
+      return axios
+        .get(END_POINT + '/loggedin', { withCredentials: true })
+        .then((res: any) => {
+          console.log(res);
+          commit('loggedIn', res.data);
+        })
+        .catch((err: any) => {
+          console.error(err);
+        });
     }
   },
 
@@ -67,6 +79,9 @@ export default {
     },
     logout: (state: UserStateI) => {
       state.user = null;
+    },
+    loggedIn: (state: UserStateI, user: UserI) => {
+      state.user = user;
     }
   }
 };

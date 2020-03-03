@@ -4,11 +4,12 @@ import cors from "cors";
 import { redirectToHTTPS } from "express-http-to-https";
 import session from "express-session";
 import { connect, set, connection } from "mongoose";
+import cookieParser from "cookie-parser";
 
 const MongoStore = require("connect-mongo")(session);
 
 import { SECRET_KEY, mongoURI } from "./config/secrets";
-import { sessMaxAge } from "./config/main";
+import { sessMaxAge, BaseClientUrl } from "./config/main";
 
 const PRODUCTION = process.env.NODE_ENV === "production";
 
@@ -18,10 +19,23 @@ const app = express();
 app.use(redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser(SECRET_KEY));
+
+app.set("trust proxy", 1); // trust first proxy
+app.use(
+  session({
+    secret: SECRET_KEY,
+    store: new MongoStore({ mongooseConnection: connection }),
+    resave: true,
+    saveUninitialized: true,
+
+    cookie: { secure: PRODUCTION, maxAge: sessMaxAge, sameSite: false }
+  })
+);
 
 // cors
 
-const whitelist = ["http://localhost:8080", "https://vindao.herokuapp.com"];
+const whitelist = [/localhost:(\d{4})/, "https://vindao.herokuapp.com"];
 const corsOptions = {
   origin: function(origin: any, callback: any) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -29,20 +43,15 @@ const corsOptions = {
     } else {
       callback(new Error("Not allowed by CORS"));
     }
-  }
+  },
+  credentials: true
 };
 
-app.use(cors(corsOptions));
-
-app.set("trust proxy", 1); // trust first proxy
 app.use(
-  session({
-    secret: SECRET_KEY,
-    store: new MongoStore({ mongooseConnection: connection }),
-    resave: false,
-    saveUninitialized: true,
-
-    cookie: { secure: PRODUCTION, maxAge: sessMaxAge }
+  cors({
+    origin: ["http://localhost:8080"],
+    methods: ["GET", "POST"],
+    credentials: true
   })
 );
 
@@ -51,6 +60,12 @@ set("useCreateIndex", true);
 connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDb connected"))
   .catch((err: object) => console.log(err));
+
+app.all("/*", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:8080");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 
 // routes
 import User from "./routes/user";
