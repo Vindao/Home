@@ -5,10 +5,10 @@ import { UserStateI, UserI } from '../../types/Store/User';
 import { RegisterBodyI, LoginBodyI, DBUserI } from '../../../../types/User';
 
 // lib
-import { initializeUser } from '../../lib/store/user';
+import { checkLoggedIn } from '../../lib/store/user';
 
 export default {
-  state: { user: initializeUser(), error: null },
+  state: { user: null, error: null },
   getters: {
     user: (state: UserStateI) => state.user,
     loggedIn: (state: UserStateI) => {
@@ -21,7 +21,7 @@ export default {
     //@ts-ignore
     login: ({ commit }, data: LoginBodyI) => {
       return axios
-        .post(END_POINT + '/login', data)
+        .post(END_POINT + '/login', data, { withCredentials: true })
         .then((res: any) => {
           console.log(res);
           if (res.data && res.data.success) {
@@ -36,22 +36,21 @@ export default {
     },
     //@ts-ignore
     logout: ({ commit }) => {
-      axios.get(END_POINT + '/logout').then((res: any) => {
-        console.log(res);
-        commit('logout');
-      });
-    },
-    //@ts-ignore
-    checkLoggedIn: ({ commit }) => {
-      return axios
-        .get(END_POINT + '/loggedin', { withCredentials: true })
+      axios
+        .get(END_POINT + '/logout', { withCredentials: true })
         .then((res: any) => {
           console.log(res);
-          commit('loggedIn', res.data);
-        })
-        .catch((err: any) => {
-          console.error(err);
+          commit('logout');
         });
+    },
+    //@ts-ignore
+    initializeUser: ({ commit }) => {
+      checkLoggedIn().then(user => {
+        console.log(user);
+        if (user && user.loggedIn) {
+          commit('login', user);
+        }
+      });
     }
   },
 

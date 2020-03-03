@@ -15,21 +15,18 @@ export const checkEmail = async (email: string) => {
     .catch(err => console.error(err));
 };
 
-export const initializeUser = async () => {
-  await axios
-    .get(END_POINT + '/loggedin')
+export const checkLoggedIn = async () => {
+  return await axios
+    .get(END_POINT + '/loggedin', { withCredentials: true })
     .then((res: any) => {
-      console.log(res);
-      if (res) {
-        if (res.user && res.user.loggedIn) {
-          return res.user;
-        }
+      if (res.data.user && res.data.loggedIn) {
+        return res.data.user;
+      } else {
+        return null;
       }
-      return false;
     })
     .catch((err: any) => {
-      console.error(err);
-      return false;
+      console.error(Object.keys(err));
+      console.log(err);
     });
-  return false;
 };

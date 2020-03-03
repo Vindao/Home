@@ -123,6 +123,8 @@ export const login = (
             };
             //@ts-ignore
             req.session.user = UserInfo;
+            res.cookie("user", user);
+
             console.log(req.session);
             res.locals.user = UserInfo;
 
@@ -134,19 +136,6 @@ export const login = (
       }
     })
     .catch((err: any) => res.status(500).send({ success: false, error: err }));
-};
-
-export const checkLoggedIn = (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
-  if (req.session && req.session.user && req.session.user.loggedIn) {
-    res.locals.user = req.session.user;
-    next();
-  } else {
-    res.status(401).send({ success: false, error: "Unauthorized" });
-  }
 };
 
 export const logout = (
@@ -164,6 +153,23 @@ export const logout = (
         next();
       }
     });
+  }
+};
+
+export const checkLoggedIn = (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  console.log(req.session);
+  if (req.session && req.session.user && req.session.user.loggedIn) {
+    res.locals.loggedIn = true;
+
+    res.locals.user = req.session.user;
+    next();
+  } else {
+    res.locals.loggedIn = false;
+    next();
   }
 };
 

@@ -6,6 +6,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapActions } from 'vuex';
 import Layout from './components/Layout/index.vue';
 import Loader from './components/Loader.vue';
 export default Vue.extend({
@@ -17,14 +18,11 @@ export default Vue.extend({
   components: {
     Loader
   },
-  computed: {},
-  created() {
-    // document.addEventListener('readystatechange', () => {
-    //   console.log(document.readyState);
-    //   if (document.readyState === 'complete') {
-    //     this.loading = false;
-    //   }
-    // });
+  methods: {
+    ...mapActions(['initializeUser'])
+  },
+  mounted() {
+    this.initializeUser();
   }
 });
 </script>
