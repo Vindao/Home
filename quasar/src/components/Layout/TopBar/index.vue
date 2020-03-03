@@ -4,7 +4,7 @@
       <q-toolbar-title class="brandLogo flex items-center">
         <Logo />
       </q-toolbar-title>
-      <q-btn label="check loggedin" @click="checkLoggedIn" />
+      <q-btn label="check loggedin" @click="initializeUser" />
       <Settings />
     </q-toolbar>
     <q-tabs class="topBarTabs">
@@ -31,7 +31,7 @@ export default Vue.extend({
     ...mapGetters(['language'])
   },
   methods: {
-    ...mapActions(['checkLoggedIn'])
+    ...mapActions(['initializeUser'])
   }
 });
 </script>
