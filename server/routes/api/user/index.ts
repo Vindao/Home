@@ -164,7 +164,6 @@ export const checkLoggedIn = (
   console.log(req.session);
   if (req.session && req.session.user && req.session.user.loggedIn) {
     res.locals.loggedIn = true;
-
     res.locals.user = req.session.user;
     next();
   } else {
