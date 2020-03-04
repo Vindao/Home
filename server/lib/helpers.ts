@@ -68,28 +68,3 @@ export const createSessionUser = ({
     confirmed
   };
 };
-
-export const createUserSessionInfo = (
-  id = uuid(),
-  language = "en",
-
-  name = "",
-  email = "",
-  messages = [],
-  company = "",
-  phone = "",
-  confirmed = false,
-  loggedIn = false
-) => {
-  return {
-    ID: id,
-    name: name,
-    email: email,
-    messages: messages,
-    company: company,
-    phone: phone,
-    language: language,
-    confirmed: confirmed,
-    loggedIn: loggedIn
-  };
-};

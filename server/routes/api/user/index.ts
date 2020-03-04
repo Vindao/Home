@@ -69,7 +69,6 @@ export const register = (
   // hash pwd
 
   const SALT_ROUNDS = 10;
-  console.log(Body);
   hash(Body.password, SALT_ROUNDS)
     .then((hash: string) => {
       const newUser: RegisterBodyI = createRegisterBody({
@@ -144,12 +143,13 @@ export const login = (
         compare(Body.password, user.password, (err: any, success: boolean) => {
           if (success === true) {
             const UserInfo = createSessionUser(user);
-            console.log(UserInfo);
-
             //@ts-ignore
             req.session.user = UserInfo;
-            res.locals.user = UserInfo;
+            //@ts-ignore
+            req.session.authenticated = true;
 
+            res.locals.authenticated = true;
+            res.locals.user = UserInfo;
             next();
           } else {
             res.status(401).send({ success: false, error: "credentials" });
@@ -177,18 +177,35 @@ export const logout = (
   }
 };
 
-export const checkLoggedIn = (
+export const getUser = (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) => {
-  if (req.session && req.session.user && req.session.user.loggedIn) {
-    res.locals.loggedIn = true;
+  if (req.session && req.session.user) {
+    if (req.session.authenticated) {
+      res.locals.authenticated = true;
+    } else {
+      res.locals.authenticated = false;
+    }
+    res.locals.user = req.session.user;
+  } else {
+    res.locals.user = "NEW";
+  }
+  next();
+};
+
+export const authenticate = (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  if (req.session && req.session.user && req.session.authenticated) {
+    res.locals.authenticated = true;
     res.locals.user = req.session.user;
     next();
   } else {
-    res.locals.loggedIn = false;
-    next();
+    res.status(401).send({ success: false, error: "AUTH" });
   }
 };
 
@@ -326,45 +343,50 @@ export const changeLanguage = (
     res.status(401).send({ success: false, error: "Bad Request" });
     return;
   }
-  if (!(req.session && req.session.user)) {
-    res.status(403).send({ success: false, error: "BAD REQUEST" });
-    return;
-  }
-  if (res.locals.user && res.locals.user._id) {
-    User.findById(res.locals.user._id)
-      .then((user: any) => {
-        if (user && Body.language) {
-          user.language = Body.language;
-          user.save((err: any) => {
-            if (err) {
-              console.error(err);
-              res.status(500).send({
-                success: false,
-                error: { ...err, code: "updateLanguage" }
-              });
-            } else if (req.session && req.session.user) {
-              res.locals.newLanguage = Body.language;
-              res.locals.user = createSessionUser(user);
-              next();
-            }
-          });
-        } else {
-          res.status(500).send({ success: false, error: "Authentication" });
-        }
-      })
-      .catch((err: any) => {
-        console.error(err);
+  if (req.session) {
+    res.locals.changedLanguage = Body.language;
 
-        res
-          .status(500)
-          .send({ success: false, error: { ...err, code: "updateLanguage" } });
+    if (req.session.user && req.session.user.id && req.session.authenticated) {
+      User.findById(req.session.user.id)
+        .then((user: any) => {
+          if (user && Body.language) {
+            user.language = Body.language;
+            user.save((err: any) => {
+              if (err) {
+                console.error(err);
+                res.status(500).send({
+                  success: false,
+                  error: { ...err, code: "updateLanguage" }
+                });
+              } else {
+                const newSessionUser = createSessionUser(user);
+                res.locals.user = newSessionUser;
+                //@ts-ignore
+                req.session.user = newSessionUser;
+                next();
+              }
+            });
+          } else {
+            res.status(500).send({ success: false, error: "Authentication" });
+          }
+        })
+        .catch((err: any) => {
+          console.error(err);
+
+          res.status(500).send({
+            success: false,
+            error: { ...err, code: "updateLanguage" }
+          });
+        });
+    } else {
+      res.locals.changeLanguageMongo = "NOREG";
+      req.session.user = createSessionUser({
+        id: uuid(),
+        language: Body.language,
+        loggedIn: false
       });
-  } else {
-    res.locals.changeLanguageMongo = "NOREG";
-    //@ts-ignore
-    req.session.user.language = Body.language;
-    res.locals.session = req.session;
-    next();
+      next();
+    }
   }
 };
 

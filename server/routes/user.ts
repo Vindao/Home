@@ -10,11 +10,11 @@ import {
   login,
   sendResponse,
   confirmAccount,
-  checkLoggedIn,
+  authenticate,
   logout,
   checkEmailExists,
   changeLanguage,
-  initSession
+  getUser
 } from "./api/user";
 
 const router = express.Router();
@@ -25,34 +25,20 @@ router.get("/", (req: express.Request, res: express.Response) => {
   res.send(endPoints);
 });
 
-router.post(
-  "/register",
-  initSession,
-  checkEmailExists,
-  register,
-  sendConfirmationMail,
-  login,
-  sendResponse
-);
+router.post("/register", register, login, sendConfirmationMail, sendResponse);
 
-router.post("/emailexists", initSession, checkEmailExists, sendResponse);
+router.post("/emailexists", checkEmailExists, sendResponse);
 
-router.post("/login", initSession, login, sendResponse);
-
-router.post(
-  "/changelanguage",
-  initSession,
-  checkLoggedIn,
-  changeLanguage,
-  sendResponse
-);
+router.post("/login", login, sendResponse);
 
 router.get("/logout", logout, sendResponse);
 
-router.get("/loggedin", initSession, checkLoggedIn, sendResponse);
+router.get("/user", getUser, sendResponse);
 
-router.post("/sendconfmail", sendConfirmationMail, sendResponse);
+router.post("/sendconfmail", authenticate, sendConfirmationMail, sendResponse);
 
 router.get("/confirmaccount/:token", confirmAccount);
+
+router.post("/changelanguage", changeLanguage, sendResponse);
 
 export default router;
