@@ -3,11 +3,10 @@ import { END_POINT } from '../../../../config/main';
 // types
 import { UserStateI, UserI } from '../../types/Store/User';
 import { RegisterBodyI, LoginBodyI } from '../../../../types/User';
-import { initUserLang } from 'src/lib/store/language';
 import { LangCodeT } from '../../../../types/language';
 
 const defaultUserObject: UserI = {
-  _id: 'string',
+  _id: '',
   language: 'en',
   name: '',
   email: '',
@@ -30,14 +29,34 @@ export default {
       }
     },
     userLang: (state: UserStateI) => {
+      console.log(state.user);
       if (state.user) {
         return state.user.language;
       } else {
-        return 'en'; //initUserLang();
+        return 'en'; //TODO: initUserLang();
       }
     }
   },
   actions: {
+    //@ts-ignore
+    signup: ({ commit }, data: RegisterBodyI) => {
+      console.log(data);
+      axios
+        .post(END_POINT + '/register', data, { withCredentials: true })
+        .then((res: any) => {
+          console.log(res.data);
+          if (res.data.success && res.data.user && res.data.authenticated) {
+            console.log('login');
+            commit('login', res.data.user);
+          } else {
+            console.error('signup error');
+          }
+        })
+        .catch((err: any) => {
+          console.log('signup error');
+          console.error(err);
+        });
+    },
     //@ts-ignore
     login: ({ commit }, data: LoginBodyI) => {
       return axios
@@ -67,7 +86,6 @@ export default {
     },
     //@ts-ignore
     changeUserLang: ({ commit }, lang: LangCodeT) => {
-      console.log('changing language to :' + lang);
       axios
         .post(
           END_POINT + '/changelanguage',
@@ -82,17 +100,23 @@ export default {
     //@ts-ignore
     initializeUser: ({ commit }) => {
       axios
-        .get(END_POINT + '/loggedin', { withCredentials: true })
+        .get(END_POINT + '/user', { withCredentials: true })
         .then((res: any) => {
           if (
             res &&
             res.data &&
             res.data.success &&
             res.data.user &&
-            res.data.loggedIn &&
+            res.data.authenticated &&
             res.data.user.loggedIn
           ) {
             commit('login', res.data.user);
+          } else if (
+            res.data.success &&
+            res.data.user &&
+            res.data.user.language
+          ) {
+            commit('changeUserLang', res.data.user.language);
           }
         })
         .catch((err: any) => {
@@ -103,22 +127,6 @@ export default {
   },
 
   mutations: {
-    signup: (state: UserStateI, data: RegisterBodyI) => {
-      axios
-        .post(END_POINT + '/register', data, { withCredentials: true })
-        .then((res: any) => {
-          console.log(res);
-          if (res.data) {
-            if (res.data.success && res.data.user) {
-              state.user = res.data.user;
-            }
-          }
-        })
-        .catch((err: any) => {
-          console.error(err);
-          state.error = 'signup';
-        });
-    },
     login: (state: UserStateI, user: UserI) => {
       if (user.loggedIn) {
         state.user = user;

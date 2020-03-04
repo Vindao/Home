@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapMutations, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 // types
 import { Signup1DataI, Signup2DataT } from '../../../types/Signup';
 // components
@@ -34,7 +34,7 @@ export default Vue.extend({
     ...mapGetters(['userLang'])
   },
   methods: {
-    ...mapMutations(['signup']),
+    ...mapActions(['signup']),
     onStep1Done(data: Signup1DataI) {
       this.formData = { ...this.formData, ...data };
       this.step = 2;
@@ -44,8 +44,7 @@ export default Vue.extend({
       this.submit();
     },
     submit() {
-      console.log(this.formData);
-      const UserData: RegisterBodyI = {
+      const UserData = {
         name: this.formData.name,
         email: this.formData.email,
         password: this.formData.password,

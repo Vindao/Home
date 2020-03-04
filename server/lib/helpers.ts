@@ -1,7 +1,6 @@
 import { validate } from "../../lib/formVal";
-import { v4 as uuid } from "uuid";
 // types
-import { RegisterBodyI, SessionUserI } from "../../types/User";
+import { RegisterObjectI, SessionUserI } from "../../types/User";
 
 export const arrayIncludes = (requiredArray: any[], actualArray: any[]) => {
   for (let val of requiredArray) {
@@ -25,26 +24,6 @@ export const validateRequest = (required: string[], body: any) => {
     }
   }
   return true;
-};
-
-export const createRegisterBody = ({
-  id,
-  name,
-  email,
-  password,
-  company,
-  phone,
-  language
-}: RegisterBodyI) => {
-  return {
-    id: id,
-    name: name,
-    email: email,
-    company: company,
-    phone: phone,
-    language: language,
-    password: password
-  };
 };
 
 export const createSessionUser = ({

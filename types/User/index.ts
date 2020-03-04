@@ -30,6 +30,17 @@ export interface RegisterBodyI {
   language: LangCodeT;
 }
 
+export interface RegisterObjectI {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  company: string;
+  phone: string;
+  language: LangCodeT;
+  confirmed: boolean;
+}
+
 export interface SessionUserI {
   id: string;
   language: LangCodeT;

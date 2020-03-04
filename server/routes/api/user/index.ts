@@ -17,36 +17,11 @@ import { encryptionKey } from "../../../config/secrets";
 import { RegisterBodyI, SessionUserI, DBUserI } from "../../../../types/User";
 
 // helpers
-import {
-  validateRequest,
-  createRegisterBody,
-  createSessionUser
-} from "../../../lib/helpers";
+import { validateRequest, createSessionUser } from "../../../lib/helpers";
 import { sendConfMail } from "../../../lib/mail";
 
 // mongoDB
 import User from "../../../models/user";
-
-export const initSession = (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
-  if (req.session) {
-    if (!req.session.user) {
-      const id = uuid();
-      console.log(id);
-      req.session.user = createSessionUser({
-        id: id,
-        language: req.body.language,
-        loggedIn: false
-      });
-      console.log(req.session);
-      res.locals.session = req.session;
-    }
-    next();
-  }
-};
 
 export const register = (
   req: express.Request,
@@ -56,14 +31,10 @@ export const register = (
   // validate request
 
   if (!validateRequest(endPoints.register.requires, req.body)) {
-    res.status(401).send({ success: false, error: "Bad Request" });
+    res.status(403).send({ success: false, error: "Bad Request" });
     return;
   }
 
-  if (!(req.session && req.session.user)) {
-    res.status(403).send({ success: false, error: "BAD REQUEST" });
-    return;
-  }
   const Body: RegisterBodyI = req.body;
 
   // hash pwd
@@ -71,17 +42,22 @@ export const register = (
   const SALT_ROUNDS = 10;
   hash(Body.password, SALT_ROUNDS)
     .then((hash: string) => {
-      const newUser: RegisterBodyI = createRegisterBody({
+      let newUser = {
         ...Body,
         password: hash,
         //@ts-ignore
-        id: req.session.user.id
-      });
+        confirmed: false
+      };
+      if (req.session && req.session.user) {
+        newUser.id = req.session.user.id;
+      }
+      console.log(newUser);
       User.create(newUser)
         .then(user => {
           if (user) {
             //@ts-ignore
             res.locals.registered = user.id;
+            console.log(user);
             next();
           } else {
             res
@@ -89,9 +65,16 @@ export const register = (
               .send({ success: false, error: "could not create user" });
           }
         })
-        .catch(err => res.status(500).send({ success: false, error: err }));
+        .catch(err => {
+          console.error(err);
+          console.error(err, "createUser");
+
+          res.status(500).send({ success: false, error: err });
+        });
     })
     .catch((err: any) => {
+      console.error(err, "hash");
+
       res.status(500).send({ success: false, error: err });
     });
   // check user exists
@@ -142,7 +125,17 @@ export const login = (
         // validate password
         compare(Body.password, user.password, (err: any, success: boolean) => {
           if (success === true) {
-            const UserInfo = createSessionUser(user);
+            const UserInfo = createSessionUser({
+              id: user.id,
+              language: user.language,
+              loggedIn: true,
+              name: user.name,
+              email: user.email,
+              company: user.company,
+              phone: user.phone,
+              confirmed: user.confirmed
+            });
+            console.log(UserInfo);
             //@ts-ignore
             req.session.user = UserInfo;
             //@ts-ignore

@@ -25,7 +25,14 @@ router.get("/", (req: express.Request, res: express.Response) => {
   res.send(endPoints);
 });
 
-router.post("/register", register, login, sendConfirmationMail, sendResponse);
+router.post(
+  "/register",
+  checkEmailExists,
+  register,
+  login,
+  sendConfirmationMail,
+  sendResponse
+);
 
 router.post("/emailexists", checkEmailExists, sendResponse);
 
