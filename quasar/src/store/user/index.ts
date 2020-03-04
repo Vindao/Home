@@ -3,14 +3,37 @@ import { END_POINT } from '../../../../config/main';
 // types
 import { UserStateI, UserI } from '../../types/Store/User';
 import { RegisterBodyI, LoginBodyI } from '../../../../types/User';
+import { initUserLang } from 'src/lib/store/language';
+import { LangCodeT } from '../../../../types/language';
+
+const defaultUserObject: UserI = {
+  _id: 'string',
+  language: 'en',
+  name: '',
+  email: '',
+  messages: [],
+  company: '',
+  phone: '',
+  confirmed: false,
+  loggedIn: false
+};
 
 export default {
-  state: { user: null, error: null },
+  state: {
+    user: defaultUserObject
+  },
   getters: {
     user: (state: UserStateI) => state.user,
     loggedIn: (state: UserStateI) => {
       if (state.user) {
         return state.user.loggedIn;
+      }
+    },
+    userLang: (state: UserStateI) => {
+      if (state.user) {
+        return state.user.language;
+      } else {
+        return 'en'; //initUserLang();
       }
     }
   },
@@ -20,9 +43,9 @@ export default {
       return axios
         .post(END_POINT + '/login', data, { withCredentials: true })
         .then((res: any) => {
-          console.log(res);
           if (res.data && res.data.success) {
             const user = res.data.user;
+            console.log(user);
             commit('login', user);
             return true;
           } else {
@@ -36,9 +59,25 @@ export default {
       axios
         .get(END_POINT + '/logout', { withCredentials: true })
         .then((res: any) => {
-          console.log(res);
-          commit('logout');
-        });
+          if (res.data.success) {
+            commit('logout');
+          }
+        })
+        .catch(err => console.error(err));
+    },
+    //@ts-ignore
+    changeUserLang: ({ commit }, lang: LangCodeT) => {
+      console.log('changing language to :' + lang);
+      axios
+        .post(
+          END_POINT + '/changelanguage',
+          { language: lang },
+          { withCredentials: true }
+        )
+        .then((res: any) => {
+          commit('changeUserLang', lang);
+        })
+        .catch(err => console.error(err));
     },
     //@ts-ignore
     initializeUser: ({ commit }) => {
@@ -86,10 +125,13 @@ export default {
       }
     },
     logout: (state: UserStateI) => {
-      state.user = null;
+      state.user = defaultUserObject;
     },
     loggedIn: (state: UserStateI, user: UserI) => {
       state.user = user;
+    },
+    changeUserLang: (state: UserStateI, lang: LangCodeT) => {
+      state.user.language = lang;
     }
   }
 };

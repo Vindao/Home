@@ -1,5 +1,8 @@
+import { LangCodeT } from '../../../../types/language';
+
 export interface UserI {
   _id: string;
+  language: LangCodeT;
   name: string;
   email: string;
   messages: Object[];
@@ -9,11 +12,9 @@ export interface UserI {
   loggedIn: boolean;
 }
 
-export type UserT = UserI | null;
-
 export type UserErrorT = 'signup' | 'login' | 'confirm';
 
 export interface UserStateI {
-  user: UserT;
+  user: UserI;
   error: null | UserErrorT;
 }

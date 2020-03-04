@@ -42,15 +42,14 @@ export default Vue.extend({
     ...mapGetters(['userLang'])
   },
   methods: {
-    ...mapActions(['changeLanguage']),
+    ...mapActions(['changeUserLang']),
     toggle() {
       this.show = !this.show;
     },
 
     setLocale(locale: LangCodeT) {
       this.show = false;
-
-      this.changeLanguage(locale);
+      this.changeUserLang(locale);
     },
     getSelectableLocales() {
       let toReturn = [];

@@ -22,5 +22,9 @@ export const endPoints = {
   emailExists: {
     path: "api/user/emailexists",
     requires: ["email"]
+  },
+  changeLanguage: {
+    path: "api/user/changelanguage",
+    requires: ["language"]
   }
 };

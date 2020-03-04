@@ -21,22 +21,7 @@ const lang = {
 export default {
   state: initLangState(lang),
   getters: {
-    userLang: (state: LanguageStateI) => state.userLang,
+    // userLang: (state: LanguageStateI) => state.userLang,
     language: (state: LanguageStateI) => state.language
-  },
-  actions: {
-    //@ts-ignore
-    changeLanguage: ({ commit }, lang: LanguageT) => {
-      commit('changeLanguage', lang);
-    }
-  },
-
-  mutations: {
-    changeLanguage: (state: LanguageStateI, langCode: LangCodeT) => {
-      state.userLang = langCode;
-      state.language = lang[langCode];
-
-      localStorage.setItem('userLanguage', langCode);
-    }
   }
 };
