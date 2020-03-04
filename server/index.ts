@@ -21,13 +21,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser(SECRET_KEY));
 
+// express-session
 app.set("trust proxy", 1); // trust first proxy
 app.use(
   session({
     secret: SECRET_KEY,
-    store: new MongoStore({ mongooseConnection: connection }),
-    resave: true,
-    saveUninitialized: true,
+    store: new MongoStore({
+      mongooseConnection: connection,
+      autoRemove: "interval",
+      autoRemoveInterval: 1
+    }),
+    resave: false,
+    saveUninitialized: false,
 
     cookie: { secure: PRODUCTION, maxAge: sessMaxAge, sameSite: false }
   })

@@ -14,7 +14,7 @@ import {
 
 import { encryptionKey } from "../../../config/secrets";
 // types
-import { RegisterBodyI, SessionUserI, DBUserI } from "../../../../types/User";
+import { RegisterBodyI } from "../../../../types/User";
 
 // helpers
 import { validateRequest, createSessionUser } from "../../../lib/helpers";
@@ -51,13 +51,11 @@ export const register = (
       if (req.session && req.session.user) {
         newUser.id = req.session.user.id;
       }
-      console.log(newUser);
       User.create(newUser)
         .then(user => {
           if (user) {
             //@ts-ignore
             res.locals.registered = user.id;
-            console.log(user);
             next();
           } else {
             res
@@ -135,7 +133,6 @@ export const login = (
               phone: user.phone,
               confirmed: user.confirmed
             });
-            console.log(UserInfo);
             //@ts-ignore
             req.session.user = UserInfo;
             //@ts-ignore
@@ -161,6 +158,7 @@ export const logout = (
   if (req.session) {
     req.session.destroy((err: any) => {
       if (err) {
+        console.error(err);
         res.status(500).send({ success: false, error: err });
       } else {
         res.locals.loggedOut = true;
