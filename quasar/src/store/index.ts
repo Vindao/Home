@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import language from './language';
+// import language from './language';
 import user from './user';
 
 Vue.use(Vuex);
@@ -18,7 +18,7 @@ Vue.use(Vuex);
 export default function(/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      language,
+      // language,
       user
     },
 

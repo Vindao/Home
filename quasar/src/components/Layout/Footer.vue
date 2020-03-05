@@ -5,17 +5,13 @@
         <nav class="footerNav">
           <ul>
             <li>
-              <router-link to="/">{{ language.Navigation.home }}</router-link>
+              <router-link to="/">{{ text.Navigation.home }}</router-link>
             </li>
             <li>
-              <router-link to="/services">
-                {{ language.Navigation.services }}
-              </router-link>
+              <router-link to="/services">{{ text.Navigation.services }}</router-link>
             </li>
             <li>
-              <router-link to="/about">
-                {{ language.Navigation.about }}
-              </router-link>
+              <router-link to="/about">{{ text.Navigation.about }}</router-link>
             </li>
           </ul>
         </nav>
@@ -28,16 +24,14 @@
         <nav class="legal footerNav">
           <ul>
             <li>
-              <router-link to="/agb">{{ language.Navigation.agb }}</router-link>
+              <router-link to="/agb">{{ text.Navigation.agb }}</router-link>
             </li>
             <li>
-              <router-link to="/impressum">
-                {{ language.Navigation.impressum }}
-              </router-link>
+              <router-link to="/impressum">{{ text.Navigation.impressum }}</router-link>
             </li>
           </ul>
         </nav>
-        <q-btn class="contactBtn">{{ language.Navigation.contact }}</q-btn>
+        <q-btn class="contactBtn">{{ text.Navigation.contact }}</q-btn>
         <div class="socialMedia footerNav">
           <ul>
             <li>
@@ -78,7 +72,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapGetters(['language'])
+    ...mapGetters(['text'])
   }
 });
 </script>

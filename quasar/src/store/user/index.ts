@@ -4,6 +4,7 @@ import { END_POINT } from '../../../../config/main';
 import { UserStateI, UserI } from '../../types/Store/User';
 import { RegisterBodyI, LoginBodyI } from '../../../../types/User';
 import { LangCodeT } from '../../../../types/language';
+import { getText } from 'src/lib/helpers/language';
 
 const defaultUserObject: UserI = {
   _id: '',
@@ -19,7 +20,8 @@ const defaultUserObject: UserI = {
 
 export default {
   state: {
-    user: defaultUserObject
+    user: defaultUserObject,
+    language: 'en'
   },
   getters: {
     user: (state: UserStateI) => state.user,
@@ -28,14 +30,8 @@ export default {
         return state.user.loggedIn;
       }
     },
-    userLang: (state: UserStateI) => {
-      console.log(state.user);
-      if (state.user) {
-        return state.user.language;
-      } else {
-        return 'en'; //TODO: initUserLang();
-      }
-    }
+    language: (state: UserStateI): LangCodeT => state.language,
+    text: (state: UserStateI) => getText(state.language)
   },
   actions: {
     //@ts-ignore
@@ -86,6 +82,7 @@ export default {
     },
     //@ts-ignore
     changeUserLang: ({ commit }, lang: LangCodeT) => {
+      commit('changeLang', lang);
       axios
         .post(
           END_POINT + '/changelanguage',
@@ -140,6 +137,9 @@ export default {
     },
     changeUserLang: (state: UserStateI, lang: LangCodeT) => {
       state.user.language = lang;
+    },
+    changeLang: (state: UserStateI, lang: LangCodeT) => {
+      state.language = lang;
     }
   }
 };

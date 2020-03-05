@@ -7,9 +7,9 @@
       <Settings />
     </q-toolbar>
     <q-tabs class="topBarTabs">
-      <q-route-tab class="topBarTab" to="/" exact name="0" :label="language.Navigation.home" />
-      <q-route-tab class="topBarTab" to="/services" name="1" :label="language.Navigation.services" />
-      <q-route-tab class="topBarTab" to="/about" name="2" :label="language.Navigation.about" />
+      <q-route-tab class="topBarTab" to="/" exact name="0" :label="text.Navigation.home" />
+      <q-route-tab class="topBarTab" to="/services" name="1" :label="text.Navigation.services" />
+      <q-route-tab class="topBarTab" to="/about" name="2" :label="text.Navigation.about" />
     </q-tabs>
   </q-header>
 </template>
@@ -26,8 +26,9 @@ export default Vue.extend({
     Logo,
     Settings
   },
+
   computed: {
-    ...mapGetters(['language'])
+    ...mapGetters(['text'])
   }
 });
 </script>

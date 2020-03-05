@@ -3,12 +3,12 @@
     <transition name="languagePickerTrans">
       <div v-show="show" class="flex row-reverse">
         <q-item
-          @click="setLocale(lang.code)"
           clickable
           v-for="lang in getSelectableLocales()"
           :key="lang.code"
+          @click="setLocale(lang.code)"
         >
-          <q-item-section v-if="lang.code !== userLang">
+          <q-item-section v-if="lang.code !== lang">
             <q-item-label>{{ lang.name }}</q-item-label>
           </q-item-section>
         </q-item>
@@ -16,7 +16,7 @@
     </transition>
     <q-item clickable @click="toggle">
       <q-item-section>
-        <q-item-label>{{ locales[userLang].name }}</q-item-label>
+        <q-item-label>{{ current.name }}</q-item-label>
       </q-item-section>
     </q-item>
   </div>
@@ -25,21 +25,23 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions, mapGetters } from 'vuex';
+// constants
+import { Languages } from '../../../../constants/language';
+// types
 import { LangCodeT } from '../../../../../../types/language';
 export default Vue.extend({
   name: 'LanguagePicker',
   data() {
     return {
-      show: false,
-      locales: {
-        de: { code: 'de', name: 'Deutsch' },
-        nl: { code: 'nl', name: 'Nederlands' },
-        en: { code: 'en', name: 'English' }
-      }
+      show: false
     };
   },
   computed: {
-    ...mapGetters(['userLang'])
+    ...mapGetters(['language']),
+    current() {
+      //@ts-ignore
+      return Languages[this.language];
+    }
   },
   methods: {
     ...mapActions(['changeUserLang']),
@@ -47,16 +49,16 @@ export default Vue.extend({
       this.show = !this.show;
     },
 
-    setLocale(locale: LangCodeT) {
+    setLocale(langCode: LangCodeT) {
       this.show = false;
-      this.changeUserLang(locale);
+      this.changeUserLang(langCode);
     },
     getSelectableLocales() {
       let toReturn = [];
-      for (let locale in this.locales) {
-        if (locale !== this.userLang) {
+      for (let lang in Languages) {
+        if (lang !== this.language) {
           //@ts-ignore
-          toReturn.push(this.locales[locale]);
+          toReturn.push(Languages[lang]);
         }
       }
       return toReturn;

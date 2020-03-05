@@ -16,5 +16,6 @@ export type UserErrorT = 'signup' | 'login' | 'confirm';
 
 export interface UserStateI {
   user: UserI;
+  language: LangCodeT;
   error: null | UserErrorT;
 }
