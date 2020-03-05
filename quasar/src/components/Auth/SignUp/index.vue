@@ -31,7 +31,7 @@ export default Vue.extend({
     }
   }),
   computed: {
-    ...mapGetters(['userLang'])
+    ...mapGetters(['language'])
   },
   methods: {
     ...mapActions(['signup']),
@@ -50,7 +50,7 @@ export default Vue.extend({
         password: this.formData.password,
         company: this.formData.company,
         phone: this.formData.phone,
-        language: this.userLang
+        language: this.language
       };
       this.signup(UserData);
     }

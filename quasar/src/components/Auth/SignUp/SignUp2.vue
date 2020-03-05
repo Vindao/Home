@@ -44,7 +44,6 @@ export default Vue.extend({
   methods: {
     onSubmit() {
       this.loading = true;
-      console.log(this.formData.password);
       this.done(this.formData.password);
     },
     validate

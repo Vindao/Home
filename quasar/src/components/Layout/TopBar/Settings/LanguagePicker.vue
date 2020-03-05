@@ -31,11 +31,9 @@ import { Languages } from '../../../../constants/language';
 import { LangCodeT } from '../../../../../../types/language';
 export default Vue.extend({
   name: 'LanguagePicker',
-  data() {
-    return {
-      show: false
-    };
-  },
+  data: () => ({
+    show: false
+  }),
   computed: {
     ...mapGetters(['language']),
     current() {
@@ -51,6 +49,7 @@ export default Vue.extend({
 
     setLocale(langCode: LangCodeT) {
       this.show = false;
+      //@ts-ignore
       this.changeUserLang(langCode);
     },
     getSelectableLocales() {

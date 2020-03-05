@@ -36,13 +36,10 @@ export default {
   actions: {
     //@ts-ignore
     signup: ({ commit }, data: RegisterBodyI) => {
-      console.log(data);
       axios
         .post(END_POINT + '/register', data, { withCredentials: true })
         .then((res: any) => {
-          console.log(res.data);
           if (res.data.success && res.data.user && res.data.authenticated) {
-            console.log('login');
             commit('login', res.data.user);
           } else {
             console.error('signup error');
@@ -60,7 +57,6 @@ export default {
         .then((res: any) => {
           if (res.data && res.data.success) {
             const user = res.data.user;
-            console.log(user);
             commit('login', user);
             return true;
           } else {
@@ -107,18 +103,19 @@ export default {
             res.data.authenticated &&
             res.data.user.loggedIn
           ) {
+            commit('changeLang', res.data.user.language);
             commit('login', res.data.user);
           } else if (
             res.data.success &&
             res.data.user &&
             res.data.user.language
           ) {
-            commit('changeUserLang', res.data.user.language);
+            commit('changeLang', res.data.user.language);
           }
+          console.log(res);
         })
         .catch((err: any) => {
-          console.error(Object.keys(err));
-          console.log(err);
+          console.error(err);
         });
     }
   },

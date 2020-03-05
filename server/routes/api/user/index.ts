@@ -173,16 +173,28 @@ export const getUser = (
   res: express.Response,
   next: express.NextFunction
 ) => {
+  //@ts-ignore
+
   if (req.session && req.session.user) {
     if (req.session.authenticated) {
       res.locals.authenticated = true;
     } else {
       res.locals.authenticated = false;
     }
-    res.locals.user = req.session.user;
+  } else if (req.session) {
+    const Acceptslanguage = req.acceptsLanguages(["en", "de", "nl"]);
+    req.session.user = {
+      ID: uuid(),
+      loggedIn: false,
+      language: Acceptslanguage || "en"
+    };
+    res.locals.data = "NEW";
   } else {
-    res.locals.user = "NEW";
+    res.locals.error = "NOSESSION";
   }
+  //@ts-ignore
+  res.locals.user = req.session.user;
+
   next();
 };
 

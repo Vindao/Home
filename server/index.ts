@@ -4,12 +4,11 @@ import cors from "cors";
 import { redirectToHTTPS } from "express-http-to-https";
 import session from "express-session";
 import { connect, set, connection } from "mongoose";
-import cookieParser from "cookie-parser";
 
 const MongoStore = require("connect-mongo")(session);
 
 import { SECRET_KEY, mongoURI } from "./config/secrets";
-import { sessMaxAge, BaseClientUrl } from "./config/main";
+import { sessMaxAge } from "./config/main";
 
 const PRODUCTION = process.env.NODE_ENV === "production";
 
@@ -19,7 +18,6 @@ const app = express();
 app.use(redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cookieParser(SECRET_KEY));
 
 // express-session
 app.set("trust proxy", 1); // trust first proxy
