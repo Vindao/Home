@@ -1,35 +1,32 @@
 import axios from 'axios';
 import { END_POINT } from '../../../../config/main';
 // types
-import { UserStateI, UserI } from '../../types/Store/User';
+import { UserStateI } from '../../types/Store/User';
+import { UserI } from '../../../../types/User';
 import { RegisterBodyI, LoginBodyI } from '../../../../types/User';
 import { LangCodeT } from '../../../../types/language';
 import { getText } from 'src/lib/helpers/language';
 
 const defaultUserObject: UserI = {
-  _id: '',
+  ID: '',
   language: 'en',
   name: '',
   email: '',
   messages: [],
   company: '',
   phone: '',
-  confirmed: false,
-  loggedIn: false
+  confirmed: false
 };
 
 export default {
   state: {
     user: defaultUserObject,
-    language: 'en'
-  },
+    language: 'en',
+    authenticated: false
+  } as UserStateI,
   getters: {
     user: (state: UserStateI) => state.user,
-    loggedIn: (state: UserStateI) => {
-      if (state.user) {
-        return state.user.loggedIn;
-      }
-    },
+    loggedIn: (state: UserStateI) => state.authenticated,
     language: (state: UserStateI): LangCodeT => state.language,
     text: (state: UserStateI) => getText(state.language)
   },
@@ -122,9 +119,8 @@ export default {
 
   mutations: {
     login: (state: UserStateI, user: UserI) => {
-      if (user.loggedIn) {
-        state.user = user;
-      }
+      state.authenticated = true;
+      state.user = user;
     },
     logout: (state: UserStateI) => {
       state.user = defaultUserObject;

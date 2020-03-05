@@ -27,7 +27,7 @@ export const validateRequest = (required: string[], body: any) => {
 };
 
 export const createSessionUser = ({
-  id,
+  ID,
   language,
   loggedIn,
   name,
@@ -37,7 +37,7 @@ export const createSessionUser = ({
   confirmed
 }: SessionUserI) => {
   return {
-    id,
+    ID,
     language,
     loggedIn,
     name,

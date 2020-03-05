@@ -14,11 +14,19 @@ import {
 
 import { encryptionKey } from "../../../config/secrets";
 // types
-import { RegisterBodyI } from "../../../../types/User";
+import {
+  RegisterBodyI,
+  RegisterObjectI,
+  SessionUserI
+} from "../../../../types/User";
 
 // helpers
 import { validateRequest, createSessionUser } from "../../../lib/helpers";
 import { sendConfMail } from "../../../lib/mail";
+
+const addToRespond = (res: express.Response, object: any) => {
+  res.locals = { ...res.locals, ...object };
+};
 
 // mongoDB
 import User from "../../../models/user";
@@ -42,7 +50,7 @@ export const register = (
   const SALT_ROUNDS = 10;
   hash(Body.password, SALT_ROUNDS)
     .then((hash: string) => {
-      let newUser = {
+      let newUser: RegisterObjectI = {
         ...Body,
         password: hash,
         //@ts-ignore
@@ -55,7 +63,8 @@ export const register = (
         .then(user => {
           if (user) {
             //@ts-ignore
-            res.locals.registered = user.id;
+            addToRespond(res, { registered: user.id });
+
             next();
           } else {
             res
@@ -93,12 +102,9 @@ export const checkEmailExists = (
   User.findOne({ email: email })
     .then((user: any) => {
       if (user) {
-        res.status(200).send({
-          email: "EXISTS",
-          success: false
-        });
+        addToRespond(res, { error: "EMAILEXISTS" });
       } else {
-        res.locals.email = "NOEXIST";
+        addToRespond(res, { email: "VALID" });
         next();
       }
     })
@@ -123,8 +129,8 @@ export const login = (
         // validate password
         compare(Body.password, user.password, (err: any, success: boolean) => {
           if (success === true) {
-            const UserInfo = createSessionUser({
-              id: user.id,
+            const UserInfo = {
+              ID: user.id,
               language: user.language,
               loggedIn: true,
               name: user.name,
@@ -132,14 +138,12 @@ export const login = (
               company: user.company,
               phone: user.phone,
               confirmed: user.confirmed
-            });
+            } as SessionUserI;
             //@ts-ignore
             req.session.user = UserInfo;
             //@ts-ignore
             req.session.authenticated = true;
-
-            res.locals.authenticated = true;
-            res.locals.user = UserInfo;
+            addToRespond(res, { authenticated: true, user: UserInfo });
             next();
           } else {
             res.status(401).send({ success: false, error: "credentials" });
@@ -161,7 +165,7 @@ export const logout = (
         console.error(err);
         res.status(500).send({ success: false, error: err });
       } else {
-        res.locals.loggedOut = true;
+        addToRespond(res, { loggedOut: true });
         next();
       }
     });
@@ -177,9 +181,9 @@ export const getUser = (
 
   if (req.session && req.session.user) {
     if (req.session.authenticated) {
-      res.locals.authenticated = true;
+      addToRespond(res, { authenticated: true });
     } else {
-      res.locals.authenticated = false;
+      addToRespond(res, { authenticated: false });
     }
   } else if (req.session) {
     const Acceptslanguage = req.acceptsLanguages(["en", "de", "nl"]);
@@ -188,12 +192,12 @@ export const getUser = (
       loggedIn: false,
       language: Acceptslanguage || "en"
     };
-    res.locals.data = "NEW";
+    addToRespond(res, { info: { newSession: true } });
   } else {
-    res.locals.error = "NOSESSION";
+    addToRespond(res, { error: "NOSESSION" });
   }
   //@ts-ignore
-  res.locals.user = req.session.user;
+  addToRespond(res, { user: req.session.user });
 
   next();
 };
@@ -204,8 +208,7 @@ export const authenticate = (
   next: express.NextFunction
 ) => {
   if (req.session && req.session.user && req.session.authenticated) {
-    res.locals.authenticated = true;
-    res.locals.user = req.session.user;
+    addToRespond(res, { authenticated: true, user: req.session.user });
     next();
   } else {
     res.status(401).send({ success: false, error: "AUTH" });
@@ -269,10 +272,13 @@ export const sendConfirmationMail = (
                   )
                     .then(result => {
                       if (result.status === 201) {
-                        res.locals.confMail = {
-                          date: result.headers.date,
-                          to: Body.email
-                        };
+                        addToRespond(res, {
+                          confMail: {
+                            date: result.headers.date,
+                            to: Body.email
+                          }
+                        });
+
                         next();
                       } else {
                         res
@@ -322,7 +328,6 @@ export const confirmAccount = (
                 .status(500)
                 .send({ success: false, error: "could not mutate user" });
             } else {
-              // res.locals.confirmed = { name: user.name, email: user.email };
               res.redirect(BaseClientUrl);
             }
           });
@@ -347,7 +352,7 @@ export const changeLanguage = (
     return;
   }
   if (req.session) {
-    res.locals.changedLanguage = Body.language;
+    addToRespond(res, { newLang: Body.language });
 
     if (req.session.user && req.session.user.id && req.session.authenticated) {
       User.findById(req.session.user.id)
@@ -363,7 +368,7 @@ export const changeLanguage = (
                 });
               } else {
                 const newSessionUser = createSessionUser(user);
-                res.locals.user = newSessionUser;
+                addToRespond(res, { user: newSessionUser });
                 //@ts-ignore
                 req.session.user = newSessionUser;
                 next();
@@ -382,9 +387,9 @@ export const changeLanguage = (
           });
         });
     } else {
-      res.locals.changeLanguageMongo = "NOREG";
+      addToRespond(res, { changeLangMongo: "NOREG" });
       req.session.user = createSessionUser({
-        id: uuid(),
+        ID: uuid(),
         language: Body.language,
         loggedIn: false
       });

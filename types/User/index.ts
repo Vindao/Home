@@ -13,6 +13,28 @@ export interface DBUserI {
   confirmed: boolean;
 }
 
+export interface UserI {
+  ID: string;
+  language: LangCodeT;
+  name?: string;
+  email?: string;
+  messages?: Object[];
+  company?: string;
+  phone?: string;
+  confirmed?: boolean;
+}
+
+export interface ResponseUserI {
+  ID: string;
+  language: LangCodeT;
+  name?: string;
+  email?: string;
+  messages?: Object[];
+  company?: string;
+  phone?: string;
+  confirmed?: boolean;
+}
+
 export interface ConfMailDataI {
   link: string;
   code: string;
@@ -21,7 +43,6 @@ export interface ConfMailDataI {
 }
 
 export interface RegisterBodyI {
-  id: string;
   name: string;
   email: string;
   password: string;
@@ -31,7 +52,7 @@ export interface RegisterBodyI {
 }
 
 export interface RegisterObjectI {
-  id: string;
+  id?: string;
   name: string;
   email: string;
   password: string;
@@ -42,7 +63,7 @@ export interface RegisterObjectI {
 }
 
 export interface SessionUserI {
-  id: string;
+  ID: string;
   language: LangCodeT;
   loggedIn: boolean;
   name?: string;
@@ -55,14 +76,4 @@ export interface SessionUserI {
 export interface LoginBodyI {
   email: string;
   password: string;
-}
-
-export interface CreateUserI {
-  _id: string;
-  name: string;
-  email: string;
-  password: string;
-  company: string;
-  phone: string;
-  language: LangCodeT;
 }
