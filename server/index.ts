@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import { redirectToHTTPS } from "express-http-to-https";
 import session from "express-session";
+import sharedSession from "express-socket.io-session";
 import { connect, set, connection } from "mongoose";
 
 const MongoStore = require("connect-mongo")(session);
@@ -23,20 +24,20 @@ app.use(bodyParser.json());
 
 // express-session
 app.set("trust proxy", 1); // trust first proxy
-app.use(
-  session({
-    secret: SECRET_KEY,
-    store: new MongoStore({
-      mongooseConnection: connection,
-      autoRemove: "interval",
-      autoRemoveInterval: 1
-    }),
-    resave: false,
-    saveUninitialized: false,
+const userSession = session({
+  secret: SECRET_KEY,
+  store: new MongoStore({
+    mongooseConnection: connection,
+    autoRemove: "interval",
+    autoRemoveInterval: 1
+  }),
+  resave: false,
+  saveUninitialized: false,
 
-    cookie: { secure: PRODUCTION, maxAge: sessMaxAge, sameSite: false }
-  })
-);
+  cookie: { secure: PRODUCTION, maxAge: sessMaxAge, sameSite: false }
+});
+
+app.use(userSession);
 
 // cors
 app.use(
@@ -61,19 +62,28 @@ const port = process.env.PORT || 5000;
 
 server.listen(port, () => console.info(`Server is running on ${port}`));
 
-// io.on("connection", (socket: any) => {
-//   console.log("user connected");
-//   socket.on("login", (User: UserI) => {
+// SOCKET.IO
 
-//   });
-//   socket.on("message", (from: UserI, msg: MessageI, to: UserI["ID"]) => {
-//     console.log(from, to, msg);
+import { UserI, MessageI } from "../types/User";
 
-//     socket.emit("message", { from, to, msg });
-//   });
+io.use(sharedSession(userSession));
 
-//   socket.on("disconnect", reason => {
-//     console.log(reason);
-//     console.log("disconnected");
-//   });
-// });
+io.on("connection", (socket: any) => {
+  console.log("user connected");
+  console.log(socket.handshake.session);
+  if (socket.handshake.session.authenticated && socket.handshake.session.user) {
+    socket.join(socket.handshake.session.user.ID);
+  } else {
+    socket.close();
+  }
+
+  socket.on("message", (from: UserI, msg: MessageI, to: UserI["ID"]) => {
+    console.log(from, to, msg);
+
+    socket.emit("message", { from, to, msg });
+  });
+
+  socket.on("disconnect", (reason: string) => {
+    console.log("disconnected");
+  });
+});

@@ -5,8 +5,6 @@ import { compare, hash } from "bcryptjs";
 import { sign, verify } from "jsonwebtoken";
 import { v4 as uuid } from "uuid";
 
-import { io } from "../../../index";
-
 // config
 import {
   endPoints,
@@ -19,9 +17,7 @@ import { encryptionKey } from "../../../config/secrets";
 import {
   RegisterBodyI,
   RegisterObjectI,
-  SessionUserI,
-  UserI,
-  MessageI
+  SessionUserI
 } from "../../../../types/User";
 
 // helpers
@@ -183,25 +179,6 @@ export const getUser = (
 ) => {
   //@ts-ignore
 
-  io.on("connection", (socket: any) => {
-    console.log("user connected");
-    console.log(req.session);
-    if (req.session.authenticated && req.session.user) {
-      socket.join(req.session.user.ID);
-    } else {
-      socket.close();
-    }
-
-    socket.on("message", (from: UserI, msg: MessageI, to: UserI["ID"]) => {
-      console.log(from, to, msg);
-
-      socket.emit("message", { from, to, msg });
-    });
-
-    socket.on("disconnect", (reason: string) => {
-      console.log("disconnected");
-    });
-  });
   if (req.session && req.session.user) {
     if (req.session.authenticated) {
       addToRespond(res, { authenticated: true });
