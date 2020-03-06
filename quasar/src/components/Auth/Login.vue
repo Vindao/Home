@@ -11,7 +11,7 @@
 import Vue from 'vue';
 import { mapActions } from 'vuex';
 // components
-import SubmitBtn from '../../SubmitBtn.vue';
+import SubmitBtn from '../SubmitBtn.vue';
 export default Vue.extend({
   name: 'Login',
   components: {

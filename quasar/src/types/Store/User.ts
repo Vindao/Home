@@ -8,4 +8,5 @@ export interface UserStateI {
   language: LangCodeT;
   authenticated: boolean;
   error: null | UserErrorT;
+  socket: any;
 }

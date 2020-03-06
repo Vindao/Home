@@ -15,7 +15,7 @@
 import Vue from 'vue';
 // components
 import SignUp from './SignUp/index.vue';
-import Login from './Login/index.vue';
+import Login from './Login.vue';
 export default Vue.extend({
   name: 'Auth',
   components: {

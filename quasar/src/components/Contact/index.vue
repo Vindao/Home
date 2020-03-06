@@ -1,7 +1,7 @@
 <template>
   <q-card v-show="show" class="contactModal" id="contactModal">
     <Auth v-if="!loggedIn" />
-    <Message :done="onMessage" v-else />
+    <Message v-else :done="onMessage" />
   </q-card>
 </template>
 

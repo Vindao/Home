@@ -36,7 +36,6 @@ export default Vue.extend({
     onSubmit() {
       // handle message
       this.loading = true;
-      this.done();
     }
   }
 });

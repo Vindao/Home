@@ -1,4 +1,4 @@
-import express from "express";
+import express, { request } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import { redirectToHTTPS } from "express-http-to-https";
@@ -13,6 +13,8 @@ import { sessMaxAge } from "./config/main";
 const PRODUCTION = process.env.NODE_ENV === "production";
 
 const app = express();
+const server = require("http").Server(app);
+export const io = require("socket.io")(server, { serveClient: false });
 
 // Middleware
 app.use(redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301));
@@ -37,19 +39,6 @@ app.use(
 );
 
 // cors
-
-const whitelist = [/localhost:(\d{4})/, "https://vindao.herokuapp.com"];
-const corsOptions = {
-  origin: function(origin: any, callback: any) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true
-};
-
 app.use(
   cors({
     origin: ["http://localhost:8080", "https://vindao.herokuapp.com"],
@@ -70,4 +59,21 @@ app.use("/api/user", User);
 
 const port = process.env.PORT || 5000;
 
-app.listen(port, () => console.info(`Server is running on ${port}`));
+server.listen(port, () => console.info(`Server is running on ${port}`));
+
+// io.on("connection", (socket: any) => {
+//   console.log("user connected");
+//   socket.on("login", (User: UserI) => {
+
+//   });
+//   socket.on("message", (from: UserI, msg: MessageI, to: UserI["ID"]) => {
+//     console.log(from, to, msg);
+
+//     socket.emit("message", { from, to, msg });
+//   });
+
+//   socket.on("disconnect", reason => {
+//     console.log(reason);
+//     console.log("disconnected");
+//   });
+// });

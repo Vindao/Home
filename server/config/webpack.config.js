@@ -16,6 +16,9 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".js", ".json"]
   },
+  externals: {
+    uws: "uws"
+  },
   module: {
     rules: [
       {

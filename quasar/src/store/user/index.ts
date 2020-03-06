@@ -1,4 +1,6 @@
 import axios from 'axios';
+//@ts-ignore
+import io from 'socket.io-client';
 import { END_POINT } from '../../../../config/main';
 // types
 import { UserStateI } from '../../types/Store/User';
@@ -12,7 +14,7 @@ const defaultUserObject: UserI = {
   language: 'en',
   name: '',
   email: '',
-  messages: [],
+  messages: {},
   company: '',
   phone: '',
   confirmed: false
@@ -22,7 +24,8 @@ export default {
   state: {
     user: defaultUserObject,
     language: 'en',
-    authenticated: false
+    authenticated: false,
+    socket: null
   } as UserStateI,
   getters: {
     user: (state: UserStateI) => state.user,
@@ -31,6 +34,33 @@ export default {
     text: (state: UserStateI) => getText(state.language)
   },
   actions: {
+    //@ts-ignore
+    initializeUser: ({ commit }) => {
+      axios
+        .get(END_POINT + '/user', { withCredentials: true })
+        .then((res: any) => {
+          if (
+            res &&
+            res.data &&
+            res.data.success &&
+            res.data.user &&
+            res.data.authenticated &&
+            res.data.user.loggedIn
+          ) {
+            commit('login', res.data.user);
+          } else if (
+            res.data.success &&
+            res.data.user &&
+            res.data.user.language
+          ) {
+            commit('changeLang', res.data.user.language);
+          }
+          console.log(res.data);
+        })
+        .catch((err: any) => {
+          console.error(err);
+        });
+    },
     //@ts-ignore
     signup: ({ commit }, data: RegisterBodyI) => {
       axios
@@ -86,34 +116,6 @@ export default {
           commit('changeUserLang', lang);
         })
         .catch(err => console.error(err));
-    },
-    //@ts-ignore
-    initializeUser: ({ commit }) => {
-      axios
-        .get(END_POINT + '/user', { withCredentials: true })
-        .then((res: any) => {
-          if (
-            res &&
-            res.data &&
-            res.data.success &&
-            res.data.user &&
-            res.data.authenticated &&
-            res.data.user.loggedIn
-          ) {
-            commit('changeLang', res.data.user.language);
-            commit('login', res.data.user);
-          } else if (
-            res.data.success &&
-            res.data.user &&
-            res.data.user.language
-          ) {
-            commit('changeLang', res.data.user.language);
-          }
-          console.log(res);
-        })
-        .catch((err: any) => {
-          console.error(err);
-        });
     }
   },
 
@@ -121,9 +123,13 @@ export default {
     login: (state: UserStateI, user: UserI) => {
       state.authenticated = true;
       state.user = user;
+      state.language = user.language;
+      state.socket = io.connect('http://localhost:5000');
     },
     logout: (state: UserStateI) => {
       state.user = defaultUserObject;
+      state.authenticated = false;
+      state.socket.close();
     },
     loggedIn: (state: UserStateI, user: UserI) => {
       state.user = user;
