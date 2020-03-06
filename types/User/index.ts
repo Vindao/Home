@@ -69,3 +69,7 @@ export interface LoginBodyI {
   email: string;
   password: string;
 }
+
+export interface SubscribedUsers {
+  [key: string]: PushSubscription;
+}
