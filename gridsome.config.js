@@ -49,7 +49,7 @@ module.exports = {
         networkFirst: {
           routes: [
             '/',
-            /\.(js|css|png|jpg|jpeg|svg)$/ // means "every JS, CSS, and PNG images"
+            /\.(js|css|html|json|png|jpg|jpeg|svg)$/ // means "every JS, CSS, and PNG images"
           ]
         }
       }
