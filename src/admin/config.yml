@@ -1,0 +1,17 @@
+backend:
+  name: github
+  repo: Vindao/Home
+
+media_folder: 'static/uploads'
+public_folder: '/uploads'
+
+collections:
+  - name: 'cards'
+    label: 'Cards'
+    folder: 'cards'
+    create: true
+    slug: '{{slug}}'
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Text', name: 'text', widtget: 'string' }
+      - { label: 'Img', name: 'image', widget: 'image' }
