@@ -18,6 +18,32 @@ module.exports = {
   },
   plugins: [
     {
+      use: 'gridsome-plugin-sass-resources-loader',
+      options: {
+        // or array of paths
+        resources: ['./src/styles/variables.scss']
+      }
+    },
+    {
+      use: 'gridsome-plugin-pwa',
+      options: {
+        title: 'Vindao',
+        startUrl: '/',
+        display: 'standalone',
+        statusBarStyle: 'default',
+        manifestPath: 'manifest.json',
+        disableServiceWorker: false,
+        serviceWorkerPath: 'service-worker.js',
+        cachedFileTypes: 'js,json,css,html,png,jpg,jpeg,svg',
+        shortName: 'Vindao',
+        themeColor: '#00b566',
+        backgroundColor: '#002620',
+        icon: '', // must be provided like 'src/favicon.png'
+        msTileImage: '',
+        msTileColor: '#00b566'
+      }
+    },
+    {
       use: 'gridsome-plugin-typescript'
     },
     {
@@ -36,13 +62,6 @@ module.exports = {
       use: `gridsome-plugin-netlify-cms`,
       options: {
         publicPath: `/admin`
-      }
-    },
-    {
-      use: 'gridsome-plugin-sass-resources-loader',
-      options: {
-        // or array of paths
-        resources: ['./src/styles/variables.scss']
       }
     }
   ]
