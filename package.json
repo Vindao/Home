@@ -25,6 +25,7 @@
     "vuex": "^3.3.0"
   },
   "devDependencies": {
+    "gridsome-plugin-service-worker": "^0.1.5",
     "gridsome-plugin-typescript": "^0.4.0",
     "material-design-icons-iconfont": "^5.0.1",
     "ts-loader": "^7.0.2",
