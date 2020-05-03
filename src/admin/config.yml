@@ -1,6 +1,7 @@
 backend:
   name: github
   repo: Vindao/Home
+  branch: production
 
 media_folder: 'static/uploads'
 public_folder: '/uploads'

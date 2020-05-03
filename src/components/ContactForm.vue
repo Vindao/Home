@@ -9,8 +9,8 @@
         </v-col>
       </v-row>
 
-      <v-form ref="form" v-model="valid" style="height: 40vh; width: 100%;">
-        <v-row v-show="start" style="height: 100%;">
+      <v-form @keyup.native.enter="start && toggleStart()" v-model="valid" style="width: 100%;">
+        <v-row v-show="start" style=" min-height: 40vh; ">
           <v-col cols="12">
             <v-text-field
               :rules="validate('name')"
@@ -48,7 +48,7 @@
           </v-col>
         </v-row>
 
-        <v-row v-show="!start" style="height: 100%;">
+        <v-row v-show="!start" fill-height style="min-height: 40vh;">
           <v-col class="col-12">
             <textarea
               placeholder="Your Message"
@@ -66,7 +66,7 @@
         </v-row>
         <v-row>
           <v-col class="col-12 text-center">
-            <v-btn large :disabled="!valid" color="secondary" text @click="start = !start">{{
+            <v-btn large :disabled="!valid" color="secondary" text @click="toggleStart">{{
               start ? text.Forms.BTNS.next : text.Forms.BTNS.back
             }}</v-btn>
             <v-btn
@@ -116,6 +116,9 @@ export default Vue.extend({
         toReturn.push(this.text.Forms[type].errors[error]);
       }
       return toReturn.length === 0 ? [true] : toReturn;
+    },
+    toggleStart() {
+      this.start = !this.start;
     },
     Submit() {
       console.log(this.formVals);
