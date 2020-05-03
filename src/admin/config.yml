@@ -8,10 +8,10 @@ public_folder: '/uploads'
 collections:
   - name: 'cards'
     label: 'Cards'
-    folder: 'cards'
+    folder: 'uploads/cards'
     create: true
     slug: '{{slug}}'
     fields:
       - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Text', name: 'text', widtget: 'string' }
+      - { label: 'Text', name: 'text', widget: 'markdown' }
       - { label: 'Img', name: 'image', widget: 'image' }

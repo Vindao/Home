@@ -23,7 +23,7 @@ module.exports = {
     {
       use: '@gridsome/source-filesystem',
       options: {
-        path: 'cards/**/*.md',
+        path: 'uploads/cards/**/*.md',
         typeName: 'Card',
         remark: {
           plugins: [
@@ -36,6 +36,13 @@ module.exports = {
       use: `gridsome-plugin-netlify-cms`,
       options: {
         publicPath: `/admin`
+      }
+    },
+    {
+      use: 'gridsome-plugin-sass-resources-loader',
+      options: {
+        // or array of paths
+        resources: ['./src/styles/variables.scss']
       }
     }
   ]

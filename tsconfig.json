@@ -6,7 +6,11 @@
     "noImplicitReturns": true,
     "outDir": "./built/",
     "sourceMap": true,
-    "strict": true
+    "strict": true,
+    "paths": {
+      "~/*": ["./src/*"],
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["./src/**/*"]
 }
