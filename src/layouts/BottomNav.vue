@@ -11,17 +11,17 @@
   >
     <v-btn to="/">
       <span>{{ text.Navigation.home }}</span>
-      <v-icon>mdi-home</v-icon>
+      <v-icon>home</v-icon>
     </v-btn>
 
     <v-btn to="/services">
       <span>{{ text.Navigation.services }}</span>
-      <v-icon>mdi-storefront</v-icon>
+      <v-icon>storefront</v-icon>
     </v-btn>
 
     <v-btn to="/about">
       <span>{{ text.Navigation.about }}</span>
-      <v-icon>mdi-domain</v-icon>
+      <v-icon>domain</v-icon>
     </v-btn>
   </v-bottom-navigation>
 </template>

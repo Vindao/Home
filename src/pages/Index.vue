@@ -72,22 +72,31 @@
   </Layout>
 </template>
 
-<script>
-export default {
-  metaInfo: {
-    title: 'Hello, world!'
+<script lang="ts">
+import Vue from 'vue';
+import ParallaxCard from '@/components/ParallaxCard.vue';
+export default Vue.extend({
+  components: {
+    ParallaxCard
   }
-};
+});
 </script>
 
 <style lang="scss" scoped>
 .homeWrapper {
   height: 100%;
-  background-image: url('https://res.cloudinary.com/dhrg3xz0y/image/upload/c_fill,f_auto,q_auto/v1587936625/Vindao%20Home/background-1430103_hqjt0u');
+  background-image: url('/images/background.svg');
   background-size: cover;
 
   h1 {
     font-size: 1.75em;
+  }
+  .heroBg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
   }
 }
 </style>

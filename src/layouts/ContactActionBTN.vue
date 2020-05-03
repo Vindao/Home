@@ -10,29 +10,29 @@
       class="ma-2 ma-md-12 ma-lg-20 contactActionBTN"
       @click="toggleContact"
     >
-      <v-icon>mdi-message-text</v-icon>
+      <v-icon>chat</v-icon>
     </v-btn>
-    <v-dialog v-model="contactOpen" max-width="600px">
-      <ContactForm :toggle="toggleContact" />
+    <v-dialog v-model="contactOpen">
+      <ContactForm :toggle="toggleContact" style="min-height: 60vh" />
     </v-dialog>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import ContactForm from './ContactForm.vue';
+import ContactForm from '@/components/ContactForm.vue';
 export default Vue.extend({
   components: {
-    ContactForm,
+    ContactForm
   },
   data: () => ({
-    contactOpen: false,
+    contactOpen: false
   }),
   methods: {
     toggleContact() {
       this.contactOpen = !this.contactOpen;
-    },
-  },
+    }
+  }
 });
 </script>
 <style lang="scss" scoped>
