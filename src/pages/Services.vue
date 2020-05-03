@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <div>
     <v-container v-touch="{ left: () => swipe('left'), right: () => swipe('right') }">
       <v-row>
         <v-col class="col-12">
@@ -48,7 +48,7 @@
         </v-col>
       </v-row>
     </v-container>
-  </Layout>
+  </div>
 </template>
 
 <script lang="ts">
