@@ -3,14 +3,20 @@
 
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
-import 'vuetify/dist/vuetify.min.css';
-import 'material-design-icons-iconfont/dist/material-design-icons.css';
 
 import colors from './styles/colors';
 import store from './store';
 
 export default (Vue: any, { router, head, isClient, appOptions }: any) => {
   // Set default layout as a global component
+  head.link.push({
+    rel: 'stylesheet',
+    href: 'vuetify/dist/vuetify.min.css'
+  });
+  head.link.push({
+    rel: 'stylesheet',
+    href: 'material-design-icons-iconfont/dist/material-design-icons.css'
+  });
   Vue.use(Vuetify);
   appOptions.vuetify = new Vuetify({
     preventFullImport: true,
