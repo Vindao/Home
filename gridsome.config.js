@@ -49,7 +49,7 @@ module.exports = {
           cacheName: 'nf-v1',
           routes: [
             '/',
-            /\.(js|css|html|json|png|jpg|jpeg|svg)$/ // means "every JS, CSS, and PNG images"
+            /\.(js|css|html|json|woff|eot|woff2|ttf|png|jpg|jpeg|svg)$/ // means "every JS, CSS, and PNG images"
           ]
         }
       }
