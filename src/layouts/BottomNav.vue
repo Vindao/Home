@@ -11,17 +11,17 @@
   >
     <v-btn to="/">
       <span>{{ text.Navigation.home }}</span>
-      <v-icon>home</v-icon>
+      <g-image style="width: 36px" src="~/assets/icons/home.svg" />
     </v-btn>
 
     <v-btn to="/services">
       <span>{{ text.Navigation.services }}</span>
-      <v-icon>storefront</v-icon>
+      <g-image style="width: 36px" src="~/assets/icons/storefront.svg" />
     </v-btn>
 
     <v-btn to="/about">
       <span>{{ text.Navigation.about }}</span>
-      <v-icon>domain</v-icon>
+      <g-image style="width: 36px" src="~/assets/icons/domain.svg" />
     </v-btn>
   </v-bottom-navigation>
 </template>
