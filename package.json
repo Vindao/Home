@@ -10,7 +10,7 @@
     "git:push": "git push origin",
     "git:push:master": "yarn git:commit 'changes' && yarn git:push master",
     "deploy": "git checkout production && git merge master && yarn git:commit 'changes' && yarn git:push production && yarn git:checkout master",
-    "git:push:deploy": "yarn git:push master && yarn deploy"
+    "git:push:deploy": "yarn git:push:master && yarn deploy"
   },
   "dependencies": {
     "@gridsome/source-filesystem": "^0.6.2",

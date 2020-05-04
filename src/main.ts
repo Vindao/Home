@@ -4,6 +4,7 @@
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
 import 'vuetify/dist/vuetify.min.css';
+import 'material-design-icons-iconfont/dist/material-design-icons.css';
 
 import colors from './styles/colors';
 import store from './store';
@@ -13,6 +14,7 @@ export default (Vue: any, { router, head, isClient, appOptions }: any) => {
   Vue.use(Vuetify);
   appOptions.vuetify = new Vuetify({
     preventFullImport: true,
+    iconfont: 'md',
     theme: {
       themes: {
         dark: colors.dark,
