@@ -10,7 +10,7 @@
       class="ma-2 ma-md-12 ma-lg-20 contactActionBTN"
       @click="toggleContact"
     >
-      <g-image style="width: 36px" src="~/assets/icons/chat.svg" />
+      <g-image style="width: 36px; color: white" src="~/assets/icons/chat.svg" />
     </v-btn>
     <v-dialog v-model="contactOpen">
       <ContactForm :toggle="toggleContact" style="min-height: 60vh" />

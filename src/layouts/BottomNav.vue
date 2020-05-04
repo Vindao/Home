@@ -9,19 +9,20 @@
     grow
     color="secondary"
   >
-    <v-btn to="/">
+    <v-btn class="bottomNavLink" to="/">
       <span>{{ text.Navigation.home }}</span>
-      <g-image style="width: 36px" src="~/assets/icons/home.svg" />
+      <Home :class="{ active: current === 'home' }" />
     </v-btn>
 
-    <v-btn to="/services">
+    <v-btn class="bottomNavLink" to="/services">
       <span>{{ text.Navigation.services }}</span>
-      <g-image style="width: 36px" src="~/assets/icons/storefront.svg" />
+
+      <Storefront :class="{ active: current === 'services' }" />
     </v-btn>
 
-    <v-btn to="/about">
+    <v-btn class="bottomNavLink" to="/about">
       <span>{{ text.Navigation.about }}</span>
-      <g-image style="width: 36px" src="~/assets/icons/domain.svg" />
+      <Domain :class="{ active: current === 'about' }" />
     </v-btn>
   </v-bottom-navigation>
 </template>
@@ -29,11 +30,55 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapGetters } from 'vuex';
+//@ts-ignore
+import Home from '~/assets/icons/home.svg';
+//@ts-ignore
+import Storefront from '~/assets/icons/storefront.svg';
+//@ts-ignore
+import Domain from '~/assets/icons/domain.svg';
+const mapCurrent = (path: string) => {
+  switch (path) {
+    case '/':
+      return 'home';
+      break;
+    case '/services':
+      return 'services';
+      break;
+    default:
+      return 'about';
+  }
+};
 export default Vue.extend({
+  data: () => ({
+    current: ''
+  }),
+  components: {
+    Home,
+    Storefront,
+    Domain
+  },
+  watch: {
+    $route(to) {
+      this.current = mapCurrent(to.path);
+    }
+  },
+  mounted() {
+    //@ts-ignore
+    this.current = mapCurrent(this.$route.path);
+  },
   computed: {
     ...mapGetters({ text: 'Language/text' })
   }
 });
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.bottomNavLink {
+  svg {
+    fill: white;
+    &.active {
+      fill: #00b566;
+    }
+  }
+}
+</style>
