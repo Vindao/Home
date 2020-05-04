@@ -32,13 +32,12 @@ module.exports = {
         display: 'standalone',
         statusBarStyle: 'default',
         manifestPath: 'manifest.json',
-        disableServiceWorker: true,
+        disableServiceWorker: false,
         serviceWorkerPath: 'service-worker.js',
-        cachedFileTypes: 'js,json,css,html,png,jpg,jpeg,svg',
         shortName: 'Vindao',
         themeColor: '#00b566',
         backgroundColor: '#002620',
-        icon: '', // must be provided like 'src/favicon.png'
+        icon: 'src/favicon.png', // must be provided like 'src/favicon.png'
         msTileImage: '',
         msTileColor: '#00b566'
       }
@@ -47,6 +46,7 @@ module.exports = {
       use: 'gridsome-plugin-service-worker',
       options: {
         networkFirst: {
+          cacheName: 'nf-v1',
           routes: [
             '/',
             /\.(js|css|html|json|png|jpg|jpeg|svg)$/ // means "every JS, CSS, and PNG images"
