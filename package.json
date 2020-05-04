@@ -5,6 +5,7 @@
     "build": "gridsome build",
     "dev": "gridsome develop",
     "explore": "gridsome explore",
+    "git:pull:cms": "git pull origin production",
     "git:checkout": "git checkout",
     "git:commit": "git add . && git commit -m",
     "git:push": "git push origin",
