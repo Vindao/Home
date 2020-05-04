@@ -1,5 +1,6 @@
 <template>
   <div class="homeWrapper">
+    <g-image class="bgImage" src="~/assets/images/background.svg"></g-image>
     <v-container fill-height>
       <v-row>
         <v-col class="col-12 text-center align-center" height="100%" style="z-index: 1;">
@@ -83,18 +84,17 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .homeWrapper {
   height: 100%;
-  background-image: url('/images/background.svg');
-  background-size: cover;
+  // background-image: url('/images/background.svg');
+  // background-size: cover;
 
   h1 {
     font-size: 1.75em;
   }
-  .heroBg {
-    position: absolute;
-    left: 0;
+  .bgImage {
+    position: fixed;
     top: 0;
-    width: 100vw;
-    height: 100vh;
+    left: 0;
+    min-height: 100vh;
   }
 }
 </style>

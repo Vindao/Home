@@ -13,6 +13,11 @@ collections:
     create: true
     slug: '{{slug}}'
     fields:
-      - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Text', name: 'text', widget: 'markdown' }
-      - { label: 'Img', name: 'image', widget: 'image' }
+      - { label: 'ID', name: 'index', widget: 'number' }
+      - { label: 'EN_Title', name: 'en_title', widget: 'string' }
+      - { label: 'DE_Title', name: 'de_title', widget: 'string' }
+      - { label: 'NL_Title', name: 'nl_title', widget: 'string' }
+      - { label: 'EN_Text', name: 'en_text', widget: 'markdown' }
+      - { label: 'DE_Text', name: 'de_text', widget: 'markdown' }
+      - { label: 'NL_Text', name: 'nl_text', widget: 'markdown' }
+      - { label: 'Image', name: 'image', widget: 'image' }

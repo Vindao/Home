@@ -7,9 +7,7 @@ export default {
     agb: 'AGB',
     impressum: 'Impressum'
   },
-  Home: {
-    Slogans: ['Wir kreieren moderne Applikationen für ihr Unternehmen']
-  },
+
   Forms: {
     email: 'Email',
     password: 'Passwort',
@@ -28,8 +26,7 @@ export default {
   },
   errors: {
     login: {
-      server:
-        'Leider ist ein Fehler aufgetreten. Bitte versuchen sie es später erneut.',
+      server: 'Leider ist ein Fehler aufgetreten. Bitte versuchen sie es später erneut.',
       cred: 'Diese Zugangsdaten sind uns nicht bekannt.'
     },
     register: {
@@ -56,6 +53,15 @@ export default {
       confPassword: {
         INVALID: 'Die Passwörter stimmen nicht überein'
       }
+    }
+  },
+  Home: {
+    Slogans: ['Wir kreieren moderne Applikationen für ihr Unternehmen']
+  },
+  Services: {
+    Hero: {
+      title: 'Progressive web Applikationen, sind die nächste Generation von Hybriden Apps',
+      text: `Wir sind spezialisiert in der Kreation von hybriden Applikationen. Durch moderne Web Technologien ist es uns möglich Applikationen zu entwickeln, die sich anfühlen wie alle bekannten Applikationen auf ihren unterschiedlichen Endgeräten. Jedoch können sie über den Browser auf sie zugreifen und müssen sie nicht installieren. Eine Installation ist jedoch trotzdem einfach möglich.`
     }
   }
 };

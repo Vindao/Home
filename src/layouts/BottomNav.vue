@@ -11,18 +11,34 @@
   >
     <v-btn class="bottomNavLink" to="/">
       <span>{{ text.Navigation.home }}</span>
-      <Home :class="{ active: current === 'home' }" />
+
+      <Home
+        :class="{
+          activeLight: !$vuetify.theme.dark && current === 'home',
+          activeDark: $vuetify.theme.dark && current === 'home'
+        }"
+      />
     </v-btn>
 
     <v-btn class="bottomNavLink" to="/services">
       <span>{{ text.Navigation.services }}</span>
 
-      <Storefront :class="{ active: current === 'services' }" />
+      <Storefront
+        :class="{
+          activeLight: !$vuetify.theme.dark && current === 'services',
+          activeDark: $vuetify.theme.dark && current === 'services'
+        }"
+      />
     </v-btn>
 
     <v-btn class="bottomNavLink" to="/about">
       <span>{{ text.Navigation.about }}</span>
-      <Domain :class="{ active: current === 'about' }" />
+      <Domain
+        :class="{
+          activeLight: !$vuetify.theme.dark && current === 'about',
+          activeDark: $vuetify.theme.dark && current === 'about'
+        }"
+      />
     </v-btn>
   </v-bottom-navigation>
 </template>
@@ -76,8 +92,11 @@ export default Vue.extend({
 .bottomNavLink {
   svg {
     fill: white;
-    &.active {
+    &.activeLight {
       fill: #00b566;
+    }
+    &.activeDark {
+      fill: #004d40;
     }
   }
 }

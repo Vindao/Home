@@ -1,10 +1,7 @@
 <template>
   <g-link to="/">
     <div class="logoWrapper">
-      <v-img
-        src="https://res.cloudinary.com/dhrg3xz0y/image/upload/c_fill,f_auto,q_auto,w_40/v1587936625/Vindao%20Home/logo_qgabfx.png"
-        aspect-ratio="1"
-      />
+      <g-image width="48px" src="~/assets/logo.png" />
     </div>
   </g-link>
 </template>

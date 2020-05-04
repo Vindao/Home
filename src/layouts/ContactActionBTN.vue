@@ -10,7 +10,7 @@
       class="ma-2 ma-md-12 ma-lg-20 contactActionBTN"
       @click="toggleContact"
     >
-      <g-image style="width: 36px; color: white" src="~/assets/icons/chat.svg" />
+      <Chat />
     </v-btn>
     <v-dialog v-model="contactOpen">
       <ContactForm :toggle="toggleContact" style="min-height: 60vh" />
@@ -21,9 +21,12 @@
 <script lang="ts">
 import Vue from 'vue';
 import ContactForm from '@/components/ContactForm.vue';
+//@ts-ignore
+import Chat from '~/assets/icons/chat.svg';
 export default Vue.extend({
   components: {
-    ContactForm
+    ContactForm,
+    Chat
   },
   data: () => ({
     contactOpen: false

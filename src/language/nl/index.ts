@@ -29,13 +29,11 @@ export default {
   },
   errors: {
     login: {
-      server:
-        'Oops... Er was een probleem met de server. Probeer het later opnieuw.',
+      server: 'Oops... Er was een probleem met de server. Probeer het later opnieuw.',
       cred: 'Deze combinatie van email en wachtwoord is ons niet bekend'
     },
     register: {
-      server:
-        'Er was een probleem met U registrering. Probeer het later opnieuw.',
+      server: 'Er was een probleem met U registrering. Probeer het later opnieuw.',
       name: {
         REQUIRED: 'De Naam is vereist'
       },
@@ -57,6 +55,15 @@ export default {
       confPassword: {
         INVALID: 'De wachtwoorden komen niet overeen'
       }
+    }
+  },
+  Services: {
+    Hero: {
+      title: 'Progressive web applications, the next generation of applications',
+      text: `We are specialized in the creation of progressive web applications (PWA's). 
+      By utilizing modern web technologies, PWA's feel and function like a native app, but are distributed via the web. 
+      Therefore they are as accessible as any website, while still offering all the features and conveniences like native applications. 
+      `
     }
   }
 };
