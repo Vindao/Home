@@ -12,7 +12,7 @@ export default {
   Forms: {
     name: {
       label: 'Name',
-      errors: { REQUIRED: 'Name is required', TOOLONG: 'Name must be less than 10 characters' }
+      errors: { REQUIRED: 'Name is required', TOOLONG: 'Name must be less than 20 characters' }
     },
     email: {
       label: 'Email',

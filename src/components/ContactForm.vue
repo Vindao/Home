@@ -1,87 +1,131 @@
 <template>
   <v-card>
-    <v-container fluid fill-height>
-      <v-row>
-        <v-col class="col-12">
-          <v-card-title width="100%" class="justify-center pb-0">
-            Send us a message
-          </v-card-title>
-        </v-col>
-      </v-row>
+    <v-form @submit="nextStep" v-model="valid">
+      <div class="stepWrapper">
+        <v-stepper v-model="step" class="elevation-0" style="min-height: 40vh">
+          <v-stepper-header>
+            <v-stepper-step key="1" :complete="step > 1" step="1" editable>
+              General information
+            </v-stepper-step>
 
-      <v-form @keyup.native.enter="start && toggleStart()" v-model="valid" style="width: 100%;">
-        <v-row v-show="start" style=" min-height: 40vh; ">
-          <v-col cols="12">
-            <v-text-field
-              :rules="validate('name')"
-              v-model="formVals.name"
-              :label="text.Forms.name.label + '*'"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12">
-            <v-text-field
-              v-model="formVals.email"
-              :rules="validate('email')"
-              :label="text.Forms.email.label + '*'"
-              type="email"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col class="col-12">
-            <v-text-field
-              v-model="formVals.company"
-              :rules="validate('company')"
-              :label="text.Forms.company.label"
-              type="text"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col class="col-12">
-            <v-text-field
-              v-model="formVals.phone"
-              :rules="validate('phone')"
-              :label="text.Forms.phone.label"
-              type="phone"
-              required
-            ></v-text-field>
-          </v-col>
-        </v-row>
+            <v-divider />
+            <v-stepper-step key="2" :complete="false" step="2">
+              Send a message
+            </v-stepper-step>
+          </v-stepper-header>
+          <v-stepper-items>
+            <v-stepper-content step="1">
+              <div>
+                <v-text-field
+                  :rules="validate('name')"
+                  v-model="formVals.name"
+                  :label="text.Forms.name.label + '*'"
+                  required
+                ></v-text-field>
+                <v-text-field
+                  v-model="formVals.email"
+                  :rules="validate('email')"
+                  :label="text.Forms.email.label + '*'"
+                  type="email"
+                  required
+                ></v-text-field>
+                <v-text-field
+                  v-model="formVals.company"
+                  :rules="validate('company')"
+                  :label="text.Forms.company.label"
+                  type="text"
+                  required
+                ></v-text-field>
+                <v-text-field
+                  v-model="formVals.phone"
+                  :rules="validate('phone')"
+                  :label="text.Forms.phone.label"
+                  type="phone"
+                  required
+                ></v-text-field>
+              </div>
+            </v-stepper-content>
+            <v-stepper-content step="2">
+              <textarea placeholder="Your Message" v-model="formVals.message" class="textArea" />
+            </v-stepper-content>
+          </v-stepper-items>
+        </v-stepper>
+        <div class="formBtnWrapper pb-6">
+          <v-btn
+            x-large
+            :disabled="!valid"
+            color="secondary"
+            class="primary--text "
+            type="submit"
+            >{{ text.Forms.BTNS.next }}</v-btn
+          >
+        </div>
+      </div>
+    </v-form>
+    <!-- <v-stepper v-model="step" class="elevation-0">
+      <v-stepper-header>
+        <v-stepper-step key="1" :complete="step > 1" step="1" editable>
+          General information
+        </v-stepper-step>
 
-        <v-row v-show="!start" fill-height style="min-height: 40vh;">
-          <v-col class="col-12">
-            <textarea
-              placeholder="Your Message"
-              v-model="formVals.message"
-              style="
-                  height: 100%;
-                  width: 100%;
-                  resize: none;
-                  outline: none;
-                  border-bottom: solid 1px;
-                "
-            >
-            </textarea>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col class="col-12 text-center">
-            <v-btn large :disabled="!valid" color="secondary" text @click="toggleStart">{{
-              start ? text.Forms.BTNS.next : text.Forms.BTNS.back
-            }}</v-btn>
-            <v-btn
-              large
-              v-show="!start"
-              background-color="primary"
-              color="secondary"
-              text
-              @click="Submit"
-              >{{ text.Forms.BTNS.send }}</v-btn
-            >
-          </v-col>
-        </v-row>
-      </v-form>
-    </v-container>
+        <v-divider />
+        <v-stepper-step key="2" :complete="false" step="2">
+          Send a message
+        </v-stepper-step>
+      </v-stepper-header>
+      <v-stepper-items>
+        <v-stepper-content step="1">
+         
+              <div>
+                <v-text-field
+                  :rules="validate('name')"
+                  v-model="formVals.name"
+                  :label="text.Forms.name.label + '*'"
+                  required
+                ></v-text-field>
+                <v-text-field
+                  v-model="formVals.email"
+                  :rules="validate('email')"
+                  :label="text.Forms.email.label + '*'"
+                  type="email"
+                  required
+                ></v-text-field>
+                <v-text-field
+                  v-model="formVals.company"
+                  :rules="validate('company')"
+                  :label="text.Forms.company.label"
+                  type="text"
+                  required
+                ></v-text-field>
+                <v-text-field
+                  v-model="formVals.phone"
+                  :rules="validate('phone')"
+                  :label="text.Forms.phone.label"
+                  type="phone"
+                  required
+                ></v-text-field>
+              </div>
+             
+        </v-stepper-content>
+        <v-stepper-content step="2">
+         
+              <textarea placeholder="Your Message" v-model="formVals.message" class="textArea">
+              </textarea>
+
+              <div class="formBtnWrapper">
+                <v-btn
+                  x-large
+                  :disabled="formVals.message.length < 10"
+                  color="secondary"
+                  class="primary--text mt-4"
+                  type="submit"
+                  >{{ text.Forms.BTNS.send }}</v-btn
+                >
+              </div>
+         
+        </v-stepper-content>
+      </v-stepper-items>
+    </v-stepper> -->
   </v-card>
 </template>
 
@@ -99,8 +143,8 @@ export default Vue.extend({
       phone: '',
       message: ''
     },
-
-    valid: true,
+    step: 1,
+    valid: false,
     start: true
   }),
   computed: {
@@ -117,14 +161,34 @@ export default Vue.extend({
       }
       return toReturn.length === 0 ? [true] : toReturn;
     },
-    toggleStart() {
-      this.start = !this.start;
+    nextStep(e: any) {
+      e.preventDefault();
+      this.step = 2;
     },
-    Submit() {
+    submit(e: any) {
+      e.preventDefault();
       console.log(this.formVals);
     }
   }
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.stepWrapper {
+  display: grid;
+  grid-template-rows: 5fr 1fr;
+}
+.textArea {
+  height: 100%;
+  min-height: 40vh;
+  width: 100%;
+  resize: none;
+  outline: none;
+  border-bottom: solid 1px;
+}
+.formBtnWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

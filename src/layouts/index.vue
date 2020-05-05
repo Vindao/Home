@@ -8,9 +8,11 @@
     }"
     class="app"
   >
-    <v-content class="page pb-0 layout">
+    <v-content class="page pb-0 layout" style="overflow: hidden;">
       <transition :name="transitionName">
-        <router-view />
+        <keep-alive>
+          <router-view />
+        </keep-alive>
       </transition>
     </v-content>
     <Nav />

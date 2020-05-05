@@ -84,17 +84,15 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .homeWrapper {
   height: 100%;
-  // background-image: url('/images/background.svg');
-  // background-size: cover;
-
   h1 {
     font-size: 1.75em;
   }
   .bgImage {
-    position: fixed;
+    position: absolute;
+    min-width: 110vw;
+    min-height: 100%;
     top: 0;
-    left: 0;
-    min-height: 100vh;
+    left: -5vw;
   }
 }
 </style>

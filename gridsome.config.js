@@ -26,7 +26,7 @@ module.exports = {
       use: 'gridsome-plugin-sass-resources-loader',
       options: {
         // or array of paths
-        resources: ['./src/styles/variables.scss']
+        resources: ['@/styles/main.scss', './src/styles/variables.scss']
       }
     },
     {

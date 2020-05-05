@@ -7,7 +7,7 @@ export default (type: string, val: string, val2: string | null = null): string[]
       if (val.length < 1) {
         errors.push('REQUIRED');
       }
-      if (val.length > 10) {
+      if (val.length > 20) {
         errors.push('TOOLONG');
       }
       break;
@@ -39,7 +39,7 @@ export default (type: string, val: string, val2: string | null = null): string[]
         LOWER: /^(?=.*[a-z])/,
         UPPER: /^(?=.*[A-Z])/,
         NUMBER: /^(?=.*[0-9])/,
-        MINCHAR: /(?=.{8,})/,
+        MINCHAR: /(?=.{8,})/
       };
 
       for (const test in tests) {

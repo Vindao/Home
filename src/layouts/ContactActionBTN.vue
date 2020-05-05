@@ -12,8 +12,8 @@
     >
       <Chat />
     </v-btn>
-    <v-dialog v-model="contactOpen">
-      <ContactForm :toggle="toggleContact" style="min-height: 60vh" />
+    <v-dialog v-model="contactOpen" max-width="600px">
+      <ContactForm :toggle="toggleContact" />
     </v-dialog>
   </div>
 </template>

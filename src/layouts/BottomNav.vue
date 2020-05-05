@@ -91,6 +91,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .bottomNavLink {
   svg {
+    transform: scale(0.9);
     fill: white;
     &.activeLight {
       fill: #00b566;
