@@ -1,5 +1,7 @@
 // language data
 import languages from '../language';
+// initializers
+import initLanguage from '@/utils/initLanguage';
 
 // types
 import { LangCodeT } from '../types/language';
@@ -8,7 +10,7 @@ import { LanguageStateI } from '../types/store/language';
 export default {
   namespaced: true,
   state: (): LanguageStateI => ({
-    lang: 'en'
+    lang: initLanguage()
   }),
   getters: {
     text: (state: LanguageStateI) => languages[state.lang],

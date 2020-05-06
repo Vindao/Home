@@ -4,7 +4,7 @@
     <v-container fill-height>
       <v-row>
         <v-col class="col-12 text-center align-center" height="100%" style="z-index: 1;">
-          <h1 class="heroHeader mb-5">Creating the next generation of apps</h1>
+          <h1 class="heroHeader mb-5">{{ text.Home.Slogan }}</h1>
           <p>
             We are specialized in the creation of progressive web apps. These applications are
             distributed via the browser, but still offer device specific features.
@@ -74,9 +74,13 @@
 <script lang="ts">
 import Vue from 'vue';
 import ParallaxCard from '@/components/ParallaxCard.vue';
+import { mapGetters } from 'vuex';
 export default Vue.extend({
   components: {
     ParallaxCard
+  },
+  computed: {
+    ...mapGetters({ text: 'Language/text' })
   }
 });
 </script>

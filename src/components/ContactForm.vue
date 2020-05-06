@@ -5,12 +5,12 @@
         <v-stepper v-model="step" class="elevation-0" style="min-height: 40vh">
           <v-stepper-header>
             <v-stepper-step key="1" :complete="step > 1" step="1" editable>
-              General information
+              {{ text.Forms.stepper.info }}
             </v-stepper-step>
 
             <v-divider />
             <v-stepper-step key="2" :complete="false" step="2">
-              Send a message
+              {{ text.Forms.stepper.send }}
             </v-stepper-step>
           </v-stepper-header>
           <v-stepper-items>
@@ -46,7 +46,11 @@
               </div>
             </v-stepper-content>
             <v-stepper-content step="2">
-              <textarea placeholder="Your Message" v-model="formVals.message" class="textArea" />
+              <textarea
+                :placeholder="text.Forms.message.label"
+                v-model="formVals.message"
+                class="textArea"
+              />
             </v-stepper-content>
           </v-stepper-items>
         </v-stepper>
@@ -62,70 +66,6 @@
         </div>
       </div>
     </v-form>
-    <!-- <v-stepper v-model="step" class="elevation-0">
-      <v-stepper-header>
-        <v-stepper-step key="1" :complete="step > 1" step="1" editable>
-          General information
-        </v-stepper-step>
-
-        <v-divider />
-        <v-stepper-step key="2" :complete="false" step="2">
-          Send a message
-        </v-stepper-step>
-      </v-stepper-header>
-      <v-stepper-items>
-        <v-stepper-content step="1">
-         
-              <div>
-                <v-text-field
-                  :rules="validate('name')"
-                  v-model="formVals.name"
-                  :label="text.Forms.name.label + '*'"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  v-model="formVals.email"
-                  :rules="validate('email')"
-                  :label="text.Forms.email.label + '*'"
-                  type="email"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  v-model="formVals.company"
-                  :rules="validate('company')"
-                  :label="text.Forms.company.label"
-                  type="text"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  v-model="formVals.phone"
-                  :rules="validate('phone')"
-                  :label="text.Forms.phone.label"
-                  type="phone"
-                  required
-                ></v-text-field>
-              </div>
-             
-        </v-stepper-content>
-        <v-stepper-content step="2">
-         
-              <textarea placeholder="Your Message" v-model="formVals.message" class="textArea">
-              </textarea>
-
-              <div class="formBtnWrapper">
-                <v-btn
-                  x-large
-                  :disabled="formVals.message.length < 10"
-                  color="secondary"
-                  class="primary--text mt-4"
-                  type="submit"
-                  >{{ text.Forms.BTNS.send }}</v-btn
-                >
-              </div>
-         
-        </v-stepper-content>
-      </v-stepper-items>
-    </v-stepper> -->
   </v-card>
 </template>
 

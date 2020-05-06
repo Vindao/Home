@@ -9,19 +9,39 @@ export default {
   },
 
   Forms: {
-    email: 'Email',
-    password: 'Passwort',
-    SignUp: {
-      name: 'Name',
-      company: 'Firma',
-      phone: 'Telefon',
-      confPass: 'Passwort Bestätigung'
+    name: {
+      label: 'Name',
+      errors: {
+        REQUIRED: 'Sie müssen einen Namen angeben',
+        TOOLONG: 'Der Name darf nicht mehr als 20 Zeichen enthalten'
+      }
+    },
+    email: {
+      label: 'Email',
+      errors: {
+        REQUIRED: 'Sie müssen eine Emailadresse angeben',
+        INVALID: 'Bitte benutzen sie eine gültige Emailadresse'
+      }
+    },
+    company: {
+      label: 'Firma',
+      errors: { TOOLONG: 'Der Firmenname darf nicht mehr als 20 Zeichen enthalten' }
+    },
+    phone: {
+      label: 'Telefon',
+      errors: { INVALID: 'Bitte benutzen sie eine gültige Telefonnummer' }
+    },
+    message: {
+      label: 'Ihre Nachricht'
+    },
+    stepper: {
+      send: 'Nachricht senden',
+      info: 'Generelle Informationen'
     },
     BTNS: {
-      login: 'Anmelden',
       next: 'Weiter',
-
-      register: 'Registrieren'
+      back: 'Zurück',
+      send: 'Senden'
     }
   },
   errors: {
@@ -56,7 +76,7 @@ export default {
     }
   },
   Home: {
-    Slogans: ['Wir kreieren moderne Applikationen für ihr Unternehmen']
+    Slogan: "Die nächste Generation der hybriden App's"
   },
   Services: {
     Hero: {

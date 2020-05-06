@@ -8,23 +8,41 @@ export default {
     agb: 'AGB',
     impressum: 'Impressum'
   },
-  Home: {
-    Slogans: ['We kreeren modern applicaties voor U business']
-  },
-  Forms: {
-    email: 'Email',
-    password: 'Wachtwoord',
-    SignUp: {
-      name: 'Naam',
-      company: 'Bedrijf',
-      phone: 'Telefoon',
-      confPass: 'Wachtwoord bevestiging'
-    },
 
+  Forms: {
+    name: {
+      label: 'Naam',
+      errors: {
+        REQUIRED: 'De naam is verplicht',
+        TOOLONG: 'De naam mag niet meer dan 20 tokens bevatten'
+      }
+    },
+    email: {
+      label: 'Email',
+      errors: {
+        REQUIRED: 'De email is verplicht',
+        INVALID: 'Gebruik een valide email, alstublieft'
+      }
+    },
+    company: {
+      label: 'Bedrijf',
+      errors: { TOOLONG: 'De bedrijf mag niet meer dan 20 tokens bevatten' }
+    },
+    phone: {
+      label: 'Telefoon',
+      errors: { INVALID: 'Gebruik een valide telefoonnummer, alstublieft' }
+    },
+    message: {
+      label: 'U bericht'
+    },
+    stepper: {
+      send: 'Bericht zenden',
+      info: 'Algemene informatie'
+    },
     BTNS: {
-      login: 'Login',
-      next: 'volgende',
-      register: 'Registreeren'
+      next: 'Verder',
+      back: 'Terug',
+      send: 'Zenden'
     }
   },
   errors: {
@@ -56,6 +74,9 @@ export default {
         INVALID: 'De wachtwoorden komen niet overeen'
       }
     }
+  },
+  Home: {
+    Slogan: 'De volgende generatie van hybride applicaties'
   },
   Services: {
     Hero: {

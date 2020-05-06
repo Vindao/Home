@@ -1,6 +1,7 @@
 <template>
   <v-app-bar app sticky color="secondary" prominent>
     <v-container fluid fill-height>
+      <h1 id="testLang"></h1>
       <v-row no-gutters>
         <v-col cols="2"
           ><v-toolbar-title top><Logo /></v-toolbar-title

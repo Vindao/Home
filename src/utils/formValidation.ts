@@ -21,10 +21,7 @@ export default (type: string, val: string, val2: string | null = null): string[]
       }
       break;
     case 'company':
-      // if (!val.match(/^\S+$/) && val.length !== 0) {
-      //   errors.push('NOSPACES');
-      // }
-      if (val.length > 10) {
+      if (val.length > 20) {
         errors.push('TOOLONG');
       }
       break;

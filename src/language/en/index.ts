@@ -20,16 +20,19 @@ export default {
     },
     company: {
       label: 'Company',
-      errors: { TOOLONG: 'Name must be less than 10 characters' }
+      errors: { TOOLONG: 'The company name must be less than 20 characters' }
     },
     phone: {
       label: 'Phone',
       errors: { INVALID: 'Please enter a valid phone number' }
     },
     message: {
-      label: 'Message'
+      label: 'Your Message'
     },
-
+    stepper: {
+      send: 'Send message',
+      info: 'General information'
+    },
     BTNS: {
       next: 'Next',
       back: 'Back',
@@ -56,7 +59,7 @@ export default {
     }
   },
   Home: {
-    Slogans: ['We create modern user interfaces to make your business stand out']
+    Slogan: 'Creating the next generation of apps'
   },
   Services: {
     Hero: {
