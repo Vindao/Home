@@ -2,9 +2,8 @@
 import { LangCodeT } from '@/types/language';
 
 export default (): LangCodeT => {
-  if (navigator) {
+  try {
     const langRaw = navigator.language.toLowerCase();
-
     switch (langRaw) {
       case 'nl':
       case 'nl-be':
@@ -19,6 +18,7 @@ export default (): LangCodeT => {
       default:
         return 'en';
     }
+  } catch (error) {
+    return 'en';
   }
-  return 'en';
 };
