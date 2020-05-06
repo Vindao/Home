@@ -2,17 +2,35 @@
   <v-card>
     <div class="cardWrapper" :class="{ serviceCardLeft: card.index % 2 }">
       <div class="cardImage" :class="{ left: !(card.index % 2) && $vuetify.breakpoint.mdAndUp }">
-        <g-image style="width: 100%; border-radius: 3px" height="250" :src="card.image" />
+        <g-image style="width: 100%; border-radius: 3px" height="250" :src="image" />
+        <!-- <g-image
+          v-else-if="card.id === 2"
+          style="width: 100%; border-radius: 3px"
+          height="250"
+          src="~/assets/images/horizon.jpg"
+        />
+        <g-image
+          v-else-if="card.id === 3"
+          style="width: 100%; border-radius: 3px"
+          height="250"
+          src="~/assets/images/ehr.svg"
+        />
+        <g-image
+          v-else
+          style="width: 100%; border-radius: 3px"
+          height="250"
+          src="~/assets/images/board.jpg"
+        /> -->
       </div>
       <div class="cardText" :class="{ left: !(card.index % 2) && $vuetify.breakpoint.lgAndUp }">
         <v-card-title class="justify-center text-center">
-          {{ card[`${lang}_title`] }}
+          {{ card.title }}
         </v-card-title>
         <v-card-text class="text-center">
           {{
             ($vuetify.breakpoint.md || $vuetify.breakpoint.xs) && !expanded
-              ? card[`${lang}_text`].slice(0, 200) + '...'
-              : card[`${lang}_text`]
+              ? card.text.slice(0, 200) + '...'
+              : card.text
           }}
           <br />
           <br />
@@ -38,19 +56,15 @@ import { mapGetters } from 'vuex';
 import Expand from '@/assets/icons/expand.svg';
 
 export default Vue.extend({
-  props: ['card'],
+  props: ['card', 'image'],
   components: {
     Expand
   },
-  computed: {
-    ...mapGetters({ lang: 'Language/language' })
-  },
+
   data: () => ({
     expanded: false
   }),
-  mounted() {
-    console.log(this.expanded);
-  },
+
   methods: {
     toggleExpand() {
       this.expanded = !this.expanded;

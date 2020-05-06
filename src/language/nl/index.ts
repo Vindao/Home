@@ -85,6 +85,48 @@ export default {
       By utilizing modern web technologies, PWA's feel and function like a native app, but are distributed via the web. 
       Therefore they are as accessible as any website, while still offering all the features and conveniences like native applications. 
       `
-    }
+    },
+    Cards: [
+      {
+        id: 1,
+        title: 'Een app voor alle apparaten',
+        text: `Progressive-web-apps zin een nieuwe technologie, die het mogelijk maken
+        applikaties voor alle apparaten via de web beschijkbaar te maken. Dat is een
+        "Gamechanger" omdat we nu applicaties voor al U apparaten via éen "Codebase"
+        kunnen creeren.`,
+        image: '~/assets/images/responsive.png'
+      },
+      {
+        id: 2,
+        title: 'Ook offline',
+        text: `Met de hulp can intelligenten caching techniques kunnen wij de app
+        helemaal offline toegankelijk maken. Dat heeft de voordeel, dat U niet bent
+        afhankelijk van een werkende internet verbinding. Wat het werken met de
+        applicatie vooral op de mobile apperaten sterk verbeterd.`,
+        image: '~/assets/images/horizon.jpg'
+      },
+      {
+        id: 3,
+
+        title: 'Installeerbaar',
+        text: `Een progressive web applikatie kan hoe iedere gewoone app op U apperaat
+        woorden geinstalleerd. Naar de installatie is de Applikatie via de normaale
+        weg berijkbaar. Bijvoorbeeld kan de app op U mobile apperaten via de
+        Homescreen woorden berijkt.`,
+        image: '~/assets/images/ehr.svg'
+      },
+      {
+        id: 4,
+
+        title: 'Consistent',
+        text: `Omdat progressive-web-applicaties op allen apperaten de zelfde code
+        gebruiken, zijn ze ook van de opbouw heel gelijk tussen U apperaten. Dat maakt
+        het wisselen van U telefoon naar de computer heel makelijk. Natuurlijk gaan de
+        applikaties een andere layout hebben als U die op de telefoon of U 4k
+        computerscherm opened, maar de functionaliteid en design graat altijd
+        consistent blijven.`,
+        image: '~/assets/images/board.jpg'
+      }
+    ]
   }
 };

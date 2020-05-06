@@ -13,8 +13,8 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col class="col-12" v-for="edge in $static.allCard.edges" :key="edge.node.id">
-        <services-card :card="edge.node" />
+      <v-col class="col-12" v-for="card in text.Services.Cards" :key="card.id">
+        <services-card :card="card" :image="$static.allCard.edges[card.id - 1].node.image" />
       </v-col>
     </v-row>
   </v-container>
@@ -25,13 +25,6 @@ query {
   allCard(sortBy:"index", order:ASC) {
     edges{
       node{
-        index
-        en_title
-        de_title
-        nl_title
-        de_text
-        en_text
-        nl_text
         image
       }
     }
@@ -52,6 +45,10 @@ export default Vue.extend({
   },
   computed: {
     ...mapGetters({ text: 'Language/text' })
+  },
+  mounted() {
+    //@ts-ignore
+    console.log(this.$static.allCard.edges);
   }
 });
 </script>
