@@ -42,8 +42,8 @@ module.exports = {
         shortName: 'Vindao',
         themeColor: '#00b566',
         backgroundColor: '#002620',
-        icon: 'src/favicon.png', // must be provided like 'src/favicon.png'
-        msTileImage: '',
+        icon: 'src/assets/logo.png', // must be provided like 'src/favicon.png'
+        msTileImage: 'src/assets/logo.png',
         msTileColor: '#00b566'
       }
     },
