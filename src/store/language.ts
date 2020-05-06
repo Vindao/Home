@@ -10,7 +10,7 @@ import { LanguageStateI } from '../types/store/language';
 export default {
   namespaced: true,
   state: (): LanguageStateI => ({
-    lang: initLanguage()
+    lang: 'en'
   }),
   getters: {
     text: (state: LanguageStateI) => languages[state.lang],
