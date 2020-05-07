@@ -1,26 +1,8 @@
 <template>
   <v-card>
-    <div class="cardWrapper" :class="{ serviceCardLeft: card.index % 2 }">
-      <div class="cardImage" :class="{ left: !(card.index % 2) && $vuetify.breakpoint.mdAndUp }">
+    <div class="cardWrapper" :class="{ serviceCardLeft: !(card.id % 2) }">
+      <div class="cardImage" :class="{ left: !(card.id % 2) && $vuetify.breakpoint.mdAndUp }">
         <g-image style="width: 100%; border-radius: 3px" height="250" :src="image" />
-        <!-- <g-image
-          v-else-if="card.id === 2"
-          style="width: 100%; border-radius: 3px"
-          height="250"
-          src="~/assets/images/horizon.jpg"
-        />
-        <g-image
-          v-else-if="card.id === 3"
-          style="width: 100%; border-radius: 3px"
-          height="250"
-          src="~/assets/images/ehr.svg"
-        />
-        <g-image
-          v-else
-          style="width: 100%; border-radius: 3px"
-          height="250"
-          src="~/assets/images/board.jpg"
-        /> -->
       </div>
       <div class="cardText" :class="{ left: !(card.index % 2) && $vuetify.breakpoint.lgAndUp }">
         <v-card-title class="justify-center text-center">
@@ -79,10 +61,10 @@ export default Vue.extend({
   grid-template-columns: 1fr;
 
   @media only screen and (min-width: 960px) {
-    grid-template-columns: 6fr 4fr;
+    grid-template-columns: 4fr 6fr;
 
     &.serviceCardLeft {
-      grid-template-columns: 4fr 6fr;
+      grid-template-columns: 6fr 4fr;
     }
   }
   .cardImage {

@@ -13,58 +13,52 @@
       </v-row>
       <v-row class="hidden-xs-only">
         <v-col class="col-4">
-          <ParallaxCard>
-            <v-card slot="content" dark>
-              <v-img
-                height="20vh"
-                src="https://res.cloudinary.com/dhrg3xz0y/image/upload/f_auto/v1588126230/Vindao%20Home/computer-1343393_kvmgp6"
-              >
-                <v-row>
-                  <v-col cols="12">
-                    <v-card-title class="justify-center mt-5">
-                      Services
-                    </v-card-title>
-                  </v-col>
-                </v-row>
-              </v-img>
-            </v-card>
-          </ParallaxCard>
+          <v-card slot="content" dark>
+            <v-img
+              height="20vh"
+              src="https://res.cloudinary.com/dhrg3xz0y/image/upload/f_auto/v1588126230/Vindao%20Home/computer-1343393_kvmgp6"
+            >
+              <v-row>
+                <v-col cols="12">
+                  <v-card-title class="justify-center mt-5">
+                    Services
+                  </v-card-title>
+                </v-col>
+              </v-row>
+            </v-img>
+          </v-card>
         </v-col>
         <v-col class="col-4">
-          <ParallaxCard>
-            <v-card slot="content">
-              <v-img
-                height="20vh"
-                src="https://res.cloudinary.com/dhrg3xz0y/image/upload/f_auto/v1588126230/Vindao%20Home/computer-1343393_kvmgp6"
-              >
-                <v-row>
-                  <v-col cols="12">
-                    <v-card-title class="justify-center mt-5">
-                      Contact
-                    </v-card-title>
-                  </v-col>
-                </v-row>
-              </v-img>
-            </v-card>
-          </ParallaxCard>
+          <v-card slot="content">
+            <v-img
+              height="20vh"
+              src="https://res.cloudinary.com/dhrg3xz0y/image/upload/f_auto/v1588126230/Vindao%20Home/computer-1343393_kvmgp6"
+            >
+              <v-row>
+                <v-col cols="12">
+                  <v-card-title class="justify-center mt-5">
+                    Contact
+                  </v-card-title>
+                </v-col>
+              </v-row>
+            </v-img>
+          </v-card>
         </v-col>
         <v-col class="col-4">
-          <ParallaxCard>
-            <v-card slot="content" dark height="20vh">
-              <v-img
-                height="20vh"
-                src="https://res.cloudinary.com/dhrg3xz0y/image/upload/f_auto/v1588126230/Vindao%20Home/computer-1343393_kvmgp6"
-              >
-                <v-row>
-                  <v-col cols="12">
-                    <v-card-title class="justify-center mt-5">
-                      About
-                    </v-card-title>
-                  </v-col>
-                </v-row>
-              </v-img>
-            </v-card>
-          </ParallaxCard>
+          <v-card slot="content" dark height="20vh">
+            <v-img
+              height="20vh"
+              src="https://res.cloudinary.com/dhrg3xz0y/image/upload/f_auto/v1588126230/Vindao%20Home/computer-1343393_kvmgp6"
+            >
+              <v-row>
+                <v-col cols="12">
+                  <v-card-title class="justify-center mt-5">
+                    About
+                  </v-card-title>
+                </v-col>
+              </v-row>
+            </v-img>
+          </v-card>
         </v-col>
       </v-row>
     </v-container>
@@ -73,12 +67,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import ParallaxCard from '@/components/ParallaxCard.vue';
 import { mapGetters } from 'vuex';
 export default Vue.extend({
-  components: {
-    ParallaxCard
-  },
   computed: {
     ...mapGetters({ text: 'Language/text' })
   }
