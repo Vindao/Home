@@ -1,8 +1,5 @@
 ---
-index: 4
 en_title: Consistent
-de_title: Konsistent
-nl_title: Consistent
 en_text: Because progressive web applications are based on a single code-base,
   they are highly consistent across devices. Users can seemlessly switch between
   devices, and the application will still work and feel almost the same. Sure,
@@ -23,5 +20,9 @@ nl_text: Omdat progressive-web-applicaties op allen apperaten de zelfde code
   applikaties een andere layout hebben als U die op de telefoon of U 4k
   computerscherm opened, maar de functionaliteid en design graat altijd
   consistent blijven.
+index: 4
+nl_title: Consistent
+title: consistent
+de_title: Konsistent
 image: /uploads/board-1273117.jpg
 ---
