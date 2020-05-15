@@ -1,0 +1,12 @@
+{
+  "png": {
+    "200": "~/assets/images/responsive/png/200x140.png",
+    "1512": "~/assets/images/responsive/png/1512x1058.png",
+    "2000": "~/assets/images/responsive/png/2000x1400.png"
+  },
+  "webp": {
+    "200": "~/assets/images/responsive/webp/200x140.webp",
+    "1512": "~/assets/images/responsive/webp/1512x1058.webp",
+    "2000": "~/assets/images/responsive/webp/2000x1400.webp"
+  }
+}
