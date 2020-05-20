@@ -3,23 +3,25 @@
     <v-container fluid fill-height>
       <h1 id="testLang"></h1>
       <v-row no-gutters>
-        <v-col cols="2"
-          ><v-toolbar-title top><Logo /></v-toolbar-title
+        <v-col v-if="!$vuetify.breakpoint.xs" class="col-6"
+          ><v-toolbar-title style="padding:0"><Logo /></v-toolbar-title
         ></v-col>
-        <v-col cols="10">
+        <v-col class="col-12 col-sm-6">
           <LanguagePicker />
         </v-col>
       </v-row>
       <v-row no-gutters>
-        <v-col cols="2"> </v-col>
-        <v-col cols="8" align-self="end">
+        <v-col class="col-10 col-sm-2">
+          <v-toolbar-title style="padding:0" v-if="$vuetify.breakpoint.xs"><Logo /></v-toolbar-title
+        ></v-col>
+        <v-col v-if="!$vuetify.breakpoint.xs" cols="8" align-self="end">
           <v-tabs
             centered
             color="primary"
             background-color="transparent"
             grow
             class="hidden-xs-only"
-            style="transform: translateY(16px);"
+            style="transform: translateY(17px);"
           >
             <v-tab to="/">
               {{ text.Navigation.home }}

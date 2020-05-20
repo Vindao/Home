@@ -1,17 +1,4 @@
 <template>
-  <!-- <figure :style="fillStyle">
-    <picture :style="fillStyle">
-      <source :data-srcset="src.srcSet" />
-      <img
-        ref="lazyImg"
-        :style="fillStyle"
-        style="filter: blur(15px)"
-        :src="placeholder"
-        class="lazyload"
-        :alt="alt"
-      />
-    </picture>
-  </figure> -->
   <img
     :sizes="sizes"
     ref="lazyImg"

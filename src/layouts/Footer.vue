@@ -82,11 +82,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
-//@ts-ignore
-import Chat from '~/assets/icons/chat.svg';
 import { mapGetters, mapMutations } from 'vuex';
 export default Vue.extend({
-  components: { Chat },
   computed: {
     ...mapGetters({ text: 'Language/text' }),
     justifyContactInfo() {

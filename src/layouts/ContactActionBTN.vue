@@ -34,7 +34,7 @@ export default Vue.extend({
     footerOffsetTop: 0
   }),
   computed: {
-    ...mapGetters({ open: 'UI/contactOpen' }),
+    ...mapGetters({ open: 'UI/contactOpen', language: 'Language/language' }),
     contactOpen: {
       get() {
         return this.open;
@@ -47,10 +47,14 @@ export default Vue.extend({
   mounted() {
     //@ts-ignore
     if (process.browser) {
+      //@ts-ignore
+      let observer = new IntersectionObserver(this.intersect, {});
       this.footerDiv = document.getElementById('footerCaBtn');
+
+      observer.observe(this.footerDiv);
+
       this.footerHeight = this.footerDiv.offsetHeight;
 
-      console.log(this.footerOffsetTop);
       const transX = document.body.clientWidth / 2 - 36;
       const transY = this.footerHeight / 1.75;
 
@@ -64,31 +68,19 @@ export default Vue.extend({
       document.addEventListener('scroll', this.onScroll, true);
     }
   },
-  watch: {
-    $route() {
-      //@ts-ignore
-      if (process.browser) {
-        this.footerOffsetTop =
-          document.body.scrollHeight - window.innerHeight - this.footerDiv.clientHeight;
-      }
-    }
-  },
+
   beforeDestroy() {
     //@ts-ignore
     document.removeEventListener('scroll', this.onScroll, true);
   },
   methods: {
+    intersect(entries: any, observer: any) {
+      this.footerOffsetTop = entries[0].target.offsetTop - window.innerHeight + 72;
+    },
     onScroll(e: any) {
       //@ts-ignore
       if (process.browser) {
-        if (this.footerOffsetTop === 0) {
-          this.footerOffsetTop =
-            document.body.scrollHeight - window.innerHeight - this.footerDiv.clientHeight;
-        }
         const relativeScroll = window.scrollY - this.footerOffsetTop;
-        // console.log(document.body.scrollHeight - window.innerHeight - this.footerDiv.clientHeight);
-        // console.log(window.scrollY);
-
         if (relativeScroll > 0) {
           const progress = (relativeScroll / this.footerHeight).toFixed(2);
 

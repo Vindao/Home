@@ -13,10 +13,15 @@
           height="100%"
           style="z-index: 1;"
         >
-          <h1 class="heroHeader mb-5 ">{{ text.Home.Slogan }}</h1>
+          <h1 class="heroHeader mb-5">{{ text.Home.Slogan }}</h1>
           <p>
             {{ text.Home.paragraph }}
           </p>
+        </v-col>
+        <v-col class="col-12 text-center align-center" height="100%" style="z-index: 1;">
+          <v-btn to="/services" color="#00b566" style="color: #004d40">{{
+            text.Home.seeMore
+          }}</v-btn>
         </v-col>
       </v-row>
     </v-container>

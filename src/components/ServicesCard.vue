@@ -18,12 +18,14 @@
           {{
             ($vuetify.breakpoint.md || $vuetify.breakpoint.xs) && !expanded
               ? card.text.slice(0, 200) + '...'
+              : card.text.length > 400 && !expanded
+              ? card.text.slice(0, 300) + '...'
               : card.text
           }}
           <br />
           <br />
           <v-icon
-            v-if="$vuetify.breakpoint.md || $vuetify.breakpoint.xs"
+            v-if="$vuetify.breakpoint.md || $vuetify.breakpoint.xs || card.text.length > 400"
             :style="{
               transform: `rotateZ(${expanded ? '180deg' : '0deg'})`
             }"

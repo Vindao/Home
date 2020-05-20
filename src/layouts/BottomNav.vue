@@ -1,7 +1,7 @@
 <template>
   <v-bottom-navigation
     fixed
-    class="hidden-sm-and-up"
+    v-if="$vuetify.breakpoint.xs"
     height="72"
     app
     background-color="primary"

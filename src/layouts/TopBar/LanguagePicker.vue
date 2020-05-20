@@ -1,9 +1,10 @@
 <template>
   <v-row class="flex-row-reverse">
-    <v-btn text small @click="toggle">{{ current.name }} </v-btn>
+    <v-btn color="primary" text small @click="toggle">{{ current.name }} </v-btn>
     <transition name="languagePickerTrans">
       <v-row class="flex-row-reverse mr-0">
         <v-btn
+          color="primary"
           text
           small
           v-show="show"
