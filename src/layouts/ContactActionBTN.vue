@@ -75,7 +75,12 @@ export default Vue.extend({
   },
   methods: {
     intersect(entries: any, observer: any) {
-      this.footerOffsetTop = entries[0].target.offsetTop - window.innerHeight + 72;
+      //@ts-ignore
+      if (this.$vuetify.breakpoint.xs) {
+        this.footerOffsetTop = entries[0].target.offsetTop - window.innerHeight + 72;
+      } else {
+        this.footerOffsetTop = entries[0].target.offsetTop - window.innerHeight;
+      }
     },
     onScroll(e: any) {
       //@ts-ignore
