@@ -7,6 +7,7 @@
       overflowX: 'hidden'
     }"
     v-if="!loading"
+    class="notranslate"
   >
     <Nav />
     <v-content class="page pb-0" style="overflow: hidden;">

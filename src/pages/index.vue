@@ -88,11 +88,11 @@ export default Vue.extend({
     left: -5vw;
   }
   .homeContainer {
-    height: calc(100vh - 128px);
+    height: 100%; //calc(100vh - 128px);
     display: flex;
     align-items: center;
     @media only screen and (max-width: 600px) {
-      height: calc(100vh - 128px - 72px);
+      height: 100%; //calc(100vh - 128px - 72px);
     }
     h1 {
       font-size: 1.75em;

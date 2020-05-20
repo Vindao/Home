@@ -47,9 +47,7 @@ export default Vue.extend({
   watch: {
     $route() {
       //@ts-ignore
-      if (process.browser) {
-        this.footerOffsetTop = document.body.scrollHeight - window.innerHeight - this.footerHeight;
-      }
+      this.footerOffsetTop = document.body.scrollHeight - window.innerHeight - this.footerHeight;
     }
   },
   mounted() {
@@ -94,15 +92,13 @@ export default Vue.extend({
     },
     onScroll(e: any) {
       //@ts-ignore
-      if (process.browser) {
-        const relativeScroll = window.scrollY - this.footerOffsetTop;
-        if (relativeScroll > 0) {
-          const progress = (relativeScroll / this.footerHeight).toFixed(2);
+      const relativeScroll = window.scrollY - this.footerOffsetTop;
+      if (relativeScroll > 0) {
+        const progress = (relativeScroll / this.footerHeight).toFixed(2);
 
-          this.action.progress(progress);
-        } else {
-          this.action.progress(0);
-        }
+        this.action.progress(progress);
+      } else {
+        this.action.progress(0);
       }
     }
   }
