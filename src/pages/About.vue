@@ -34,6 +34,25 @@ import Vue from 'vue';
 import { mapGetters } from 'vuex';
 import { mapRoutes } from '../utils/router';
 export default Vue.extend({
+  data: () => ({
+    lang: 'en',
+    title: 'Home'
+  }),
+  head() {
+    return {
+      htmlAttrs: {
+        lang: this.lang
+      },
+      title: this.title
+    };
+  },
+  computed: {
+    ...mapGetters({ language: 'Language/language', text: 'Language/text' })
+  },
+  created() {
+    this.lang = this.language;
+    this.title = this.text.Navigation.home;
+  },
   key: to => to.fullPath,
   transition(to, from) {
     if (from && to.name === 'About') {
@@ -48,9 +67,6 @@ export default Vue.extend({
       return back ? possible[1] : possible[0];
     }
     return '';
-  },
-  computed: {
-    ...mapGetters({ text: 'Language/text' })
   }
 });
 </script>

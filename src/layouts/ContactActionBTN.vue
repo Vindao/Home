@@ -44,6 +44,14 @@ export default Vue.extend({
       }
     }
   },
+  watch: {
+    $route() {
+      //@ts-ignore
+      if (process.browser) {
+        this.footerOffsetTop = document.body.scrollHeight - window.innerHeight - this.footerHeight;
+      }
+    }
+  },
   mounted() {
     //@ts-ignore
     if (process.browser) {
@@ -75,6 +83,7 @@ export default Vue.extend({
   },
   methods: {
     intersect(entries: any, observer: any) {
+      console.log(entries[0].target);
       //@ts-ignore
       if (this.$vuetify.breakpoint.xs) {
         this.footerOffsetTop = entries[0].target.offsetTop - window.innerHeight + 72;

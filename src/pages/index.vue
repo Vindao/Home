@@ -39,7 +39,25 @@ export default Vue.extend({
     Img
   },
   computed: {
-    ...mapGetters({ text: 'Language/text' })
+    ...mapGetters({ text: 'Language/text', language: 'Language/language' })
+  },
+  data: () => ({
+    lang: 'en',
+    title: 'Home'
+  }),
+  head() {
+    return {
+      htmlAttrs: {
+        lang: this.lang
+      },
+      //@ts-ignore
+
+      title: this.title
+    };
+  },
+  created() {
+    this.lang = this.language;
+    this.title = this.text.Navigation.home;
   },
   key: to => to.fullPath,
   transition(to, from) {
