@@ -48,10 +48,9 @@ export default Vue.extend({
   head() {
     return {
       htmlAttrs: {
-        lang: this.lang
+        lang: this.lang,
+        translate: 'no'
       },
-      //@ts-ignore
-
       title: this.title
     };
   },

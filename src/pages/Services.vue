@@ -37,19 +37,20 @@ export default Vue.extend({
   },
   data: () => ({
     lang: 'en',
-    title: 'Home'
+    title: 'Services'
   }),
   head() {
     return {
       htmlAttrs: {
-        lang: this.lang
+        lang: this.lang,
+        translate: 'no'
       },
       title: this.title
     };
   },
   created() {
     this.lang = this.language;
-    this.title = this.text.Navigation.home;
+    this.title = this.text.Navigation.services;
   },
   key: to => to.fullPath,
   transition(to, from) {

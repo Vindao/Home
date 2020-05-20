@@ -36,12 +36,13 @@ import { mapRoutes } from '../utils/router';
 export default Vue.extend({
   data: () => ({
     lang: 'en',
-    title: 'Home'
+    title: 'About'
   }),
   head() {
     return {
       htmlAttrs: {
-        lang: this.lang
+        lang: this.lang,
+        translate: 'no'
       },
       title: this.title
     };
@@ -51,7 +52,7 @@ export default Vue.extend({
   },
   created() {
     this.lang = this.language;
-    this.title = this.text.Navigation.home;
+    this.title = this.text.Navigation.about;
   },
   key: to => to.fullPath,
   transition(to, from) {

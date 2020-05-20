@@ -9,6 +9,14 @@ export default {
   /*
    ** Headers of the page
    */
+  pwa: {
+    meta: {
+      name: 'Vindao'
+    },
+    manifest: {
+      name: 'Vindao'
+    }
+  },
   head: {
     meta: [
       { charset: 'utf-8' },
