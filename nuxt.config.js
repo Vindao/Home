@@ -40,7 +40,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/vue-lazyload.js'],
+  plugins: ['~/plugins/vue-lazyload.js', '~/plugins/vue-gtag.js'],
   /*
    ** Nuxt.js dev-modules
    */

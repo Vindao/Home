@@ -60,24 +60,22 @@ export default Vue.extend({
       observer.observe(this.footerDiv);
 
       this.footerHeight = this.footerDiv.offsetHeight;
+      //@ts-ignore
 
-      const transX = document.body.clientWidth / 2 - 36;
-      const transY = this.footerHeight / 1.75;
+      this.createAnimation();
 
-      this.action = TweenMax.to('#CaBtn', 1, {
-        x: -transX,
-        y: -transY,
-        ease: 'linear'
-      });
-      this.action.pause();
       //@ts-ignore
       document.addEventListener('scroll', this.onScroll, true);
+      //@ts-ignore
+      window.addEventListener('resize', this.resetScreen, true);
     }
   },
 
   beforeDestroy() {
     //@ts-ignore
     document.removeEventListener('scroll', this.onScroll, true);
+    //@ts-ignore
+    window.removeEventListener('resize', this.resetScreen, true);
   },
   methods: {
     intersect(entries: any, observer: any) {
@@ -100,6 +98,22 @@ export default Vue.extend({
       } else {
         this.action.progress(0);
       }
+    },
+    resetScreen(e: any) {
+      console.log('resized');
+      //@ts-ignore
+      this.createAnimation();
+    },
+    createAnimation() {
+      const transX = document.body.clientWidth / 2 - 36;
+      const transY = this.footerHeight / 1.75;
+
+      this.action = TweenMax.to('#CaBtn', 1, {
+        x: -transX,
+        y: -transY,
+        ease: 'linear'
+      });
+      this.action.pause();
     }
   }
 });
