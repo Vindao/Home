@@ -4,4 +4,4 @@
 [build]
   command = "yarn gen"
   publish = "dist"
-  functions = "lambda"
+  functions = "functions"

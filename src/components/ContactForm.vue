@@ -75,6 +75,7 @@
 import Vue from 'vue';
 import { mapGetters } from 'vuex';
 import validate from '../utils/formValidation';
+import axios from 'axios';
 export default Vue.extend({
   data: () => ({
     formVals: {
@@ -115,8 +116,8 @@ export default Vue.extend({
     async sendMessage() {
       this.loading = true;
       console.log(this.formVals);
+      const result = await axios.post('/.netlify/functions/message', this.formVals);
       //@ts-ignore
-      const result = await this.$axios.$post('/.netlify/lambda/message', this.formVals);
       if (result.success) {
         console.log('success');
         this.formVals.message = '';
