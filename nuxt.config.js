@@ -6,6 +6,12 @@ export default {
   pageTransition: {
     mode: ''
   },
+  proxy: {
+    '/.netlify': {
+      target: 'http://localhost:9000',
+      pathRewrite: { '^/.netlify/lambda': '' }
+    }
+  },
   /*
    ** Headers of the page
    */
@@ -54,7 +60,8 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/proxy'
   ],
 
   optimizedImages: {

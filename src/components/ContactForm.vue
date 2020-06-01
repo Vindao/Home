@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-form @submit="nextStep" v-model="valid">
+    <v-form @submit="submit" v-model="valid">
       <div class="stepWrapper">
         <v-stepper v-model="step" class="elevation-0" style="min-height: 40vh">
           <v-stepper-header>
@@ -47,6 +47,7 @@
             </v-stepper-content>
             <v-stepper-content step="2">
               <textarea
+                autofocus
                 :placeholder="text.Forms.message.label"
                 v-model="formVals.message"
                 class="textArea"
@@ -56,12 +57,13 @@
         </v-stepper>
         <div class="formBtnWrapper pb-6">
           <v-btn
+            :loading="loading"
             x-large
             :disabled="!valid"
             color="secondary"
-            class="primary--text "
+            class="primary--text"
             type="submit"
-            >{{ text.Forms.BTNS.next }}</v-btn
+            >{{ step === 1 ? text.Forms.BTNS.next : text.Forms.BTNS.send }}</v-btn
           >
         </div>
       </div>
@@ -74,7 +76,6 @@ import Vue from 'vue';
 import { mapGetters } from 'vuex';
 import validate from '../utils/formValidation';
 export default Vue.extend({
-  props: ['toggle'],
   data: () => ({
     formVals: {
       name: '',
@@ -85,7 +86,8 @@ export default Vue.extend({
     },
     step: 1,
     valid: false,
-    start: true
+    start: true,
+    loading: false
   }),
   computed: {
     ...mapGetters({ text: 'Language/text' })
@@ -101,13 +103,29 @@ export default Vue.extend({
       }
       return toReturn.length === 0 ? [true] : toReturn;
     },
-    nextStep(e: any) {
-      e.preventDefault();
-      this.step = 2;
-    },
     submit(e: any) {
       e.preventDefault();
+      if (this.step === 1) {
+        this.step = 2;
+      } else {
+        this.sendMessage();
+      }
+    },
+
+    async sendMessage() {
+      this.loading = true;
       console.log(this.formVals);
+      //@ts-ignore
+      const result = await this.$axios.$post('/.netlify/lambda/message', this.formVals);
+      if (result.success) {
+        console.log('success');
+        this.formVals.message = '';
+        this.$store.commit('UI/toggleContact');
+      } else {
+        console.log('error');
+      }
+
+      this.loading = false;
     }
   }
 });

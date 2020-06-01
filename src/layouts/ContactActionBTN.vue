@@ -12,7 +12,7 @@
       </v-btn>
     </div>
     <v-dialog v-model="contactOpen" max-width="600px">
-      <ContactForm :toggle="contactOpen" />
+      <ContactForm />
     </v-dialog>
   </div>
 </template>

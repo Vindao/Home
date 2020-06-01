@@ -5,10 +5,13 @@
   "author": "Vincent Schmitt (Vindao)",
   "private": true,
   "scripts": {
-    "dev": "cross-env NUXT_HOST=0.0.0.0 NUXT_PORT=3000 nuxt",
-    "build": "nuxt build",
+    "dev": "cross-env NUXT_HOST=0.0.0.0 NUXT_PORT=3000 nuxt & yarn lambda:serve",
+    "build": "nuxt build && yarn lambda:build",
+    "lambda:serve": "netlify-lambda serve src/lambda",
+    "lambda:build": "netlify-lambda build src/lambda",
     "start": "cross-env NUXT_HOST=0.0.0.0 NUXT_PORT=3000 nuxt start",
-    "gen": "nuxt generate"
+    "gen": "nuxt generate",
+    "nd": "netlify dev"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
@@ -24,6 +27,7 @@
   "devDependencies": {
     "@aceforth/nuxt-optimized-images": "^1.0.1",
     "@nuxt/typescript-build": "^0.6.0",
+    "@nuxtjs/proxy": "^1.3.3",
     "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/vuetify": "^1.0.0",
     "core-js": "2",
@@ -32,6 +36,8 @@
     "imagemin-pngquant": "^8.0.0",
     "lqip-loader": "^2.2.0",
     "material-design-icons-iconfont": "^5.0.1",
+    "netlify-cli": "^2.52.0",
+    "netlify-lambda": "^1.6.3",
     "responsive-loader": "^1.2.0",
     "sharp": "^0.25.2",
     "webp-loader": "^0.6.0"
