@@ -1,0 +1,49 @@
+{
+  "name": "home",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "netlify dev",
+    "nuxt:dev": "cross-env NUXT_HOST=0.0.0.0 NUXT_PORT=3000 nuxt",
+    "build": "nuxt-ts build && yarn lambda:build",
+    "lambda:serve": "netlify-lambda serve src/lambda",
+    "lambda:build": "netlify-lambda build src/lambda",
+    "start": "nuxt-ts start && lambda:serve",
+    "export": "nuxt-ts export",
+    "serve": "nuxt-ts serve",
+    "deploy": "netlify deploy --prod",
+    "build:deploy": "yarn build && yarn export && yarn deploy",
+    "git:commit": "git add . && git commit -m",
+    "git:push": "git push origin"
+  },
+  "dependencies": {
+    "@nuxt/content": "^1.3.2",
+    "@nuxt/typescript-runtime": "^0.4.10",
+    "@nuxtjs/pwa": "^3.0.0-beta.20",
+    "axios": "^0.19.2",
+    "gsap": "^3.3.4",
+    "nuxt": "^2.13.0"
+  },
+  "devDependencies": {
+    "@aceforth/nuxt-optimized-images": "^1.0.1",
+    "@nuxt/typescript-build": "^1.0.3",
+    "@nuxtjs/dotenv": "^1.4.1",
+    "@nuxtjs/proxy": "^2.0.0",
+    "@nuxtjs/robots": "^2.4.2",
+    "@nuxtjs/sitemap": "^2.4.0",
+    "@nuxtjs/vuetify": "^1.11.2",
+    "core-js": "2",
+    "cross-env": "^7.0.2",
+    "imagemin-mozjpeg": "^9.0.0",
+    "imagemin-pngquant": "^9.0.0",
+    "lqip-loader": "^2.2.0",
+    "material-design-icons-iconfont": "^5.0.1",
+    "netlify-cli": "^2.54.0",
+    "netlify-lambda": "^1.6.3",
+    "nuxt-i18n": "^6.12.2",
+    "responsive-loader": "^1.2.0",
+    "sharp": "^0.25.4",
+    "vue-gtag": "^1.7.0",
+    "vue-lazyload": "^1.3.3"
+  }
+}
